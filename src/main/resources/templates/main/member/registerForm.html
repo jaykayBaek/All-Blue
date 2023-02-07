@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>회원가입</title>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+
+
+    <!-- font  -->
+    <!--    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">-->
+
+    <!-- Css Styles -->
+    <link rel="stylesheet" href="/green2209s_08/css/font-awesome.min.css" type="text/css">
+    <link rel="stylesheet" href="/green2209s_08/css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="/green2209s_08/css/elegant-icons.css" type="text/css">
+    <link rel="stylesheet" href="/green2209s_08/css/nice-select.css" type="text/css">
+    <link rel="stylesheet" href="/green2209s_08/css/jquery-ui.min.css" type="text/css">
+    <link rel="stylesheet" href="/green2209s_08/css/owl.carousel.min.css" type="text/css">
+    <link rel="stylesheet" href="/green2209s_08/css/slicknav.min.css" type="text/css">
+    <link rel="stylesheet" href="/green2209s_08/css/style.css" type="text/css">
+    <script src="https://kit.fontawesome.com/8b6103ad59.js" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+</head>
+<body>
+    <header th:replace="main/common/navbar-main :: header"></header>
+
+    <section class="register__box__area">
+        <div class="container">
+            <div class="register__form__inner">
+                <div class="register__title">회원정보를 입력해주세요</div>
+                <form class="row register__form">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">
+                                <i class="fa-solid fa-envelope"></i>
+                            </span>
+                        </div>
+                        <input type="text" class="form-control" id="email" name="email" placeholder="이메일">
+                        <div class="input-group-append">
+                            <span class="input-group-text validate__check" id="validate__email">
+                            </span>
+                        </div>
+                    </div>
+                    <div class="validate__email__result validate__result"></div>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">
+                                <i class="fa-solid fa-lock"></i>
+                            </span>
+                        </div>
+                        <input type="password" class="form-control" id="pwd" name="password" placeholder="비밀번호">
+                        <div class="input-group-append">
+                            <span class="input-group-text validate__check validate__password">
+                            </span>
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">
+                                <i class="fa-solid fa-lock"></i>
+                            </span>
+                        </div>
+                        <input type="password" class="form-control" id="passwordConfirm" name="passwordConfirm" placeholder="비밀번호 확인">
+                        <div class="input-group-append">
+                            <span class="input-group-text validate__check validate__password">
+                            </span>
+                        </div>
+                    </div>
+                    <div class="validate__password__result validate__result"></div>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">
+                                <i class="fa-solid fa-user"></i>
+                            </span>
+                        </div>
+                        <input type="text" class="form-control" id="name" name="name" placeholder="이름">
+                        <div class="input-group-append">
+                            <span class="input-group-text validate__check validate__name">
+                            </span>
+                        </div>
+                    </div>
+                    <div class="validate__name__result validate__result"></div>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">
+                                <i class="fa-sharp fa-solid fa-calendar-days"></i>
+                            </span>
+                        </div>
+                        <input type="text" class="form-control" id="birthdate" name="birthdate" placeholder="출생년도">
+                        <div class="input-group-append">
+                            <span class="input-group-text validate__check validate__birthdate">
+                            </span>
+                        </div>
+                    </div>
+                    <div class="validate__birthdate__result validate__result"></div>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">
+                                <i class="fa-solid fa-phone"></i>
+                            </span>
+                        </div>
+                        <input type="text" class="form-control" id="phoneNo" name="phoneNo" placeholder="핸드폰 번호">
+                        <div class="input-group-append">
+                            <span class="input-group-text validate__check validate__phoneNo">
+                            </span>
+                        </div>
+                    </div>
+                    <div class="validate__phoneNo__result validate__result"></div>
+
+                    <hr/>
+
+                    <button type="button" onclick="signup()" class="join__button mt-5">가입하기</button>
+                </form>
+                <div class="copyright">©All Blue Corp. All rights reserved.</div>
+
+            </div>
+        </div>
+    </section>
+    <script src="/green2209s_08/js/member/signup.js"></script>
+
+
+
+    <footer th:replace="main/common/footer :: footer"></footer>
+
+    <script src="/green2209s_08/js/jquery-3.3.1.min.js"></script>
+    <script src="/green2209s_08/js/bootstrap.min.js"></script>
+    <script src="/green2209s_08js/jquery.nice-select.min.js"></script>
+    <script src="/green2209s_08/js/jquery-ui.min.js"></script>
+    <script src="/green2209s_08/js/jquery.slicknav.js"></script>
+    <script src="/green2209s_08/js/mixitup.min.js"></script>
+    <script src="/green2209s_08/js/owl.carousel.min.js"></script>
+    <script src="/green2209s_08/js/main.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<div class="header__top" th:fragment="headerTop">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-6 col-md-6">
+        <div class="header__top__left">
+          <ul>
+            <li><i class="fa fa-envelope"></i> Developer: jaykaybaek@gmail.com</li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-lg-6 col-md-6">
+        <div class="header__top__right">
+          <div class="header__top__right__language">
+            <i class="fa-solid fa-globe"></i>
+            <div class="header__select__language">
+              언어
+            </div>
+            <span class="arrow_carrot-down"></span>
+            <ul>
+              <li><a href="#">영어</a></li>
+              <li><a href="#">한국어</a></li>
+            </ul>
+          </div>
+          <div class="header__top__right__auth">
+            <div th:if="${session.memberId eq null}">
+              <button class="login-btn" type="button" data-toggle="modal" data-target="#login-modal"
+                      th:text="#{button.login}">
+                Login
+              </button>
+              <button class="login-btn" type="button" onclick="location.href='http://localhost:9090/green2209s_08/member/signup'"
+                      th:text="#{button.register}">
+                Register
+              </button>
+            </div>
+            <div th:if="${session.memberId ne null}">
+              <i class="fa fa-user"></i>
+              <button class="login-btn" type="button" onclick="location.href='http://localhost:9090/green2209s_08/member/logout'"
+                      th:text="#{button.logout}">
+                Logout
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

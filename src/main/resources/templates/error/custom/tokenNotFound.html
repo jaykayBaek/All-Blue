@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Document</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>올! 블루</title>
+
+    <!-- Css Styles -->
+    <link rel="stylesheet" href="/green2209s_08/css/font-awesome.min.css" type="text/css">
+    <link rel="stylesheet" href="/green2209s_08/css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="/green2209s_08/css/elegant-icons.css" type="text/css">
+    <link rel="stylesheet" href="/green2209s_08/css/nice-select.css" type="text/css">
+    <link rel="stylesheet" href="/green2209s_08/css/jquery-ui.min.css" type="text/css">
+    <link rel="stylesheet" href="/green2209s_08/css/owl.carousel.min.css" type="text/css">
+    <link rel="stylesheet" href="/green2209s_08/css/slicknav.min.css" type="text/css">
+    <link rel="stylesheet" href="/green2209s_08/css/style.css" type="text/css">
+    <link rel="stylesheet" href="/green2209s_08/css/emailConfirmForm.css" type="text/css">
+    <script src="https://kit.fontawesome.com/8b6103ad59.js" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        $(function(){
+            let token = '${token}';
+            console.log(token);
+            $.ajax({
+
+            });
+        });
+    </script>
+</head>
+<body>
+
+<header th:replace="main/common/navbar-main :: header"></header>
+
+
+<div class="container d-flex flex-column justify-content-center align-items-center">
+    <div class="confirm__wrap">
+        <article class="mt-3" stlye="width:100%">
+            <img src="/green2209s_08/img/logo-sub.png" alt="로고"/>
+        </article>
+        <div class="sign_in d-flex flex-column justify-content-center align-items-center mt-5" stlye="width:100%;" >
+            <h3 class="h4 font-weight-bold">회원가입 실패</h3>
+            <p>
+            <span class="h5 font-weight-bold">
+                인증 링크가 유효하지 않습니다
+            </span>
+            </p>
+            <p>
+                이메일로 전송받은 <strong>인증 링크</strong>를 다시 확인하세요.
+                <br/>
+                인증 링크는 전송 이후 1시간 동안 유효합니다
+            </p>
+        </div>
+    </div>
+</div>
+
+<script src="/green2209s_08/js/jquery-3.3.1.min.js"></script>
+<script src="/green2209s_08/js/bootstrap.min.js"></script>
+<script src="/green2209s_08js/jquery.nice-select.min.js"></script>
+<script src="/green2209s_08/js/jquery-ui.min.js"></script>
+<script src="/green2209s_08/js/jquery.slicknav.js"></script>
+<script src="/green2209s_08/js/mixitup.min.js"></script>
+<script src="/green2209s_08/js/owl.carousel.min.js"></script>
+<script src="/green2209s_08/js/main.js"></script>
+
+<footer th:replace="main/common/footer :: footer"></footer>
+
+</body>
+</html>
