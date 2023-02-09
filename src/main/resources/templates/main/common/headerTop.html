@@ -33,6 +33,10 @@
                       th:text="#{button.register}">
                 Register
               </button>
+              <button class="login-btn" type="button" onclick="location.href='http://localhost:9090/green2209s_08/vendor/login'"
+                      th:text="#{button.loginPartner}">
+                Login Partner
+              </button>
             </div>
             <div th:if="${session.memberId ne null}">
               <i class="fa fa-user"></i>

@@ -1,18 +1,17 @@
 function login(){
-    let email = $("#email").val();
-    let password = $("#password").val();
+    const email = $("#email").val();
+    const password = $("#password").val();
     if(email.trim() == "" || password.trim() == ""){
         alert("아이디나 비밀번호를 입력해주세요.");
         return false;
     }
 
-    let data = {
+    const data = {
         email : email,
         password : password
     }
 
-    let response = sendLoginData(data);
-    console.log(response);
+    const response = sendLoginData(data);
     if(response.success == 'TRUE'){
         location.replace("http://localhost:9090/green2209s_08/");
     }

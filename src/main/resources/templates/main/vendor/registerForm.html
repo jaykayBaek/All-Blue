@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>회원가입</title>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+  <th:block th:replace="main/common/common-css :: common_css"></th:block>
+</head>
+<body>
+<header th:replace="main/common/navbar-main :: header"></header>
+
+<section class="register__box__area">
+  <div class="container">
+    <div class="register__form__inner">
+      <div class="register__title">
+        올 블루와 함께<br/>
+        수족관을 운영해보세요!
+      </div>
+      <form class="row register__form">
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text">
+                <i class="fa-solid fa-envelope"></i>
+            </span>
+          </div>
+          <input type="text" class="form-control" id="vendorLoginId" name="vendorLoginId" placeholder="아이디">
+          <div class="input-group-append">
+            <span class="input-group-text validate__check validate__vendorLoginId">
+            </span>
+          </div>
+        </div>
+        <div class="validate__vendorLoginId__result validate__result"></div>
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text">
+                <i class="fa-solid fa-lock"></i>
+            </span>
+          </div>
+          <input type="password" class="form-control" id="vendorPassword" name="vendorPassword" placeholder="비밀번호">
+          <div class="input-group-append">
+              <span class="input-group-text validate__check validate__password">
+              </span>
+          </div>
+        </div>
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text">
+                <i class="fa-solid fa-lock"></i>
+            </span>
+          </div>
+          <input type="password" class="form-control" id="vendorPasswordConfirm" name="vendorPasswordConfirm" placeholder="비밀번호 확인">
+          <div class="input-group-append">
+            <span class="input-group-text validate__check validate__password"></span>
+          </div>
+        </div>
+        <div class="validate__password__result validate__result"></div>
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text">
+                <i class="fa-solid fa-user"></i>
+            </span>
+          </div>
+          <input type="text" class="form-control" id="vendorName" name="vendorName" placeholder="이름">
+          <div class="input-group-append">
+            <span class="input-group-text validate__check validate__name">
+            </span>
+          </div>
+        </div>
+        <div class="validate__name__result validate__result"></div>
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text">
+                <i class="fa-solid fa-user"></i>
+            </span>
+          </div>
+          <input type="text" class="form-control" id="vendorEmail" name="vendorEmail" placeholder="이메일">
+          <div class="input-group-append">
+            <span class="input-group-text validate__check validate__email">
+            </span>
+          </div>
+        </div>
+        <div class="validate__email__result validate__result"></div>
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text">
+                <i class="fa-solid fa-phone"></i>
+            </span>
+          </div>
+          <input type="text" class="form-control" id="vendorPhoneNo" name="vendorPhoneNo" placeholder="핸드폰 번호">
+          <div class="input-group-append">
+            <span class="input-group-text validate__check validate__phoneNo">
+            </span>
+          </div>
+        </div>
+        <div class="validate__phoneNo__result validate__result"></div>
+
+        <hr/>
+
+        <button type="button" onclick="vendorSignup()" class="join__button mt-5">가입하기</button>
+      </form>
+      <div class="copyright">©All Blue Corp. All rights reserved.</div>
+
+    </div>
+  </div>
+</section>
+
+<script th:src="@{/js/vendor/vendorSignup.js}" src="/js/vendor/vendorSignup.js"></script>
+
+<th:block th:replace="main/common/common-js :: common_js"></th:block>
+
+<footer th:replace="main/common/footer :: footer"></footer>
+
+
+</body>
+</html>

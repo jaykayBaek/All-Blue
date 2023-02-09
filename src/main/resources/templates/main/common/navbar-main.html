@@ -2,9 +2,9 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <header th:fragment="header">
     <!-- Page Preloder -->
-    <div id="preloder">
-        <div class="loader"></div>
-    </div>
+<!--    <div id="preloder">-->
+<!--        <div class="loader"></div>-->
+<!--    </div>-->
 
     <!-- Humberger Begin -->
     <div class="humberger__menu__overlay"></div>
@@ -32,13 +32,12 @@
                         th:text="#{button.login}">
                     Login
                 </button>
-            </div>
-            <div class="header__top__right__auth">
                 <button class="login-btn" type="button" onclick="location.href='http://localhost:9090/green2209s_08/member/signup'"
                         th:text="#{button.register}">
                     Register
                 </button>
             </div>
+
         </div>
         <nav class="humberger__menu__nav mobile-menu">
             <ul>
@@ -50,7 +49,7 @@
                 <li><a href="./shop-grid.html" th:text="#{nav.eventAndCoupon}">Shop</a></li>
                 <li><a href="./blog.html" th:text="#{nav.membership}">Blog</a></li>
                 <li><a href="./blog.html" th:text="#{nav.blog}">Blog</a></li>
-                <li><a href="./contact.html" th:text="#{nav.contact}">Contact</a></li>
+                <a th:href="@{/vendor/join/welcome}" href="http://localhost:9090" th:text="#{nav.entry}">Contact</a>
             </ul>
         </nav>
         <div id="mobile-menu-wrap"></div>
@@ -104,7 +103,7 @@
                                 <a href="./contact.html" th:text="#{nav.blog}">blog</a>
                             </li>
                             <li>
-                                <a href="./contact.html" th:text="#{nav.contact}">Contact</a>
+                                <a th:href="@{/vendor/join/welcome}" href="http://localhost:9090" th:text="#{nav.entry}">Contact</a>
                             </li>
                         </ul>
                     </nav>
@@ -113,18 +112,20 @@
                     <div class="header__cart">
                         <ul>
                             <li>
-                                <a href="#">
+                                <a th:href="@{/order/list}" href="http://localhost:9090/">
                                     <i class="  fa fa-user"></i>
-                                    <br/>
-                                    마이홈
+                                    <div th:text="#{nav.myhome}">
+                                        myhome
+                                    </div>
                                 </a>
                             </li>
                             <li>
-                                <a href="#">
+                                <a th:href="@{/wishlist}" href="http://localhoost:9090/green2209s_08/wishlist" class="nav__list">
                                     <i class="fa-solid fa-cart-shopping"></i>
                                     <span>3</span>
-                                    <br/>
-                                    장바구니
+                                    <div th:text="#{nav.wishlist}">
+                                        wishlist
+                                    </div>
                                 </a>
                             </li>
                             <li>

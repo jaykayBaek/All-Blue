@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>올! 블루</title>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <th:block th:replace="main/common/common-css :: common_css"></th:block>
+</head>
+<body>
+    <header th:replace="main/common/navbar-main :: header"></header>
+
+    <section class="vendor__box__area">
+        <div class="container">
+            <div class="register__form__inner">
+                <div class="register__title">환영합니다, 파트너님</div>
+                <form class="row register__form">
+                    <div class="input-group">
+                        <input type="text" class="form-control" id="vendorLoginId" name="vendorLoginId" placeholder="아이디" style="border-right: 1px solid #ced4da;">
+                    </div>
+                    <div class="input-group-append"><span></span></div>
+                    <div class="input-group">
+                        <input type="password" class="form-control" id="vendorPassword" name="vendorPassword" placeholder="비밀번호" style="border-right: 1px solid #ced4da;">
+                    </div>
+                    <div class="validate__vendorId__result validate__result"></div>
+                    <div class="input-group-append"><span></span></div>
+                    <hr/>
+
+                    <button type="button" onclick="vendorLogin()" class="join__button mt-5">로그인</button>
+                </form>
+                <div class="copyright">©All Blue Corp. All rights reserved.</div>
+
+            </div>
+        </div>
+    </section>
+    <script th:src="@{/js/vendor/vendorLogin.js}" src="/green2209s_08/js/vendor/vendorLogin.js"></script>
+
+
+    <th:block th:replace="main/common/common-js :: common_js"></th:block>
+
+    <footer th:replace="main/common/footer :: footer"></footer>
+
+
+</body>
+</html>

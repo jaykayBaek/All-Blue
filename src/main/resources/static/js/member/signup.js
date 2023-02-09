@@ -5,14 +5,18 @@ let checkBirthdateResult = false;
 let checkPhoneNoResult = false;
 
 function signup(){
-    let email = $('#email').val();
+    let email = $('#memberEmail').val();
     let password = $('#pwd').val();
     let passwordConfirm = $('#passwordConfirm').val();
     let name = $('#name').val();
     let birthdate = $('#birthdate').val();
     let phoneNo = $('#phoneNo').val();
 
-    trimCheck(email, password, passwordConfirm, name, birthdate, phoneNo);
+    let trimResult = trimCheck(email, password, passwordConfirm, name, birthdate, phoneNo);
+
+    if(trimResult == false){
+        return false;
+    }
 
     if(checkEmailResult && checkPasswordResult && checkNameResult && checkBirthdateResult && checkPhoneNoResult){
         let data = {
@@ -32,8 +36,8 @@ function signup(){
     }
 }
 
-$('#email').blur(function (){
-    const email = $('#email').val();
+$('#memberEmail').blur(function (){
+    const email = $('#memberEmail').val();
     $('#validate__email').html('')
 
     const regEmail = /^[\w-\.]{1,25}@([\w-]+\.)+[\w-]{2,4}$/i;

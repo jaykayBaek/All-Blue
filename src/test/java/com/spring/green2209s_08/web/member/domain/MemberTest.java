@@ -1,6 +1,7 @@
 package com.spring.green2209s_08.web.member.domain;
 
-import com.spring.green2209s_08.web.member.repository.MemberRepository;
+import com.spring.green2209s_08.web.domain.Member;
+import com.spring.green2209s_08.web.repository.MemberRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

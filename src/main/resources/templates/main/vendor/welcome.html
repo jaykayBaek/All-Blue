@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>올! 블루</title>
+    <th:block th:replace="main/common/common-css :: common_css"></th:block>
+
+</head>
+<body>
+    <header th:replace="main/common/navbar-main :: header"></header>
+
+    <a th:href="@{/vendor/join}" href="https://localhost:9090/">가입하기</a>
+
+    <footer th:replace="main/common/footer :: footer"></footer>
+    <th:block th:replace="main/common/common-js :: common_js"></th:block>
+</body>
+</html>
