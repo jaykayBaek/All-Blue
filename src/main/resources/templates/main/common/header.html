@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<header th:fragment="header">
+    <!-- Page Preloder -->
+<!--    <div id="preloder">-->
+<!--        <div class="loader"></div>-->
+<!--    </div>-->
+
+    <!-- Humberger Begin -->
+    <div th:replace="main/common/humberger :: humberger"></div>
+    <!-- Humberger End -->
+
+    <!-- Header Section Begin -->
+    <header class="header">
+        <div th:replace="main/common/header-1 :: header-1"></div>
+        <div th:replace="main/member/loginModal :: loginModal"></div>
+        <div th:replace="main/common/header-2 :: header-2"></div>
+
+    </header>
+
+    <!-- Hero Section Begin -->
+    <section class="hero hero-normal">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3">
+                    <div class="hero__categories">
+                        <div class="hero__categories__all">
+                            <i class="fa fa-bars"></i>
+                            <span th:text="#{side.categories}">All categories</span>
+                        </div>
+                        <ul>
+                            <li>
+                                <a href="#" th:text="#{side.fishes}">물고기</a>
+                            </li>
+                            <li><a href="#" th:text="#{side.waterPlant}">수초</a></li>
+                            <li><a href="#" th:text="#{side.feed}">먹이</a></li>
+                            <li><a href="#" th:text="#{side.fishtank}">어항</a></li>
+                            <li><a href="#" th:text="#{side.lighting}">조명</a></li>
+                            <li><a href="#" th:text="#{side.filter}">여과기</a></li>
+                            <li><a href="#" th:text="#{side.heater}">히터</a></li>
+                            <li><a href="#" th:text="#{side.soil}">바닥재</a></li>
+                            <li><a href="#" th:text="#{side.driftwood}">유목</a></li>
+                            <li><a href="#" th:text="#{side.fishHealthAndMedication}">물고기 영양제/약품</a></li>
+                            <li><a href="#" th:text="#{side.plantHealthAndMedication}">수초 영양제/약품</a></li>
+                            <li><a href="#" th:text="#{side.waterQualityAmmonia}">수질약품</a></li>
+                            <li><a href="#" th:text="#{side.etcProduct}">기타용품</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-9">
+                    <div class="hero__search">
+                        <div class="hero__search__form">
+                            <form action="#">
+                                <div class="hero__search__categories">
+                                    <th:block th:text="#{nav.categories}">
+                                        All Categories
+                                    </th:block>
+                                    <span class="arrow_carrot-down"></span>
+                                </div>
+                                <input type="text" placeholder="필요한 게 있으신가요?">
+                                <button type="submit" class="site-btn" th:text="#{button.search}">SEARCH</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Hero Section End -->
+
+    <!-- Header Section End -->
+</header>

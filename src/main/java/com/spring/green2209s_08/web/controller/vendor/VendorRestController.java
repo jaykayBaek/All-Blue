@@ -56,10 +56,10 @@ public class VendorRestController {
     @PostMapping("/login")
     public ResponseEntity<StatusResponse> login(
             @Validated VendorLoginRequest loginRequest, BindingResult bindingResult, HttpServletRequest request) {
-        Long memberId = vendorService.login(loginRequest.getVendorLoginId(), loginRequest.getVendorPassword());
+        Long vendorId = vendorService.login(loginRequest.getVendorLoginId(), loginRequest.getVendorPassword());
 
         HttpSession session = request.getSession();
-        session.setAttribute(SessionConst.VENDOR_ID, memberId);
+        session.setAttribute(SessionConst.VENDOR_ID, vendorId);
 
         StatusResponse statusResponse = new StatusResponse(
                 HttpStatus.OK.toString(), "로그인 완료", "TRUE"
@@ -69,4 +69,11 @@ public class VendorRestController {
                 .body(statusResponse);
     }
 
+    @PostMapping("/logout")
+    public ResponseEntity<StatusResponse> logout(){
+        StatusResponse statusResponse = new StatusResponse(
+                HttpStatus.OK.toString(), "로그인 완료", "TRUE"
+        );
+        return null;
+    }
 }

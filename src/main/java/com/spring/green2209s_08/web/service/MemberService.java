@@ -3,7 +3,7 @@ package com.spring.green2209s_08.web.service;
 import com.spring.green2209s_08.web.controller.member.MemberRegisterRequest;
 import com.spring.green2209s_08.web.domain.Member;
 import com.spring.green2209s_08.web.domain.enums.AccountType;
-import com.spring.green2209s_08.web.exception.MemberErrorResult;
+import com.spring.green2209s_08.web.exception.errorResult.MemberErrorResult;
 import com.spring.green2209s_08.web.domain.enums.MemberGrade;
 import com.spring.green2209s_08.web.exception.MemberException;
 import com.spring.green2209s_08.web.repository.MemberRepository;

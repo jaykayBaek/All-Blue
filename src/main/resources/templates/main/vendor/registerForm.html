@@ -11,7 +11,7 @@
   <th:block th:replace="main/common/common-css :: common_css"></th:block>
 </head>
 <body>
-<header th:replace="main/common/navbar-main :: header"></header>
+<header th:replace="main/common/header :: header"></header>
 
 <section class="register__box__area">
   <div class="container">
@@ -108,7 +108,7 @@
   </div>
 </section>
 
-<script th:src="@{/js/vendor/vendorSignup.js}" src="/js/vendor/vendorSignup.js"></script>
+<script th:src="@{/js/logic/vendor/vendorSignup.js}" src="/js/logic/vendor/vendorSignup.js"></script>
 
 <th:block th:replace="main/common/common-js :: common_js"></th:block>
 

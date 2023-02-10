@@ -1,6 +1,6 @@
 package com.spring.green2209s_08.web.domain;
 
-import com.spring.green2209s_08.web.exception.VendorErrorResult;
+import com.spring.green2209s_08.web.exception.errorResult.VendorErrorResult;
 import com.spring.green2209s_08.web.exception.VendorException;
 import lombok.*;
 import org.hibernate.annotations.BatchSize;

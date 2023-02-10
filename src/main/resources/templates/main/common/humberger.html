@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<div class="humberger__menu__overlay"></div>
+<div th:fragment="humberger" class="humberger__menu__wrapper">
+  <div class="humberger__menu__logo">
+    <a href="#"><img src="/green2209s_08/img/logo.png" alt=""></a>
+  </div>
+  <div class="humberger__menu__cart">
+    <ul>
+      <li><a href="#"><i class="fa fa-heart"></i> <span>1</span></a></li>
+      <li><a href="#"><i class="fa fa-shopping-bag"></i> <span>3</span></a></li>
+    </ul>
+  </div>
+  <div class="humberger__menu__widget">
+    <div class="header__top__right__auth">
+      <button class="login-btn" type="button" data-toggle="modal" data-target="#login-modal"
+              th:text="#{button.login}">
+        Login
+      </button>
+      <button class="login-btn" type="button" onclick="location.href='http://localhost:9090/green2209s_08/member/signup'"
+              th:text="#{button.register}">
+        Register
+      </button>
+      <button class="login-btn" type="button" onclick="location.href='http://localhost:9090/green2209s_08/vendor/login'"
+              th:text="#{button.loginPartner}">
+        Login Partner
+      </button>
+    </div>
+    <div class="header__top__right__language">
+      <div class="header__select__language">언어</div>
+      <span class="arrow_carrot-down"></span>
+      <ul>
+        <li><a href="#">영어</a></li>
+        <li><a href="#">한국어</a></li>
+      </ul>
+    </div>
+
+  </div>
+  <nav class="humberger__menu__nav mobile-menu">
+    <ul>
+      <li class="active">
+        <b>
+          <a href="http://localhost:9090/green2209s_08/" th:text="#{nav.home}">Home</a>
+        </b>
+      </li>
+      <li><a href="./shop-grid.html" th:text="#{nav.eventAndCoupon}">이벤트</a></li>
+      <li><a href="./blog.html" th:text="#{nav.membership}">멤버쉽</a></li>
+      <li><a href="./blog.html" th:text="#{nav.blog}">블로그</a></li>
+      <a th:href="@{/vendor/join/welcome}" href="http://localhost:9090" th:text="#{nav.entry}">Contact</a>
+    </ul>
+  </nav>
+  <div id="mobile-menu-wrap"></div>
+  <div class="humberger__menu__contact">
+    <ul>
+      <li><i class="fa fa-envelope"></i> jaykaybaek@gmail.com</li>
+    </ul>
+  </div>
+</div>

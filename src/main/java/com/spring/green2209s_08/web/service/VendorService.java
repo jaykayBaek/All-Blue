@@ -1,11 +1,7 @@
 package com.spring.green2209s_08.web.service;
 
-import com.spring.green2209s_08.web.controller.vendor.VendorRegisterRequest;
-import com.spring.green2209s_08.web.domain.Member;
 import com.spring.green2209s_08.web.domain.Vendor;
-import com.spring.green2209s_08.web.exception.MemberErrorResult;
-import com.spring.green2209s_08.web.exception.MemberException;
-import com.spring.green2209s_08.web.exception.VendorErrorResult;
+import com.spring.green2209s_08.web.exception.errorResult.VendorErrorResult;
 import com.spring.green2209s_08.web.exception.VendorException;
 import com.spring.green2209s_08.web.repository.VendorRepository;
 import lombok.RequiredArgsConstructor;
@@ -14,7 +10,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDateTime;
 import java.util.Optional;
 
 @Service

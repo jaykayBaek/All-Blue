@@ -21,6 +21,7 @@ public class VendorApiController {
 
     @PostMapping("verify/vendorLoginId")
     public ResponseEntity<StatusResponse> verifyEmail(String vendorLoginId){
+        log.info("vendorLoginId? {}", vendorLoginId);
         vendorService.validateLoginId(vendorLoginId);
 
         StatusResponse statusResponse = new StatusResponse(

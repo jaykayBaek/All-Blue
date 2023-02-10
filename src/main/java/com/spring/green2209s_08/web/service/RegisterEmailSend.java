@@ -2,7 +2,7 @@ package com.spring.green2209s_08.web.service;
 
 import com.spring.green2209s_08.constants.ControllerConst;
 import com.spring.green2209s_08.web.exception.EmailSendException;
-import com.spring.green2209s_08.web.exception.EmailErrorResult;
+import com.spring.green2209s_08.web.exception.errorResult.EmailErrorResult;
 import lombok.RequiredArgsConstructor;
 import org.springframework.mail.MailException;
 import org.springframework.mail.javamail.JavaMailSender;

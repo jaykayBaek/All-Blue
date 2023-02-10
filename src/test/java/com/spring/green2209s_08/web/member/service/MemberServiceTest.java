@@ -1,7 +1,7 @@
 package com.spring.green2209s_08.web.member.service;
 
 import com.spring.green2209s_08.web.domain.Member;
-import com.spring.green2209s_08.web.exception.MemberErrorResult;
+import com.spring.green2209s_08.web.exception.errorResult.MemberErrorResult;
 import com.spring.green2209s_08.web.exception.MemberException;
 import com.spring.green2209s_08.web.repository.MemberRepository;
 import com.spring.green2209s_08.web.service.MemberService;
