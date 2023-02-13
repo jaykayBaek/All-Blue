@@ -1,6 +1,7 @@
 package com.spring.green2209s_08.web.domain;
 
 import lombok.*;
+import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
 
@@ -15,8 +16,10 @@ public class ItemImage {
     private Long id;
 
 //  파일 업로드 가능성을 열어두고 필드를 설계
-    private String storedFileName;
-    private String uploadFileName;
+    @ColumnDefault(value = "false")
+    private Boolean thumbnailImage;
+    private String savedImageName;
+    private String originalImageName;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "item_id")
@@ -26,8 +29,9 @@ public class ItemImage {
         this.item = item;
     }
 
-    public ItemImage(String storedFileName, String uploadFileName) {
-        this.storedFileName = storedFileName;
-        this.uploadFileName = uploadFileName;
+    public ItemImage(String savedImageName, String originalImageName, Boolean isThumbnail) {
+        this.savedImageName = savedImageName;
+        this.originalImageName = originalImageName;
+        this.thumbnailImage = isThumbnail;
     }
 }

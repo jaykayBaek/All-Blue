@@ -2,6 +2,8 @@ package com.spring.green2209s_08.web.controller.vendor;
 
 import com.spring.green2209s_08.web.constants.SessionConst;
 import com.spring.green2209s_08.web.controller.StatusResponse;
+import com.spring.green2209s_08.web.domain.Item;
+import com.spring.green2209s_08.web.domain.ItemImage;
 import com.spring.green2209s_08.web.domain.Vendor;
 import com.spring.green2209s_08.web.domain.enums.AccountType;
 import com.spring.green2209s_08.web.service.VendorService;
@@ -12,12 +14,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.awt.*;
+import java.util.List;
+import java.util.UUID;
 
 @RestController
 @Slf4j
@@ -26,6 +30,7 @@ import javax.servlet.http.HttpSession;
 public class VendorRestController {
     private final VendorService vendorService;
     private final PasswordEncoder passwordEncoder;
+
     @PostMapping("/register")
     public ResponseEntity<StatusResponse> register(@Validated VendorRegisterRequest request, BindingResult bindingResult){
         vendorService.validateLoginId(request.getVendorLoginId());
@@ -74,6 +79,31 @@ public class VendorRestController {
         StatusResponse statusResponse = new StatusResponse(
                 HttpStatus.OK.toString(), "로그인 완료", "TRUE"
         );
+        return null;
+    }
+
+    @PostMapping("/vendor-inventory/register")
+    public ResponseEntity<StatusResponse> itemUpload(
+            @ModelAttribute VendorInventoryRequest request){
+        String parentCategory = request.getParentCategory();
+
+        if(parentCategory.equals("01")){
+
+        }
+        else if(parentCategory.equals("02")){
+
+        }
+
+        List<MultipartFile> extraImages = request.getExtra();
+
+        if(!extraImages.isEmpty()){
+            for (MultipartFile extraImage : extraImages) {
+                String savedImageName = UUID.randomUUID().toString();
+                String originalImageName = extraImage.getOriginalFilename();
+                ItemImage itemImage = new ItemImage(savedImageName, originalImageName, false);
+            }
+        }
+
         return null;
     }
 }

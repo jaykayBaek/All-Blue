@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -49,6 +50,27 @@ public class VendorController {
 
     @GetMapping("/home")
     public String home(Model model, HttpServletRequest request){
+        VendorHomeResponse response = getVendorHomeResponse(request);
+        model.addAttribute("vendor", response);
+
+        return "main/vendor/vendorHome";
+    }
+
+    @GetMapping("/dashboard")
+    public String dashboard(Model model, HttpServletRequest request){
+        VendorHomeResponse response = getVendorHomeResponse(request);
+        model.addAttribute("vendor", response);
+        return "main/vendor/dashboard";
+    }
+
+    @GetMapping("/vendor-inventory/form")
+    public String inventoryForm(Model model, HttpServletRequest request){
+        VendorHomeResponse response = getVendorHomeResponse(request);
+        model.addAttribute("vendor", response);
+        return "main/vendor/inventoryForm";
+    }
+
+    private VendorHomeResponse getVendorHomeResponse(HttpServletRequest request) {
         HttpSession session = request.getSession();
         Long vendorId = (Long) session.getAttribute(SessionConst.VENDOR_ID);
 
@@ -59,8 +81,7 @@ public class VendorController {
         ));
 
         VendorHomeResponse response = vendorHomeResponse.get();
-        model.addAttribute("vendor", response);
-
-        return "main/vendor/vendorHome";
+        return response;
     }
+
 }

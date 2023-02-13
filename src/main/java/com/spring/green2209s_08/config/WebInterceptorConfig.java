@@ -13,12 +13,12 @@ public class WebInterceptorConfig implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(new VendorLoginCheck())
                 .order(1)
-                .excludePathPatterns("/vendor/login")
+                .addPathPatterns("/vendor/**")
+                .excludePathPatterns("/vendor/login/**")
                 .excludePathPatterns("/vendor/logout/**")
                 .excludePathPatterns("/vendor/verify/**")
                 .excludePathPatterns("/vendor/register/**")
-                .excludePathPatterns("/vendor/join/**")
-                .addPathPatterns("/vendor/**");
+                .excludePathPatterns("/vendor/join/**");
         registry.addInterceptor(new VendorAlreadyLoginCheck())
                 .order(2)
                 .addPathPatterns("/vendor/login");

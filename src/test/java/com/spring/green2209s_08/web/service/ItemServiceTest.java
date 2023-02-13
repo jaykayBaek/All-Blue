@@ -24,8 +24,9 @@ class ItemServiceTest {
         for(int i = 0; i<9; i++){
             ItemImage file = ItemImage.builder()
                     .id((long) i)
-                    .storedFileName(i+"")
-                    .uploadFileName(i+"")
+                    .thumbnailImage(false)
+                    .originalImageName(i+"")
+                    .savedImageName(i+"")
                     .build();
             images.add(file);
         }

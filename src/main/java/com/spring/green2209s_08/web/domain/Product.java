@@ -12,6 +12,4 @@ import java.util.List;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Product extends Item{
     private String brandName;
-
-
 }

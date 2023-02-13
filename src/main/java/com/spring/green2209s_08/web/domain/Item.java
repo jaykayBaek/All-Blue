@@ -4,6 +4,7 @@ import com.spring.green2209s_08.web.exception.errorResult.VendorErrorResult;
 import com.spring.green2209s_08.web.exception.VendorException;
 import lombok.*;
 import org.hibernate.annotations.BatchSize;
+import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -19,22 +20,29 @@ public abstract class Item {
     @Column(name = "item_id")
     private Long id;
 
-    private String name;
+    private String itemName;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "category_id")
+    private Category category;
 
     private int price;
-    private int deliveryPrice;
+    private int salePrice;
     private int stockQuantity;
+    private int deliveryPrice;
+
+    // 판매승인 된 상품인가?
+    @ColumnDefault("false")
+    private Boolean salesApproval;
 
     // 이미지는 최대 8장(8장)까지 저장할 수 있다
     @BatchSize(size = 8)
     @OneToMany(mappedBy = "item")
     private List<ItemImage> itemImages = new ArrayList<>();
 
-    @Embedded
-    private Category category;
 
-    protected void createItem(String name, int price, int deliveryPrice, int stockQuantity) {
-        this.name = name;
+    protected void createItem(String itemName, int price, int deliveryPrice, int stockQuantity) {
+        this.itemName = itemName;
         this.price = price;
         this.deliveryPrice = deliveryPrice;
         this.stockQuantity = stockQuantity;

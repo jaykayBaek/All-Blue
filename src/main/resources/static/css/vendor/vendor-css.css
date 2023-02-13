@@ -1,0 +1,45 @@
+:root{
+    --maincolor : #004e98;
+    --subcolor : #3a6ea5;
+    --content : #ebebeb;
+    --grey : #6c757d;
+    --lightgrey : #adb5bd;
+    --font-size-content : 12px;
+    --red : #ef233c;
+}
+
+.vendor__footer__btn{
+    border: 1px solid var(--lightgrey);
+    background-color: #fff;
+    padding: 6px 60px;
+}
+
+#footer__req__btn{
+    color: #fff;
+    background-color: var(--maincolor);
+}
+
+.vendor__table{
+    font-size: 12px;
+}
+
+.vendor__table__input tr td input{
+    border: 0px;
+    height: 1.7rem;
+    width: 100%;
+    padding: 12px;
+    font-size: 1.5rem;
+    text-align: right;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+    -moz-appearance: textfield;
+}
+
