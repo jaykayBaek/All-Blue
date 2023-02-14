@@ -31,6 +31,9 @@ public abstract class Item {
     private int stockQuantity;
     private int deliveryPrice;
 
+
+    private String content;
+
     // 판매승인 된 상품인가?
     @ColumnDefault("false")
     private Boolean salesApproval;

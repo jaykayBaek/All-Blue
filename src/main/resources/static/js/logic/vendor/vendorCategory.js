@@ -15,15 +15,15 @@ $(function(){
     const healthAndMedicationName = ['물고기영양제/약품', '수초영양제/약품', '수질약품'];
     const healthAndMedicationCode = ['01', '02', '03'];
 
-    const fishDetailName = ['breederName', 'sex', 'size'];
-    const fishDetailValue = ['브리더 이름', '성별', '사이즈'];
+    const fishDetailName = ['breederName', 'size'];
+    const fishDetailValue = ['브리더 이름', '사이즈'];
     const noneFishDetailName = ['brandName'];
     const noneFishDetailValue = ['브랜드명'];
 
 
     $("#parent__category").on("change", function () {
         let val = $(this).val();
-        let category = $('<select>').addClass('child__category form-control');
+        let category = $('<select>').addClass('child__category form-control').attr("name", "childCategory");
         let firstOpt = $('<option>').text('옵션을 선택하세요.').attr('value', '');
         $('.detail__input__title').html('');
         $('.detail__input__content').html('');
@@ -36,15 +36,29 @@ $(function(){
             }
             // --- 디테일 정보 ---
             for(let i=0; i<fishDetailName.length; i++){
-                let titleTd = $('<td>').text(fishDetailValue[i]);
-                $('.detail__input__title').append(titleTd);
+             let titleTd = $('<td>').text(fishDetailValue[i]);
+            $('.detail__input__title').append(titleTd);
 
-                let contentTd = $('<td>');
-                $('.detail__input__content').append(contentTd);
+            let contentTd = $('<td>');
+            $('.detail__input__content').append(contentTd);
 
-                let input = $('<input>').attr("name", fishDetailName[i]).attr("placeholder", fishDetailValue[i]);
-                $(contentTd).html(input);
-            }
+            let input = $('<input>').attr("name", fishDetailName[i]).attr("placeholder", fishDetailValue[i]);
+            $(contentTd).html(input);
+        }
+            let titleTd = $('<td>').text('성별');
+            $('.detail__input__title').append(titleTd);
+
+            let fishSex = $('<select>').addClass("form-control").attr("name", "fishSex");
+            const fishSexOpt1 = $('<option>').attr("value", "MALE").text("수컷");
+            const fishSexOpt2 = $('<option>').attr("value", "FEMALE").text("암컷");
+            const fishSexOpt3 = $('<option>').attr("value", "UNKNOWN").text("불분명");
+            fishSex.append(fishSexOpt1);
+            fishSex.append(fishSexOpt2);
+            fishSex.append(fishSexOpt3);
+
+            let contentTd = $('<td>').append(fishSex);
+            $('.detail__input__content').append(contentTd);
+
             $('.child__product__layer').html(category);
             $('.grandchild__product__layer').html('');
         }
@@ -73,7 +87,7 @@ $(function(){
 
     $(document).on('change','.child__category',function(){
         let val = $(this).val();
-        let category = $('<select>').addClass('grandchild__category form-control');
+        let category = $('<select>').addClass('grandchild__category form-control').attr("name", "grandchildCategory");
         let firstOpt = $('<option>').text('옵션을 선택하세요.').attr('value', '');
         category.html(firstOpt);
 
@@ -136,13 +150,13 @@ $(function(){
                 return;
             case '206':
                 $('.grandchild__product__layer').html('');
-                return;            case '202':
+                return;
             case '207':
                 $('.grandchild__product__layer').html('');
                 return;
             case '208':
                 $('.grandchild__product__layer').html('');
-                return;            case '202':
+                return;
             case '209':
                 $('.grandchild__product__layer').html('');
                 return;

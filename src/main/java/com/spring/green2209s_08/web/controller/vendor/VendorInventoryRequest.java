@@ -1,5 +1,6 @@
 package com.spring.green2209s_08.web.controller.vendor;
 
+import com.spring.green2209s_08.web.domain.enums.FishSex;
 import lombok.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -27,6 +28,6 @@ public class VendorInventoryRequest {
     private String brandName;
 
     private String breederName;
-    private String sex;
+    private FishSex fishSex;
     private String size;
 }
