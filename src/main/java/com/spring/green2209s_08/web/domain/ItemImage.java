@@ -12,7 +12,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 public class ItemImage {
     @Id @GeneratedValue
-    @Column(name = "image_file_id")
+    @Column(name = "item_image_id")
     private Long id;
 
 //  파일 업로드 가능성을 열어두고 필드를 설계

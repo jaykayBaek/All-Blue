@@ -6,7 +6,7 @@ import org.springframework.data.redis.core.RedisHash;
 import javax.persistence.Id;
 
 @Getter
-@RedisHash("Member")
+@RedisHash("MemberRegister")
 @Builder
 @AllArgsConstructor
 public class MemberRegister {

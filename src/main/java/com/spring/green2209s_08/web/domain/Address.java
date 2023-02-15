@@ -1,8 +1,14 @@
 package com.spring.green2209s_08.web.domain;
 
+import lombok.*;
+
 import javax.persistence.*;
 
 @Entity
+@Getter
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Address {
 
     @Id

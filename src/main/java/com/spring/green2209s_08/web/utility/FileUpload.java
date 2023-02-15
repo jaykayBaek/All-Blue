@@ -1,7 +1,7 @@
 package com.spring.green2209s_08.web.utility;
 
 import com.spring.green2209s_08.web.constants.UrlConst;
-import com.spring.green2209s_08.web.controller.vendor.VendorInventoryRequest;
+import com.spring.green2209s_08.web.domain.ItemImage;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -15,20 +15,30 @@ import java.util.UUID;
 public class FileUpload {
     /* --- 파일 저장시키기(대표이미지, 상세이미지들) --- */
 
-    public String thumbnailImageUpload(MultipartFile multipartFile) throws IOException {
+    public ItemImage thumbnailImageUpload(MultipartFile multipartFile) throws IOException {
         String folderCreatedPath = createFolderPath();
         String getFolderPath = getFolderPath(folderCreatedPath, UrlConst.THUMBNAIL_URL);
-
-        return createImage(getFolderPath, multipartFile);
+        String imageName = createImage(getFolderPath, multipartFile);
+        ItemImage itemImage = ItemImage.builder()
+                .thumbnailImage(true)
+                .savedImageName(imageName)
+                .originalImageName(multipartFile.getOriginalFilename())
+                .build();
+        return itemImage;
     }
 
-    public List<String> extraImagesUpload(List<MultipartFile> extra) throws IOException {
+    public List<ItemImage> extraImagesUpload(List<MultipartFile> extra) throws IOException {
         String folderCreatedPath = createFolderPath();
         String getFolderPath = getFolderPath(folderCreatedPath, UrlConst.EXTRA_URL);
-        List<String> result = new ArrayList<>();
+        List<ItemImage> result = new ArrayList<>();
         for (MultipartFile multipartFile : extra) {
-            String image = createImage(getFolderPath, multipartFile);
-            result.add(image);
+            String imageName = createImage(getFolderPath, multipartFile);
+            ItemImage itemImage = ItemImage.builder()
+                    .thumbnailImage(false)
+                    .savedImageName(imageName)
+                    .originalImageName(multipartFile.getOriginalFilename())
+                    .build();
+            result.add(itemImage);
         }
         return result;
     }

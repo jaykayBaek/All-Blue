@@ -1,27 +1,28 @@
 package com.spring.green2209s_08.web.domain;
 
-import lombok.Getter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Getter
+@Getter @Builder
+@AllArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Category {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Column(name = "category_id")
+    private Long categoryId;
 
-    private int parentId;
+    private String parentId;
     private String parentName;
 
-    private int childId;
+    private String childId;
     private String childName;
 
-    private int grandchildId;
+    private String grandchildId;
     private String grandchildName;
-
-    private Long itemId;
 
     @OneToMany(mappedBy = "category")
     private List<Item> items = new ArrayList<>();

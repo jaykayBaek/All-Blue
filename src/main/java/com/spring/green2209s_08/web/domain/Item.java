@@ -12,7 +12,7 @@ import java.util.List;
 
 @Entity
 @AllArgsConstructor
-@Getter @Setter
+@Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Inheritance(strategy = InheritanceType.JOINED)
 public abstract class Item {
@@ -31,7 +31,6 @@ public abstract class Item {
     private int stockQuantity;
     private int deliveryPrice;
 
-
     private String content;
 
     // 판매승인 된 상품인가?
@@ -43,12 +42,15 @@ public abstract class Item {
     @OneToMany(mappedBy = "item")
     private List<ItemImage> itemImages = new ArrayList<>();
 
-
-    protected void createItem(String itemName, int price, int deliveryPrice, int stockQuantity) {
+    protected void saveImage(List<ItemImage> itemImages) {
+        this.itemImages = itemImages;
+    }
+    protected void createItem(String itemName, int price, int deliveryPrice, int stockQuantity, String content) {
         this.itemName = itemName;
         this.price = price;
         this.deliveryPrice = deliveryPrice;
         this.stockQuantity = stockQuantity;
+        this.content = content;
     }
 
     /**

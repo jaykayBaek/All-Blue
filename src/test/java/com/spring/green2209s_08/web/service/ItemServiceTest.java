@@ -31,7 +31,7 @@ class ItemServiceTest {
             images.add(file);
         }
         Fish fish = Fish.getFish("hello", FishSex.MALE, "미디움", "금붕어",
-                10000, 2999, 30);
+                10000, 2999, 30, "hello");
         //when
 //        VendorException e = assertThrows(VendorException.class, () ->
 //                itemService.addFish(fish, images)
