@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,7 +32,7 @@ class ItemServiceTest {
             images.add(file);
         }
         Fish fish = Fish.getFish("hello", FishSex.MALE, "미디움", "금붕어",
-                10000, 2999, 30, "hello");
+                10000, 2999, 30, "hello", LocalDate.now());
         //when
 //        VendorException e = assertThrows(VendorException.class, () ->
 //                itemService.addFish(fish, images)

@@ -4,6 +4,8 @@ import com.spring.green2209s_08.web.domain.enums.AccountType;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -27,4 +29,7 @@ public class Vendor {
     @OneToOne
     @JoinColumn(name = "business_registration_id")
     private BusinessRegistration businessRegistration;
+
+    @OneToMany(mappedBy = "vendor")
+    private List<Item> items = new ArrayList<>();
 }

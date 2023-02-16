@@ -3,6 +3,7 @@ package com.spring.green2209s_08.web.service;
 import com.spring.green2209s_08.web.domain.Category;
 import com.spring.green2209s_08.web.domain.Member;
 import com.spring.green2209s_08.web.domain.Vendor;
+import com.spring.green2209s_08.web.domain.enums.AccountType;
 import com.spring.green2209s_08.web.repository.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -80,8 +81,8 @@ public class DummyData {
                     .parentName("생물")
                     .childId("0104")
                     .childName("디스커스")
-                    .grandchildId(null)
-                    .grandchildName(null)
+                    .grandchildId("010401")
+                    .grandchildName("010401")
                     .build();
             adminSubRepository.saveCategory(fish1);
 
@@ -90,8 +91,8 @@ public class DummyData {
                     .parentName("생물")
                     .childId("0105")
                     .childName("테트라")
-                    .grandchildId(null)
-                    .grandchildName(null)
+                    .grandchildId("010501")
+                    .grandchildName("010501")
                     .build();
             adminSubRepository.saveCategory(fish2);
             Category fish4 = Category.builder()
@@ -99,8 +100,8 @@ public class DummyData {
                     .parentName("생물")
                     .childId("0106")
                     .childName("플레코")
-                    .grandchildId(null)
-                    .grandchildName(null)
+                    .grandchildId("010601")
+                    .grandchildName("010601")
                     .build();
             adminSubRepository.saveCategory(fish4);
             Category fish5 = Category.builder()
@@ -108,8 +109,8 @@ public class DummyData {
                     .parentName("생물")
                     .childId("0107")
                     .childName("바브")
-                    .grandchildId(null)
-                    .grandchildName(null)
+                    .grandchildId("010701")
+                    .grandchildName("010701")
                     .build();
             adminSubRepository.saveCategory(fish5);
             Category fish6 = Category.builder()
@@ -117,8 +118,8 @@ public class DummyData {
                     .parentName("생물")
                     .childId("0108")
                     .childName("기타 열대어")
-                    .grandchildId(null)
-                    .grandchildName(null)
+                    .grandchildId("010801")
+                    .grandchildName("010801")
                     .build();
             adminSubRepository.saveCategory(fish6);
             /* --- ------- --- */
@@ -127,8 +128,8 @@ public class DummyData {
                     .parentName("비생물")
                     .childId("0201")
                     .childName("수초")
-                    .grandchildId(null)
-                    .grandchildName(null)
+                    .grandchildId("020101")
+                    .grandchildName("020101")
                     .build();
             adminSubRepository.saveCategory(pr1);
             /* --- ------- --- */
@@ -137,8 +138,8 @@ public class DummyData {
                     .parentName("비생물")
                     .childId("0202")
                     .childName("바닥재")
-                    .grandchildId(null)
-                    .grandchildName(null)
+                    .grandchildId("020201")
+                    .grandchildName("020201")
                     .build();
             adminSubRepository.saveCategory(pr2);
             /* --- ------- --- */
@@ -174,8 +175,8 @@ public class DummyData {
                     .parentName("비생물")
                     .childId("0204")
                     .childName("어항")
-                    .grandchildId(null)
-                    .grandchildName(null)
+                    .grandchildId("020401")
+                    .grandchildName("020401")
                     .build();
             adminSubRepository.saveCategory(pr6);
             Category pr7 = Category.builder()
@@ -183,8 +184,8 @@ public class DummyData {
                     .parentName("비생물")
                     .childId("0205")
                     .childName("축양장")
-                    .grandchildId(null)
-                    .grandchildName(null)
+                    .grandchildId("020501")
+                    .grandchildName("020501")
                     .build();
             adminSubRepository.saveCategory(pr7);
             Category pr8 = Category.builder()
@@ -192,8 +193,8 @@ public class DummyData {
                     .parentName("비생물")
                     .childId("0206")
                     .childName("여과기")
-                    .grandchildId(null)
-                    .grandchildName(null)
+                    .grandchildId("020601")
+                    .grandchildName("020601")
                     .build();
             adminSubRepository.saveCategory(pr8);
             Category pr9 = Category.builder()
@@ -201,8 +202,8 @@ public class DummyData {
                     .parentName("비생물")
                     .childId("0207")
                     .childName("조명")
-                    .grandchildId(null)
-                    .grandchildName(null)
+                    .grandchildId("020701")
+                    .grandchildName("020701")
                     .build();
             adminSubRepository.saveCategory(pr9);
             Category pr10 = Category.builder()
@@ -210,8 +211,8 @@ public class DummyData {
                     .parentName("비생물")
                     .childId("0208")
                     .childName("히터")
-                    .grandchildId(null)
-                    .grandchildName(null)
+                    .grandchildId("020801")
+                    .grandchildName("020801")
                     .build();
             adminSubRepository.saveCategory(pr10);
             Category pr11 = Category.builder()
@@ -219,8 +220,8 @@ public class DummyData {
                     .parentName("비생물")
                     .childId("0209")
                     .childName("먹이")
-                    .grandchildId(null)
-                    .grandchildName(null)
+                    .grandchildId("020901")
+                    .grandchildName("020901")
                     .build();
             adminSubRepository.saveCategory(pr11);
             Category pr12 = Category.builder()
@@ -228,8 +229,8 @@ public class DummyData {
                     .parentName("비생물")
                     .childId("0210")
                     .childName("유목")
-                    .grandchildId(null)
-                    .grandchildName(null)
+                    .grandchildId("021001")
+                    .grandchildName("021001")
                     .build();
             adminSubRepository.saveCategory(pr12);
             Category pr13 = Category.builder()
@@ -237,8 +238,8 @@ public class DummyData {
                     .parentName("비생물")
                     .childId("0211")
                     .childName("청소도구")
-                    .grandchildId(null)
-                    .grandchildName(null)
+                    .grandchildId("021101")
+                    .grandchildName("021101")
                     .build();
             adminSubRepository.saveCategory(pr13);
             Category pr14 = Category.builder()
@@ -246,10 +247,10 @@ public class DummyData {
                     .parentName("비생물")
                     .childId("0212")
                     .childName("기타")
-                    .grandchildId(null)
-                    .grandchildName(null)
+                    .grandchildId("021201")
+                    .grandchildName("021201")
                     .build();
-            adminSubRepository.saveCategory(pr13);
+            adminSubRepository.saveCategory(pr14);
 
             String password = encoder.encode("1234");
             Vendor vendor = Vendor.builder()
@@ -258,6 +259,7 @@ public class DummyData {
                     .vendorName("백정광")
                     .vendorEmail("baekice@gmail.com")
                     .vendorPhoneNo("010-5055-5055")
+                    .accountType(AccountType.VENDOR)
                     .build();
             em.persist(vendor);
 

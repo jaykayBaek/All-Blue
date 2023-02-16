@@ -25,6 +25,8 @@ public class ItemImage {
     @JoinColumn(name = "item_id")
     private Item item;
 
+    private String fileSavedPath;
+
     public void saveItemInfo(Item item){
         this.item = item;
     }

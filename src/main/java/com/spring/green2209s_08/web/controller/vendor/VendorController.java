@@ -2,21 +2,17 @@ package com.spring.green2209s_08.web.controller.vendor;
 
 import com.spring.green2209s_08.web.constants.SessionConst;
 import com.spring.green2209s_08.web.domain.Vendor;
-import com.spring.green2209s_08.web.repository.VendorRepository;
 import com.spring.green2209s_08.web.service.VendorService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Controller
 @Slf4j
@@ -77,7 +73,7 @@ public class VendorController {
         Optional<Vendor> findVendor = vendorService.findById(vendorId);
 
         Optional<VendorHomeResponse> vendorHomeResponse = findVendor.map(m -> new VendorHomeResponse(
-                m.getVendorLoginId(), m.getVendorName(), m.getVendorEmail(), m.getVendorPhoneNo()
+                vendorId, m.getVendorLoginId(), m.getVendorName(), m.getVendorEmail(), m.getVendorPhoneNo()
         ));
 
         VendorHomeResponse response = vendorHomeResponse.get();

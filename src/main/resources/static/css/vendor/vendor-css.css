@@ -38,8 +38,17 @@ input::-webkit-inner-spin-button {
     margin: 0;
 }
 
-/* Firefox */
 input[type=number] {
     -moz-appearance: textfield;
 }
 
+.item__status__font{
+    font-weight: bolder;
+    font-size: 18px;
+    color: var(--maincolor);
+}
+
+.data_list_wrap{
+    height: 70vh;
+    overflow-y: auto;
+}

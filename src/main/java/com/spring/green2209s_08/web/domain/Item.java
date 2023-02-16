@@ -1,5 +1,6 @@
 package com.spring.green2209s_08.web.domain;
 
+import com.spring.green2209s_08.web.domain.enums.ItemStatus;
 import com.spring.green2209s_08.web.exception.errorResult.VendorErrorResult;
 import com.spring.green2209s_08.web.exception.VendorException;
 import lombok.*;
@@ -7,6 +8,7 @@ import org.hibernate.annotations.BatchSize;
 import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,26 +33,41 @@ public abstract class Item {
     private int stockQuantity;
     private int deliveryPrice;
 
+    @Lob
     private String content;
 
-    // 판매승인 된 상품인가?
-    @ColumnDefault("false")
-    private Boolean salesApproval;
+    @Enumerated(EnumType.STRING)
+    private ItemStatus itemStatus;
 
     // 이미지는 최대 8장(8장)까지 저장할 수 있다
     @BatchSize(size = 8)
     @OneToMany(mappedBy = "item")
     private List<ItemImage> itemImages = new ArrayList<>();
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "vendor_id")
+    private Vendor vendor;
+
+    private LocalDate uploadDate;
+
     protected void saveImage(List<ItemImage> itemImages) {
         this.itemImages = itemImages;
     }
-    protected void createItem(String itemName, int price, int deliveryPrice, int stockQuantity, String content) {
+    protected void createItem(String itemName, int price, int deliveryPrice, int stockQuantity, String content, LocalDate uploadDate) {
         this.itemName = itemName;
         this.price = price;
         this.deliveryPrice = deliveryPrice;
         this.stockQuantity = stockQuantity;
         this.content = content;
+        this.uploadDate = uploadDate;
+    }
+
+    public void updateItemStatus(ItemStatus itemStatus){
+        this.itemStatus = itemStatus;
+    }
+
+    public void assignVendor(Vendor vendor){
+        this.vendor = vendor;
     }
 
     /**
@@ -70,5 +87,9 @@ public abstract class Item {
             throw new VendorException(VendorErrorResult.NOT_ENOUGH_STOCK);
         }
         this.stockQuantity -= quantity;
+    }
+
+    public void assignCategory(Category category) {
+        this.category = category;
     }
 }

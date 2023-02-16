@@ -4,6 +4,7 @@ import com.spring.green2209s_08.web.domain.enums.FishSex;
 import lombok.*;
 
 import javax.persistence.Entity;
+import java.time.LocalDate;
 import java.util.List;
 
 @Entity
@@ -14,14 +15,14 @@ import java.util.List;
 public class Product extends Item{
     private String brandName;
 
-    private void createProduct(String brandName, String itemName, int price, int deliveryPrice, int stockQuantity, String content) {
-        super.createItem(itemName, price, deliveryPrice, stockQuantity, content);
+    private void createProduct(String brandName, String itemName, int price, int deliveryPrice, int stockQuantity, String content, LocalDate uploadDate) {
+        super.createItem(itemName, price, deliveryPrice, stockQuantity, content, uploadDate);
         this.brandName = brandName;
 
     }
-    public static Product getProduct(String brandName, String itemName, int price, int deliveryPrice, int stockQuantity, String content){
+    public static Product getProduct(String brandName, String itemName, int price, int deliveryPrice, int stockQuantity, String content, LocalDate uploadDate){
         Product product = new Product();
-        product.createProduct(brandName, itemName, price, deliveryPrice, stockQuantity, content);
+        product.createProduct(brandName, itemName, price, deliveryPrice, stockQuantity, content, uploadDate);
         return product;
     }
 

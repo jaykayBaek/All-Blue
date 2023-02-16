@@ -8,16 +8,16 @@ function formSubmit(){
         return false;
     }
 
-    let match;
-    const srcs = [];
-    while ((match = imageSrcReg.exec(content)) !== null) {
-        srcs.push(match[1]);
+    if($('#extra-image').get(0).files.length === 0) {
+        alert('추가이미지는 최소 한 장 이상 업로드해야 합니다.');
+        return;
     }
+
+    let match;
 
     $('#vendorInventory').attr("action", 'http://localhost:9090/green2209s_08/item/enroll');
     $('#vendorInventory').attr("method", 'post');
     $('#vendorInventory').attr("enctype", 'multipart/form-data');
 
-    $('#vendorInventory').append($('<input/>', {type: 'hidden', name: 'imageSrcArr[]', value: srcs}));
     $('#vendorInventory').submit();
 }

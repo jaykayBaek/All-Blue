@@ -1,6 +1,6 @@
 package com.spring.green2209s_08.web.service;
 
-import com.spring.green2209s_08.constants.ControllerConst;
+import com.spring.green2209s_08.web.constants.UrlConst;
 import com.spring.green2209s_08.web.exception.EmailSendException;
 import com.spring.green2209s_08.web.exception.errorResult.EmailErrorResult;
 import lombok.RequiredArgsConstructor;
@@ -41,7 +41,7 @@ public class RegisterEmailSend {
         sendMessage += "<div align='center' style='border:1px solid black; font-family:verdana';>";
         sendMessage += "<h3 style='color:#3f37c9; font-weight:bolder'>회원가입 인증 코드입니다.</h3>";
         sendMessage += "<div style='font-size:130%'>";
-        sendMessage += "<a href='http://localhost:9090"+ ControllerConst.URL +"/member/email/verify?token="+certificationCode+"'>올 블루 회원가입하기</a>";
+        sendMessage += "<a href='"+ UrlConst.SERVER_URL +"member/email/verify?token="+certificationCode+"'>올 블루 회원가입하기</a>";
         sendMessage += "</div>";
         message.setText(sendMessage, "utf-8", "html");
 

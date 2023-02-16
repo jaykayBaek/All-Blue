@@ -165,7 +165,7 @@ $(function(){
                 $('.grandchild__product__layer').html(category);
                 return;
             case '0202':
-                opt = $('<option>').text("바닥재/일반/기타").attr("value", "020201");
+                opt = $('<option>').text("바닥재/일반/기타").attr("value", "020202");
                 $(category).append(opt);
                 $('.grandchild__product__layer').html(category);
                 return;
