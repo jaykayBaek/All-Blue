@@ -14,7 +14,7 @@ $(function(){
     const tetraCode = ['010501'];
     const flecoName = ['플레코/일반/기타'];
     const flecoCode = ['010601'];
-    const barbName = ['바브/일반/기타'];
+    const barbName = ['c'];
     const barbCode = ['010701'];
     const etcFishName = ['기타 열대어'];
     const etcFishCode = ['010801'];

@@ -1,6 +1,5 @@
 package com.spring.green2209s_08.web.controller.item;
 
-import com.spring.green2209s_08.web.domain.Category;
 import com.spring.green2209s_08.web.domain.enums.ItemStatus;
 import lombok.Builder;
 import lombok.Getter;
@@ -17,4 +16,5 @@ public class UploadItem {
     private int stockQuantity;
     private LocalDate uploadDate;
     private String categoryName;
+    private String categoryId;
 }

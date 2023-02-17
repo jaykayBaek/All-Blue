@@ -8,4 +8,9 @@ import lombok.RequiredArgsConstructor;
 @Getter
 public class VendorException extends RuntimeException{
     private final VendorErrorResult errorResult;
+
+    @Override
+    public String getMessage() {
+        return super.getMessage();
+    }
 }

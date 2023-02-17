@@ -2,6 +2,7 @@ package com.spring.green2209s_08.web.domain;
 
 import com.spring.green2209s_08.web.domain.enums.FishSex;
 import lombok.AccessLevel;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
@@ -13,6 +14,7 @@ import java.util.List;
 
 @Entity
 @ToString
+@Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Fish extends Item {
     private String breederName;

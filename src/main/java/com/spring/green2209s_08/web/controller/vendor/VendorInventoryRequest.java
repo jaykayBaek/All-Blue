@@ -13,9 +13,11 @@ import java.util.List;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class VendorInventoryRequest {
     private String itemName;
+
     private String parentCategory;
     private String childCategory;
     private String grandchildCategory;
+
     private Integer price;
     private Integer salePrice;
     private Integer stockQuantity;

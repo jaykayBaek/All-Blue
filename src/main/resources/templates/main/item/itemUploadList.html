@@ -118,19 +118,35 @@
                                     <table class="table" id="data_list">
                                         <thead>
                                             <tr>
+                                                <th>카테고리명</th>
                                                 <th>등록상품ID</th>
                                                 <th>노출상품명</th>
                                                 <th>상품상태</th>
                                                 <th>판매가</th>
                                                 <th>재고수량</th>
                                                 <th>상품게시일</th>
+                                                <th>수정하기</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr th:if="${data eq null}" th:colspan="6">
+                                            <tr th:if="${items.content.size() eq 0}" th:colspan="7">
                                                 <td>
                                                     열람 가능한 데이터가 없습니다.
                                                 </td>
+                                            </tr>
+                                            <th:blcok th:if="${items.content.size() ne 0}"/>
+                                                <tr th:each="item : ${items}">
+                                                    <td th:text="${item.categoryName}"></td>
+                                                    <td th:text="${item.getId()}"></td>
+                                                    <td th:text="${item.itemName}"></td>
+                                                    <td th:text="${item.itemStatus}"></td>
+                                                    <td th:text="${item.price}"></td>
+                                                    <td th:text="${item.stockQuantity}"></td>
+                                                    <td th:text="${item.uploadDate}"></td>
+                                                    <td>
+                                                        <a th:href="@{/item/{itemId}/{categoryId}/edit(itemId=${item.id}, categoryId=${item.categoryId})}">수정</a>
+                                                    </td>
+                                                </tr>
                                             </tr>
                                         </tbody>
                                     </table>

@@ -17,7 +17,10 @@ function quilljsediterInit(){
     };
 
     quill = new Quill('#item__content', option);
-    // quill.setContent([[${uploadItem.getContent()}]],'silent');
+
+    const editor = document.querySelector('#item__content .ql-editor');
+    editor.innerHTML = [[${uploadItem.getContent}]];
+
     quill.on('text-change', function() {
         document.getElementById("quill_data").value = quill.root.innerHTML;
     });

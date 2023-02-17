@@ -20,29 +20,29 @@ public class FileUpload {
     private final Pattern pattern = Pattern.compile("<img\\s+src=\"([^\"]+)\"");
 
     public ItemImage thumbnailImageUpload(MultipartFile multipartFile) throws IOException {
-        String folderCreatedPath = createFolderPath();
-        String getFolderPath = getFolderPath(UrlConst.THUMBNAIL_URL, folderCreatedPath);
-        String imageName = createImage(getFolderPath, multipartFile);
+//        String folderCreatedPath = createFolderPath();
+//        String getFolderPath = getFolderPath(UrlConst.THUMBNAIL_URL, folderCreatedPath);
+        String imageName = createImage(UrlConst.THUMBNAIL_URL, multipartFile);
         ItemImage itemImage = ItemImage.builder()
                 .thumbnailImage(true)
                 .savedImageName(imageName)
                 .originalImageName(multipartFile.getOriginalFilename())
-                .fileSavedPath(getFolderPath)
+                .fileSavedPath(UrlConst.THUMBNAIL_URL)
                 .build();
         return itemImage;
     }
 
     public List<ItemImage> extraImagesUpload(List<MultipartFile> extra) throws IOException {
-        String folderCreatedPath = createFolderPath();
-        String getFolderPath = getFolderPath(UrlConst.EXTRA_URL, folderCreatedPath);
+//        String folderCreatedPath = createFolderPath();
+//        String getFolderPath = getFolderPath(UrlConst.EXTRA_URL, folderCreatedPath);
         List<ItemImage> result = new ArrayList<>();
         for (MultipartFile multipartFile : extra) {
-            String imageName = createImage(getFolderPath, multipartFile);
+            String imageName = createImage(UrlConst.EXTRA_URL, multipartFile);
             ItemImage itemImage = ItemImage.builder()
                     .thumbnailImage(false)
                     .savedImageName(imageName)
                     .originalImageName(multipartFile.getOriginalFilename())
-                    .fileSavedPath(getFolderPath)
+                    .fileSavedPath(UrlConst.EXTRA_URL)
                     .build();
             result.add(itemImage);
         }
@@ -89,11 +89,11 @@ public class FileUpload {
             // 복사할 파일 경로 + 파일
             String sourcePath = UrlConst.IMAGE_TEMP_DISPLAY_URL;
 
-            String createFolderPath = createFolderPath();
-            String folderPath = getFolderPath(UrlConst.IMAGE_DISPLAY_URL, createFolderPath);
+//            String createFolderPath = createFolderPath();
+//            String folderPath = getFolderPath(UrlConst.IMAGE_DISPLAY_URL, createFolderPath);
             // 옮겨갈 파일 경로 + 파일
             File sourceFile = new File(sourcePath + source);
-            File targetFile = new File(folderPath + source);
+            File targetFile = new File(UrlConst.IMAGE_DISPLAY_URL + source);
             
             // 파일 경로 이동 및 임시 이미지 삭제
             sourceFile.renameTo(targetFile);
@@ -107,7 +107,7 @@ public class FileUpload {
         String oldPath = "http://localhost:9090/green2209s_08/common/vendor/image/display/";
         Pattern pattern = Pattern.compile("(<img[^>]+src\\s*=\\s*[\"'])(.*?)" + Pattern.quote(oldPath) + "(.*?)([\"'][^>]*>)");
         Matcher matcher = pattern.matcher(content);
-        String changeSrc = "/images/";
+        String changeSrc = "/green2209s_08/images/board/";
 
         StringBuffer sb = new StringBuffer();
         while (matcher.find()){
