@@ -1,5 +1,8 @@
 package com.spring.green2209s_08.web.service;
 
+import com.spring.green2209s_08.web.controller.item.api.EditFishRequest;
+import com.spring.green2209s_08.web.controller.item.api.EditNumberRequest;
+import com.spring.green2209s_08.web.controller.item.api.EditProductRequest;
 import com.spring.green2209s_08.web.domain.Fish;
 import com.spring.green2209s_08.web.domain.Item;
 import com.spring.green2209s_08.web.domain.ItemImage;
@@ -32,7 +35,7 @@ public class ItemService {
 
 
     @Transactional
-    public Item enrollProduct(Item item) {
+    public Item addItem(Item item) {
         Item savedItem = itemRepository.save(item);
 
         List<ItemImage> itemImages = savedItem.getItemImages();
@@ -68,5 +71,29 @@ public class ItemService {
     public Product findUploadProductByItemId(Long itemId) {
         return (Product) itemRepository.findById(itemId).get();
 
+    }
+
+    @Transactional
+    public void changeItemName(Long itemId, String itemName) {
+        Item item = itemRepository.findById(itemId).get();
+        item.changeItemName(itemName);
+    }
+
+    @Transactional
+    public void changeNumber(EditNumberRequest request) {
+        Item item = itemRepository.findById(request.getItemId()).get();
+        item.changeNumber(request.getPrice(), request.getSalePrice(), request.getStockQuantity(), request.getDeliveryPrice());
+    }
+
+    @Transactional
+    public void changeFish(EditFishRequest request) {
+        Fish fish = (Fish) itemRepository.findById(request.getItemId()).get();
+        fish.changeFish(request.getBreederName(), request.getFishSex(), request.getSize());
+    }
+
+    @Transactional
+    public void changeProduct(EditProductRequest request) {
+        Product product = (Product) itemRepository.findById(request.getItemId()).get();
+        product.changeProduct(request.getBrandName());
     }
 }

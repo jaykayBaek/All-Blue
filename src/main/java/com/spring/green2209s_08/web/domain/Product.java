@@ -29,4 +29,8 @@ public class Product extends Item{
     public void saveImage(List<ItemImage> itemImages){
         super.saveImage(itemImages);
     }
+
+    public void changeProduct(String brandName) {
+        this.brandName = brandName;
+    }
 }

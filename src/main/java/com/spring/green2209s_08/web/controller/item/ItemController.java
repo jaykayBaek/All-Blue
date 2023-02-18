@@ -77,7 +77,7 @@ public class ItemController {
             fish.saveImage(saveImages);
             fish.assignCategory(category);
             fish.assignVendor(findVendor);
-            itemService.enrollProduct(fish);
+            itemService.addItem(fish);
         }
         else if(parentCategory.equals("02")){
             Product product = Product.getProduct(
@@ -89,7 +89,7 @@ public class ItemController {
             product.saveImage(saveImages);
             product.assignCategory(category);
             product.assignVendor(findVendor);
-            itemService.enrollProduct(product);
+            itemService.addItem(product);
         }
 
         return "redirect:/item/list";
@@ -197,6 +197,7 @@ public class ItemController {
         }
 
         model.addAttribute("vendor", response);
+        model.addAttribute("itemId", itemId);
         return "main/item/itemEditForm";
     }
 

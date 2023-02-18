@@ -50,6 +50,9 @@ public abstract class Item {
 
     private LocalDate uploadDate;
 
+    /**
+     * 생성
+     */
     protected void saveImage(List<ItemImage> itemImages) {
         this.itemImages = itemImages;
     }
@@ -68,6 +71,13 @@ public abstract class Item {
 
     public void assignVendor(Vendor vendor){
         this.vendor = vendor;
+    }
+
+    /**
+     * 변경
+     */
+    public void changeItemName(String itemName){
+        this.itemName = itemName;
     }
 
     /**
@@ -91,5 +101,12 @@ public abstract class Item {
 
     public void assignCategory(Category category) {
         this.category = category;
+    }
+
+    public void changeNumber(Integer price, Integer salePrice, Integer stockQuantity, Integer deliveryPrice) {
+        this.price = price;
+        this.salePrice = salePrice;
+        this.stockQuantity = stockQuantity;
+        this.deliveryPrice = deliveryPrice;
     }
 }

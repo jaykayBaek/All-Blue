@@ -43,7 +43,8 @@
                     <div class="container-fluid">
 
                         <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                            <h1 class="h3 mb-0 text-gray-800">상품등록</h1>
+                            <h1 class="h3 mb-0 text-gray-800">상품수정</h1>
+                            <input type="hidden" name="itemId" id="itemId" th:value="${itemId}">
                         </div>
 
                         <div class="row">
@@ -162,7 +163,7 @@
                                             </table>
 
                                             <div class="mb-3 font-weight-lighter text-gray-800">
-                                                <button class="btn btn-primary" type="button" th:onclick="changeName(${uploadItem.id})">
+                                                <button class="btn btn-primary" type="button" th:onclick="changeNumber()">
                                                     수정하기
                                                 </button>
                                             </div>
@@ -198,12 +199,12 @@
                                                 <tbody class="vendor__table__input">
                                                     <tr th:if="${uploadItem.category.parentId == '01'}" class="detail__input__content">
                                                         <td>
-                                                            <input th:value="${uploadItem.breederName}" name="breederName" placeholder="브리더 이름">                                                        </td>
+                                                            <input th:value="${uploadItem.breederName}" name="breederName" id="breederName" placeholder="브리더 이름">                                                        </td>
                                                         <td>
-                                                            <input th:value="${uploadItem.size}" name="size" placeholder="사이즈">
+                                                            <input th:value="${uploadItem.size}" name="size" id="size" placeholder="사이즈">
                                                         </td>
                                                         <td>
-                                                            <select class="form-control" name="fishSex">
+                                                            <select class="form-control" name="fishSex" id="fishSex">
                                                                 <option value="MALE">수컷</option>
                                                                 <option value="FEMALE">암컷</option>
                                                                 <option value="UNKNOWN">불분명</option>
@@ -219,9 +220,16 @@
                                             </table>
 
                                             <div class="mb-3 font-weight-lighter text-gray-800">
-                                                <button class="btn btn-primary" type="button" th:onclick="changeName(${uploadItem.id})">
-                                                    수정하기
-                                                </button>
+                                                <th:block th:if="${uploadItem.category.parentId == '01'}">
+                                                    <button class="btn btn-primary" type="button" th:onclick="changeFish()">
+                                                        수정하기
+                                                    </button>
+                                                </th:block>
+                                                <th:block  th:if="${uploadItem.category.parentId == '02'}">
+                                                    <button class="btn btn-primary" type="button" th:onclick="changeProduct()">
+                                                        수정하기
+                                                    </button>
+                                                </th:block>
                                             </div>
                                         </div>
                                     </div>

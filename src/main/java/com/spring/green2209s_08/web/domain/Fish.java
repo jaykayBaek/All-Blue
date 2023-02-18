@@ -40,4 +40,10 @@ public class Fish extends Item {
     public void saveImage(List<ItemImage> itemImages){
         super.saveImage(itemImages);
     }
+
+    public void changeFish(String breederName, FishSex fishSex, String size) {
+        this.breederName = breederName;
+        this.sex = fishSex;
+        this.size = size;
+    }
 }
