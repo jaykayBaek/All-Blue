@@ -1,5 +1,6 @@
 package com.spring.green2209s_08.config;
 
+import com.spring.green2209s_08.interceptors.MemberLoginCheck;
 import com.spring.green2209s_08.interceptors.VendorAlreadyLoginCheck;
 import com.spring.green2209s_08.interceptors.VendorLoginCheck;
 import org.springframework.context.annotation.Configuration;
@@ -22,5 +23,8 @@ public class WebInterceptorConfig implements WebMvcConfigurer {
         registry.addInterceptor(new VendorAlreadyLoginCheck())
                 .order(2)
                 .addPathPatterns("/vendor/login");
+        registry.addInterceptor(new MemberLoginCheck())
+                .order(3)
+                .addPathPatterns("/home/**", "/inquiry/**", "/member/account/**");
     }
 }

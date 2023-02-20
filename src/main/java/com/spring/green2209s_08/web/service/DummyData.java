@@ -4,6 +4,7 @@ import com.spring.green2209s_08.web.domain.Category;
 import com.spring.green2209s_08.web.domain.Member;
 import com.spring.green2209s_08.web.domain.Vendor;
 import com.spring.green2209s_08.web.domain.enums.AccountType;
+import com.spring.green2209s_08.web.domain.enums.MemberGrade;
 import com.spring.green2209s_08.web.repository.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.PostConstruct;
 import javax.persistence.EntityManager;
+import java.time.LocalDateTime;
 
 @Component
 @RequiredArgsConstructor
@@ -262,6 +264,21 @@ public class DummyData {
                     .accountType(AccountType.VENDOR)
                     .build();
             em.persist(vendor);
+
+            Member member = Member.builder()
+                    .name("제이콥")
+                    .password(encoder.encode("1234"))
+                    .email("admin")
+                    .point(0)
+                    .phoneNo("01050555055")
+                    .birthDate("1999")
+                    .accountType(AccountType.ADMIN)
+                    .memberGrade(MemberGrade.BRONZE)
+                    .createdTime(LocalDateTime.now())
+                    .accountLock(false)
+                    .leavedTime(LocalDateTime.now())
+                    .build();
+            em.persist(member);
 
         }
     }

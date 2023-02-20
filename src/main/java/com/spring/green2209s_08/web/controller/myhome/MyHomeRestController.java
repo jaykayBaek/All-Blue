@@ -19,8 +19,10 @@ import javax.servlet.http.HttpServletRequest;
 @RequestMapping("/home")
 @RequiredArgsConstructor
 public class MyHomeRestController {
+
     private final MemberService memberService;
     private final AddressService addressService;
+
     @PostMapping("/address")
     public ResponseEntity<StatusResponse> addressAdd(@ModelAttribute AddressRequest addressRequest, HttpServletRequest request){
         Long memberId = (Long) request.getAttribute(SessionConst.MEMBER_ID);
