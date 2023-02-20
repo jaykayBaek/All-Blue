@@ -1,7 +1,5 @@
 package com.spring.green2209s_08.web.service;
 
-import com.spring.green2209s_08.web.domain.Fish;
-import com.spring.green2209s_08.web.domain.Item;
 import com.spring.green2209s_08.web.domain.Vendor;
 import com.spring.green2209s_08.web.exception.errorResult.VendorErrorResult;
 import com.spring.green2209s_08.web.exception.VendorException;
@@ -52,4 +50,11 @@ public class VendorService {
         return vendor.get().getId();
     }
 
+    public void vendorPasswordCheck(Long vendorId, String vendorPassword) {
+        Vendor findVendor = vendorRepository.findById(vendorId).get();
+        boolean result = passwordEncoder.matches(vendorPassword, findVendor.getVendorPassword());
+        if(result == false){
+            throw new VendorException(VendorErrorResult.PASSWORD_NOT_MATCH);
+        }
+    }
 }
