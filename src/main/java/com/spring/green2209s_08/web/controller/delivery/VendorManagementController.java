@@ -1,6 +1,7 @@
-package com.spring.green2209s_08.web.controller.vendor;
+package com.spring.green2209s_08.web.controller.delivery;
 
 import com.spring.green2209s_08.web.constants.SessionConst;
+import com.spring.green2209s_08.web.controller.vendor.VendorHomeResponse;
 import com.spring.green2209s_08.web.domain.Vendor;
 import com.spring.green2209s_08.web.service.VendorService;
 import lombok.RequiredArgsConstructor;
@@ -14,71 +15,41 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.Optional;
 
-@Controller
 @Slf4j
 @RequiredArgsConstructor
-@RequestMapping("/vendor")
-public class VendorController {
-
+@Controller
+@RequestMapping("/management")
+public class VendorManagementController {
     private final VendorService vendorService;
 
-    @GetMapping("/join")
-    public String vendorRegister(){
-        return "main/vendor/registerForm";
-    }
-
-    @GetMapping("/join/welcome")
-    public String welcome(){
-        return "main/vendor/welcome";
-    }
-
-    @GetMapping("/login")
-    public String loginForm(){
-        return "main/vendor/vendorLogin";
-    }
-
-    @GetMapping("/logout")
-    public String logout(HttpSession session){
-        session.invalidate();
-
-        return "redirect:/";
-    }
-
-    @GetMapping("/home")
-    public String home(Model model, HttpServletRequest request){
+    @GetMapping("/delivery")
+    public String deliveryManagement(HttpServletRequest request, Model model){
         VendorHomeResponse response = getVendorHomeResponse(request);
         model.addAttribute("vendor", response);
-
-        return "main/vendor/vendorHome";
+        return "main/vendorManagement/deliveryManagement";
     }
 
-    @GetMapping("/dashboard")
-    public String dashboard(Model model, HttpServletRequest request){
+    @GetMapping("/return")
+    public String returnManagement(HttpServletRequest request, Model model){
         VendorHomeResponse response = getVendorHomeResponse(request);
         model.addAttribute("vendor", response);
-        return "main/vendor/dashboard";
+        return "main/vendorManagement/returnManagement";
     }
 
-    @GetMapping("/vendor-inventory/form")
-    public String inventoryForm(Model model, HttpServletRequest request){
+    @GetMapping("/customer-inquiry")
+    public String customerInquiryManagement(HttpServletRequest request, Model model){
         VendorHomeResponse response = getVendorHomeResponse(request);
         model.addAttribute("vendor", response);
-        return "main/vendor/inventoryForm";
+        return "main/vendorManagement/customerInquiryManagement";
     }
 
-    @GetMapping("/account/change-info")
-    public String confirmPassword(Model model, HttpServletRequest request){
+    @GetMapping("/review")
+    public String review(HttpServletRequest request, Model model){
         VendorHomeResponse response = getVendorHomeResponse(request);
         model.addAttribute("vendor", response);
-        return "main/vendorAccount/changeInfo";
+        return "main/vendorManagement/review";
     }
 
-    @GetMapping("/account/change-password")
-    public String changePassword(Model model, HttpServletRequest request){
-        VendorHomeResponse response = getVendorHomeResponse(request);
-        model.addAttribute("vendor", response);
-        return "changeInfo";
-    }
 
     private VendorHomeResponse getVendorHomeResponse(HttpServletRequest request) {
         HttpSession session = request.getSession();

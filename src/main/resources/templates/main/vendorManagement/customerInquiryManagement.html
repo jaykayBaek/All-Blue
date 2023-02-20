@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>올! 블루, 벤더</title>
+
+    <link th:href="@{/vendor/fontawesome-free/css/all.min.css}" href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link th:href="@{/css/vendor/vendor-admin-2.css}" href="css/sb-admin-2.min.css" rel="stylesheet">
+    <link th:href="@{/css/vendor/vendor-css.css}" href="css/sb-admin-2.min.css" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/8b6103ad59.js" crossorigin="anonymous"></script>
+    <script th:src="@{/js/jquery-3.3.1.min.js}" src="/js/jquery-3.3.1.min.js"></script>
+
+    <!--  datatables  -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.2/css/jquery.dataTables.css">
+
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.13.2/js/jquery.dataTables.js"></script>
+
+</head>
+
+<body id="page-top">
+
+<!-- Page Wrapper -->
+<div id="wrapper">
+
+    <!-- Sidebar -->
+    <div th:replace="main/vendor/common/vendor-sidebar :: vendor-sidebar"></div>
+
+    <!-- End of Sidebar -->
+
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+        <form id="itemList" name="itemList">
+
+            <div id="content">
+                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+                    <div th:replace="main/vendor/common/vendor-navbar :: vendor-navbar"></div>
+                </nav>
+
+                <div class="container-fluid">
+
+                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                        <h1 class="h3 mb-0 text-gray-800">고객 문의</h1>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-12 mb-4">
+                            <div class="card shadow h-100 py-2">
+                                <div class="card-body">
+                                    <table class="table w-100">
+                                        <thead>
+                                            <tr>
+                                                <th>접수일</th>
+                                                <th>문의 유형</th>
+                                                <th>주문번호</th>
+                                                <th>상품명</th>
+                                                <th>고객명</th>
+                                                <th>처리상태</th>
+                                                <th>처리일시</th>
+                                                <th>상세보기</th>
+                                            </tr>
+                                            <tr>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+
+                </div>
+
+            </div>
+
+            <!-- Footer -->
+            <footer class="sticky-footer bg-white">
+                <div class="container my-auto">
+                    <div class="col">
+                        <strong>DEVELOPER Email : </strong>jaykaybaek@gmail.com
+                    </div>
+                </div>
+            </footer>
+            <!-- End of Footer -->
+        </form>
+
+        <script th:src="@{/js/vendor/vendorJs.js}" src=""></script>
+
+    </div>
+    <!-- End of Content Wrapper -->
+
+
+</div>
+<!-- End of Page Wrapper -->
+
+<!-- Scroll to Top Button-->
+<a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+</a>
+
+<!-- Bootstrap core JavaScript-->
+
+<script th:src="@{/vendor/jquery/jquery.min.js}" src="vendor/jquery/jquery.min.js"></script>
+<script th:src="@{/vendor/bootstrap/js/bootstrap.bundle.min.js}" src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+<!-- Core plugin JavaScript-->
+<script th:src="@{/vendor/jquery-easing/jquery.easing.min.js}" src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+<!-- Custom scripts for all pages-->
+<script th:src="@{/js/vendor/sb-admin-2.min.js}" src="js/sb-admin-2.min.js"></script>
+
+</body>
+
+</html>
