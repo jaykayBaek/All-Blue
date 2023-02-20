@@ -9,10 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -35,6 +32,22 @@ public class MyHomeRestController {
 
         StatusResponse response = new StatusResponse(
                 HttpStatus.OK.toString(), "주소 등록 완료", "TRUE"
+        );
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(response);
+    }
+
+    @PatchMapping("/address")
+    public ResponseEntity<StatusResponse> addressEdit(@ModelAttribute AddressRequest addressRequest,
+                                                      @RequestParam Long addressId,
+                                                      HttpServletRequest request){
+        HttpSession session = request.getSession();
+        Long memberId = (Long) session.getAttribute(SessionConst.MEMBER_ID);
+
+        addressService.updateAddress(memberId, addressId, addressRequest);
+
+        StatusResponse response = new StatusResponse(
+                HttpStatus.OK.toString(), "주소 수정 완료", "TRUE"
         );
         return ResponseEntity.status(HttpStatus.OK)
                 .body(response);

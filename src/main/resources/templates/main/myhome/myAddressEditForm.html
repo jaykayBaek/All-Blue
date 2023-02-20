@@ -49,7 +49,7 @@
                         <label for="recipientInput">
                           받는 사람
                         </label>
-                        <input type="text" id="recipientInput" placeholder="수취인 입력">
+                        <input type="text" id="recipientInput" placeholder="수취인 입력" th:value="${address.recipient}">
                       </div>
                     </td>
                   </tr>
@@ -59,7 +59,7 @@
                         <label for="phoneNoInput">
                           핸드폰번호
                         </label>
-                        <input type="text" id="phoneNoInput" placeholder="핸드폰 번호 입력" >
+                        <input type="text" id="phoneNoInput" placeholder="핸드폰 번호 입력" th:value="${address.phoneNo}">
                       </div>
                     </td>
                   </tr>
@@ -69,20 +69,21 @@
                         <label for="addressInput">
                           주소찾기
                         </label>
-                        <input type="text" name="zipcode" id="zipcode" readonly>
-                        <input onclick="" type="text" name="address" id="addressInput" readonly placeholder="우편번호 찾기" >
+                        <input type="text" name="zipcode" id="zipcode" readonly  th:value="${address.zipcode}">
+                        <input onclick="" type="text" name="address" id="addressInput" readonly placeholder="우편번호 찾기" th:value="${address.address}" >
                         <hr/>
-                        <input type="text" name="address_detail" id="detailInput" placeholder="상세주소">
+                        <input type="text" name="address_detail" id="detailInput" placeholder="상세주소"  th:value="${address.detail}">
                       </div>
                     </td>
                   </tr>
+                  <input type="hidden" name="addressId" id="addressId" th:value="${address.id}">
                 </table>
               </div>
             </div>
 
           </div>
           <div>
-            <button class="btn__addAddress" type="button" onclick="saveAddress()">저장</button>
+            <button class="btn__addAddress" type="button" onclick="updateAddress()">수정하기</button>
           </div>
 
           <div class="spad"></div>
@@ -112,12 +113,13 @@
               });
             });
 
-            function saveAddress(){
+            function updateAddress(){
               let recipient = $('#recipientInput').val();
               let phoneNo = $('#phoneNoInput').val();
               let address = $('#addressInput').val();
               let detail = $('#detailInput').val();
               let zipcode = $('#zipcode').val();
+              let addressId = $('#addressId').val();
 
               if(recipient.trim() == ''){
                 alert('받는 사람을 입력해주세요');
@@ -138,21 +140,24 @@
 
               $.ajax({
                 url: "http://localhost:9090/green2209s_08/home/address",
-                method: "post",
+                method: "patch",
                 data:{
                   recipient:recipient,
                   phoneNo:phoneNo,
                   address:address,
                   detail:detail,
-                  zipcode:zipcode
+                  zipcode:zipcode,
+                  addressId:addressId
                 },
                 success: function (result){
                   console.log(result);
-                  alert('주소 등록이 완료되었습니다');
+                  alert('주소 수정이 완료되었습니다');
                   location.replace('/green2209s_08/home/my-address/list');
                 },
                 error: function (result){
                   console.log(result.responseJSON);
+                  alert(result.responseJSON.getMessage());
+                  location.replace('/green2209s_08/home/my-address/list');
                 }
               })
             }

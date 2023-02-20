@@ -40,14 +40,14 @@
         <div class="my__address__list__wrap">
           <div class="my__address__list">
 
-            <div class="address__content__wrap">
+            <div class="address__content__wrap" th:each="address : ${addresses}">
               <div class="address__content">
-                <div class="address__name"><b>백정광</b></div>
-                <div class="address__info">충청북도 청주시 청주시 청주청주 3-17</div>
-                <div class="address__info">010-5555-5555</div>
-                <div class="address__info">문 앞</div>
+                <div class="address__name"><b th:text="${address.recipient}"></b></div>
+                <div class="address__info" th:text="${address.address}">충청북도 청주시 청주시 청주청주 3-17</div>
+                <div class="address__info" th:text="${address.phoneNo}">010-5555-5555</div>
+                <div class="address__info" th:text="${address.detail}">문 앞</div>
                 <div class="address__info">
-                  <button class="btn btn-primary">수정</button>
+                  <a th:href="@{/home/my-address/{addressId}/edit (addressId = ${address.id})}" class="btn btn-primary">수정</a>
                 </div>
               </div>
             </div>
