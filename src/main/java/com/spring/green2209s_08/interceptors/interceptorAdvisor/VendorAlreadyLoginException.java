@@ -1,12 +1,11 @@
 package com.spring.green2209s_08.interceptors.interceptorAdvisor;
 
-import com.spring.green2209s_08.web.exception.InterceptorException;
+import com.spring.green2209s_08.web.exception.VendorInterceptorException;
 import com.spring.green2209s_08.web.exception.errorResult.InterceptorErrorResult;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 
 @Getter
-public class VendorAlreadyLoginException extends InterceptorException {
+public class VendorAlreadyLoginException extends VendorInterceptorException {
     public VendorAlreadyLoginException(InterceptorErrorResult errorResult) {
         super(errorResult);
     }

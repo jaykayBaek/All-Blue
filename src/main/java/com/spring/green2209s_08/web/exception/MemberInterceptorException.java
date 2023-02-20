@@ -6,7 +6,7 @@ import lombok.RequiredArgsConstructor;
 
 @Getter
 @RequiredArgsConstructor
-public class InterceptorException extends RuntimeException {
+public class MemberInterceptorException extends RuntimeException {
     private final InterceptorErrorResult errorResult;
 
 }

@@ -276,7 +276,6 @@ public class DummyData {
                     .memberGrade(MemberGrade.BRONZE)
                     .createdTime(LocalDateTime.now())
                     .accountLock(false)
-                    .leavedTime(LocalDateTime.now())
                     .build();
             em.persist(member);
 

@@ -2,10 +2,7 @@ package com.spring.green2209s_08.interceptors;
 
 import com.spring.green2209s_08.interceptors.interceptorAdvisor.VendorAlreadyLoginException;
 import com.spring.green2209s_08.web.constants.SessionConst;
-import com.spring.green2209s_08.web.exception.InterceptorException;
-import com.spring.green2209s_08.web.exception.VendorException;
 import com.spring.green2209s_08.web.exception.errorResult.InterceptorErrorResult;
-import com.spring.green2209s_08.web.exception.errorResult.VendorErrorResult;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.servlet.HandlerInterceptor;
 

@@ -1,7 +1,7 @@
 package com.spring.green2209s_08.interceptors;
 
 import com.spring.green2209s_08.web.constants.SessionConst;
-import com.spring.green2209s_08.web.exception.InterceptorException;
+import com.spring.green2209s_08.web.exception.VendorInterceptorException;
 import com.spring.green2209s_08.web.exception.errorResult.InterceptorErrorResult;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -17,7 +17,7 @@ public class VendorLoginCheck implements HandlerInterceptor {
         HttpSession session = request.getSession();
 
         if(session.getAttribute(SessionConst.VENDOR_ID) == null){
-            throw new InterceptorException(InterceptorErrorResult.UNAUTHORIZED);
+            throw new VendorInterceptorException(InterceptorErrorResult.UNAUTHORIZED);
         }
 
         return true;
