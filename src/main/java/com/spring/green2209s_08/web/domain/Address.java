@@ -20,9 +20,9 @@ public class Address {
     @JoinColumn(name = "member_id")
     private Member member;
 
-    private String savedName;
-    private String postcode;
-    private String street;
+    private String recipient;
+    private String phoneNo;
+    private String zipcode;
+    private String address;
     private String detail;
-    private String extra;
 }

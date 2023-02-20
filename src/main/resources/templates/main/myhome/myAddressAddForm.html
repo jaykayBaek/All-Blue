@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+</html><!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>올! 블루</title>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+  <th:block th:replace="main/common/common-css :: common_css"></th:block>
+  <link rel="stylesheet" th:href="@{/css/home/home.css}" href="/css/home/home.css" type="text/css">
+
+  <!-- 다음 배송 api -->
+  <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+</head>
+<body>
+<header th:replace="main/common/header :: header"></header>
+
+<div class="container-fluid">
+  <div class="row home__nav">
+    <div class="col-xl-2 col-2" style="padding-right: 0px">
+      <div class="title__box">MY 블루</div>
+      <th:block th:replace="main/common/myhome-nav :: myhomeNav"></th:block>
+    </div>
+    <div class="col-xl-9 col-10">
+      <th:block th:replace="main/common/myhome-listbox :: listbox"></th:block>
+
+      <div class="row d-flex flex-row">
+
+        <div class="my__address__list__wrap">
+          <div class="my__address__list">
+
+            <div class="address__content__wrap">
+              <div class="address__content">
+                <table class="table">
+                  <tr>
+                    <td>
+                      <div class="address__input__wrap">
+                        <label for="recipientInput">
+                          받는 사람
+                        </label>
+                        <input type="text" id="recipientInput" placeholder="수취인 입력">
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <div class="address__input__wrap">
+                        <label for="phoneNoInput">
+                          핸드폰번호
+                        </label>
+                        <input type="text" id="phoneNoInput" placeholder="핸드폰 번호 입력">
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <div class="address__input__wrap">
+                        <label for="addressInput">
+                          주소찾기
+                        </label>
+                        <input type="text" name="zipcode" id="zipcode" readonly>
+                        <input onclick="" type="text" name="address" id="addressInput" readonly placeholder="우편번호 찾기">
+                        <hr/>
+                        <input type="text" name="address_detail" id="detailInput" placeholder="상세주소">
+                      </div>
+                    </td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+
+          </div>
+          <div>
+            <button class="btn__addAddress" type="button" onclick="saveAddress()">저장</button>
+          </div>
+
+          <div class="spad"></div>
+          <script>
+            window.onload = function(){
+              document.getElementById("addressInput").addEventListener("click", function(){ //주소입력칸을 클릭하면
+                new daum.Postcode({
+                  oncomplete: function(data) {
+                    document.getElementById("addressInput").value = data.address; // 주소 넣기
+                    document.getElementById("zipcode").value = data.zonecode; // 주소 넣기
+
+                    document.querySelector("input[name=address_detail]").focus(); //상세입력 포커싱
+                  }
+                }).open();
+              });
+            }
+            $(document).ready(function() {
+              const inputWrap = $('.address__input__wrap');
+              const input = $('<input>');
+
+              input.on('focus', function() {
+                inputWrap.addClass('focus');
+              });
+
+              input.on('blur', function() {
+                inputWrap.removeClass('focus');
+              });
+            });
+
+            function saveAddress(){
+              let recipient = $('#recipientInput').val();
+              let phoneNo = $('#phoneNoInput').val();
+              let address = $('#addressInput').val();
+              let detail = $('#detailInput').val();
+              let zipcode = $('#zipcode').val();
+
+              if(recipient.trim() == ''){
+                alert('받는 사람을 입력해주세요');
+                return false;
+              }
+              if(phoneNo.trim() == ''){
+                alert('휴대폰 번호를 입력해주세요');
+                return false;
+              }
+              if(address.trim() == ''){
+                alert('주소를 입력해주세요');
+                return false;
+              }
+              if(detail.trim() == ''){
+                alert('상세 주소를 입력해주세요');
+                return false;
+              }
+
+              $.ajax({
+                url: "",
+                method: "post",
+                data:{
+                  recipient:recipient,
+                  phoneNo:phoneNo,
+                  address:address,
+                  detail:detail,
+                  zipcode:zipcode
+                },
+                success: function (result){
+                  console.log(result);
+                },
+                error: function (result){
+                  console.log(result);
+                }
+              })
+            }
+          </script>
+
+        </div>
+
+      </div>
+
+    </div>
+    <div class="col-xl-1">
+      <th:block th:replace="main/common/wishlist :: wishlist"></th:block>
+    </div>
+  </div>
+</div>
+
+
+<footer th:replace="main/common/footer :: footer"></footer>
+<th:block th:replace="main/common/common-js :: common_js"></th:block>
+</body>
+</html>
