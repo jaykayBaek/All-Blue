@@ -18,6 +18,37 @@
 
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.13.2/js/jquery.dataTables.js"></script>
 
+    <script>
+        function confirmPassword(){
+            let vendorPassword = $("#vendorPassword").val();
+
+            $.ajax({
+                method:"post",
+                url:"http://localhost:9090/green2209s_08/vendor/account/confirm-password",
+                data : {
+                    vendorPassword : vendorPassword
+                },
+                success: function (result) {
+                    console.log(result);
+                    if (result.success == 'TRUE') {
+                        $(".change-info-table").html('<tr><td>아이디</td><td>'+result.response.vendorLoginId+'</td></tr><tr><td>비밀번호</td><td>비밀번호변경은 비밀번호 변경에서 해주세요.</td></tr><tr><td>이름</td><td><input type="text" name="vendorName"value="'+result.response.vendorName+'"></td></tr><tr><td>핸드폰번호</td><td><input type="text"name="vendorPhoneNo"value="'+result.response.vendorPhoneNo+'"></td></tr><tr><td>이메일</td><td><input type="text" name="vendorEmail"value="'+result.response.vendorEmail+'"></td></tr><tr><td colspan="2"><button type="button"onclick="changeVendorInfo()"class="btn btn-primary">수정하기</button></td></tr>');
+
+                    }
+                },
+                error : function (result){
+                    alert(result.responseJSON.message);
+                }
+            })
+
+        }
+        function changeVendorInfo(){
+            $('#vendorEditForm').attr("method", "post");
+            $('#vendorEditForm').attr("action", "http://localhost:9090/green2209s_08/vendor/account/change-info");
+            $('#vendorEditForm').submit();
+        }
+
+    </script>
+
 </head>
 
 <body id="page-top">
@@ -49,45 +80,29 @@
                         <div class="col-12 mb-4">
                             <div class="card shadow h-100 py-2">
                                 <div class="card-body">
-                                    <table class="table">
-                                        <tr>
-                                            <td>아이디</td>
-                                            <td>qorhwk13</td>
-                                        </tr>
-                                        <tr>
-                                            <td>비밀번호</td>
-                                            <td>
-                                                <input type="password" id="vendorPassword" name="vendorPassword">
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td colspan="2">
-                                                <button type="button" onclick="confirmPassword()" class="btn btn-primary">확인</button>
-                                            </td>
-                                        </tr>
+                                    <form action=""></form>
+                                    <form id="vendorEditForm">
+                                        <table class="table">
+                                            <tbody class="change-info-table">
+                                                <tr>
+                                                    <td>아이디</td>
+                                                    <td th:text="${vendor.vendorLoginId}">test</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>비밀번호</td>
+                                                    <td>
+                                                        <input type="password" id="vendorPassword" name="vendorPassword">
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="2">
+                                                        <button type="button" onclick="confirmPassword()" class="btn btn-primary">확인</button>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </form>
 
-                                        <script>
-                                            function confirmPassword(){
-                                                let vendorPassword = $("#vendorPassword").val();
-
-                                                $.ajax({
-                                                    method:"post",
-                                                    url:"http://localhost:9090/green2209s_08/vendor/account/confirm-password",
-                                                    data : {
-                                                        vendorPassword : vendorPassword
-                                                    },
-                                                    success: function (result){
-                                                       console.log(result);
-                                                    },
-                                                    error : function (result){
-                                                       console.log(result);
-
-                                                    }
-                                                })
-                                            }
-
-                                        </script>
-                                    </table>
                                 </div>
                             </div>
 

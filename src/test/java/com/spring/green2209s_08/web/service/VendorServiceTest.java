@@ -7,6 +7,7 @@ import com.spring.green2209s_08.web.repository.VendorRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
@@ -21,6 +22,8 @@ class VendorServiceTest {
     @Autowired
     private VendorService vendorService;
     private VendorRepository vendorRepository;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Test
     void 회원가입() {
@@ -54,6 +57,26 @@ class VendorServiceTest {
 
         //then
         assertThat(e.getErrorResult()).isEqualTo(VendorErrorResult.DUPLICATE_OR_LEAVED_LOGIN_ID);
+    }
+
+    @Test
+    void 판매자정보변경_비밀번호확인() {
+        //given
+        Vendor target = Vendor.builder()
+                .vendorLoginId("test")
+                .vendorPassword(passwordEncoder.encode("1234"))
+                .vendorName("홍길동")
+                .build();
+        vendorService.register(target);
+
+        //when
+        VendorException e = assertThrows(VendorException.class, () ->
+                vendorService.vendorPasswordCheck(target.getId(), "12345")
+        );
+
+        //then
+        assertThat(e.getErrorResult().getMessage()).isEqualTo(VendorErrorResult.PASSWORD_NOT_MATCH.getMessage());
+
     }
 
 }

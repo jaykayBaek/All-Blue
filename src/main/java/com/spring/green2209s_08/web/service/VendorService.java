@@ -1,5 +1,7 @@
 package com.spring.green2209s_08.web.service;
 
+import com.spring.green2209s_08.web.controller.vendor.ChangePasswordRequest;
+import com.spring.green2209s_08.web.controller.vendor.VendorInfoChangeRequest;
 import com.spring.green2209s_08.web.domain.Vendor;
 import com.spring.green2209s_08.web.exception.errorResult.VendorErrorResult;
 import com.spring.green2209s_08.web.exception.VendorException;
@@ -10,6 +12,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Optional;
 
 @Service
@@ -56,5 +59,30 @@ public class VendorService {
         if(result == false){
             throw new VendorException(VendorErrorResult.PASSWORD_NOT_MATCH);
         }
+    }
+
+    @Transactional
+    public void changeVendorInfo(Long vendorId, VendorInfoChangeRequest changeRequest) {
+        Vendor findVendor = vendorRepository.findById(vendorId).get();
+        findVendor.changeInfo(changeRequest.getVendorName(), changeRequest.getVendorEmail(), changeRequest.getVendorPhoneNo());
+    }
+
+    public void matchPasswordForChangePassword(String password, String newPassword, String vendorPassword) {
+        boolean result = passwordEncoder.matches(password, vendorPassword);
+
+        if(result == false){
+            throw new VendorException(VendorErrorResult.PASSWORD_NOT_MATCH);
+        }
+    }
+
+    @Transactional
+    public void changePassword(Long vendorId, ChangePasswordRequest passwordRequest) {
+        Vendor vendor = findById(vendorId).get();
+
+        if(!passwordRequest.getNewPassword().equals(passwordRequest.getRepeatNewPassword())){
+            throw new VendorException(VendorErrorResult.CHANGE_PASSWORD_NOT_MATCH);
+        }
+
+        vendor.changePassword(passwordEncoder.encode(passwordRequest.getRepeatNewPassword()));
     }
 }

@@ -32,4 +32,14 @@ public class Vendor {
 
     @OneToMany(mappedBy = "vendor")
     private List<Item> items = new ArrayList<>();
+
+    public void changeInfo(String vendorName, String vendorEmail, String vendorPhoneNo) {
+        this.vendorName = vendorName;
+        this.vendorEmail = vendorEmail;
+        this.vendorPhoneNo = vendorPhoneNo;
+    }
+
+    public void changePassword(String newPassword){
+        vendorPassword = newPassword;
+    }
 }

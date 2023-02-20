@@ -81,5 +81,22 @@ public class VendorRestController {
         return ResponseEntity.status(HttpStatus.OK)
                 .body(statusResponse);
     }
+
+    @PostMapping("/account/change-password")
+    public ResponseEntity<StatusResponse> changePassword(@ModelAttribute ChangePasswordRequest passwordRequest, HttpServletRequest request){
+        HttpSession session = request.getSession();
+        Long vendorId = (Long) session.getAttribute(SessionConst.VENDOR_ID);
+
+        Vendor findVendor = vendorService.findById(vendorId).get();
+        vendorService.matchPasswordForChangePassword(passwordRequest.getPassword(), passwordRequest.getNewPassword(), findVendor.getVendorPassword());
+
+        vendorService.changePassword(vendorId, passwordRequest);
+
+        StatusResponse statusResponse = new StatusResponse(
+                HttpStatus.OK.toString(), "비밀번호 변경 완료", "TRUE"
+        );
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(statusResponse);
+    }
     
 }

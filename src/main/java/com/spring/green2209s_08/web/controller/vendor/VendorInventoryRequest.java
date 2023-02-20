@@ -9,7 +9,6 @@ import java.util.List;
 @Getter
 @Builder
 @AllArgsConstructor
-@ToString
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class VendorInventoryRequest {
     private String itemName;

@@ -79,7 +79,7 @@ $('#pwd').blur(function (){
         checkPasswordResult = false;
         return false;
     } else if(!password.match(regPwd)){
-        $('.validate__password__result').html('비밀번호는 8자 이상, 하나 이상의 문자, 숫자, 특수문자를 포함하여 만들어주세요.');
+        $('.validate__password__result').html('비밀번호는 8자 이상 16자 이하, 하나 이상의 문자, 숫자, 특수문자를 포함하여 만들어주세요.');
         checkPasswordResult = false;
         return false;
     } else if(password != passwordConfirm){

@@ -5,13 +5,17 @@ import com.spring.green2209s_08.web.domain.Vendor;
 import com.spring.green2209s_08.web.service.VendorService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.io.PrintWriter;
 import java.util.Optional;
 
 @Controller
@@ -21,6 +25,7 @@ import java.util.Optional;
 public class VendorController {
 
     private final VendorService vendorService;
+    private final PasswordEncoder passwordEncoder;
 
     @GetMapping("/join")
     public String vendorRegister(){
@@ -72,12 +77,20 @@ public class VendorController {
         model.addAttribute("vendor", response);
         return "main/vendorAccount/changeInfo";
     }
+    @PostMapping("/account/change-info")
+    public String changeVendorInfo(@ModelAttribute VendorInfoChangeRequest changeRequest, HttpServletRequest request){
+        HttpSession session = request.getSession();
+        Long vendorId = (Long) session.getAttribute(SessionConst.VENDOR_ID);
+        vendorService.changeVendorInfo(vendorId, changeRequest);
+
+        return "redirect:/vendor/account/change-info";
+    }
 
     @GetMapping("/account/change-password")
-    public String changePassword(Model model, HttpServletRequest request){
+    public String changePasswordForm(Model model, HttpServletRequest request){
         VendorHomeResponse response = getVendorHomeResponse(request);
         model.addAttribute("vendor", response);
-        return "changeInfo";
+        return "main/vendorAccount/changePassword";
     }
 
     private VendorHomeResponse getVendorHomeResponse(HttpServletRequest request) {

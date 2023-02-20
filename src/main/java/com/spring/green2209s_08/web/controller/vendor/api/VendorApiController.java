@@ -2,8 +2,7 @@ package com.spring.green2209s_08.web.controller.vendor.api;
 
 import com.spring.green2209s_08.web.constants.SessionConst;
 import com.spring.green2209s_08.web.controller.StatusResponse;
-import com.spring.green2209s_08.web.exception.VendorException;
-import com.spring.green2209s_08.web.exception.errorResult.VendorErrorResult;
+import com.spring.green2209s_08.web.domain.Vendor;
 import com.spring.green2209s_08.web.service.VendorService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -16,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.Optional;
 
 @RestController
 @Slf4j
@@ -37,15 +37,24 @@ public class VendorApiController {
     }
 
     @PostMapping("account/confirm-password")
-    public ResponseEntity<StatusResponse> verifyPasswordForChangeInfo(
+    public ResponseEntity<VendorInfoChangeStatusResponse> verifyPasswordForChangeInfo(
             @RequestParam String vendorPassword, HttpServletRequest request){
         HttpSession session = request.getSession();
         Long vendorId = (Long) session.getAttribute(SessionConst.VENDOR_ID);
+
         vendorService.vendorPasswordCheck(vendorId, vendorPassword);
-        
-        StatusResponse statusResponse = new StatusResponse(
-                HttpStatus.OK.toString(), "비밀번호 검증 완료", "TRUE"
+        Optional<Vendor> findVendor = vendorService.findById(vendorId);
+
+
+        VendorInfoChangeResponse response = findVendor.map(m -> new VendorInfoChangeResponse(
+                vendorId, m.getVendorLoginId(), m.getVendorName(), m.getVendorEmail(), m.getVendorPhoneNo()
+        )).get();
+
+        VendorInfoChangeStatusResponse statusResponse = new VendorInfoChangeStatusResponse(
+                HttpStatus.OK.toString(), "비밀번호 검증 완료", "TRUE", response
+
         );
+
         return ResponseEntity.status(HttpStatus.OK)
                 .body(statusResponse);
     }
