@@ -1,7 +1,7 @@
 package com.spring.green2209s_08.web.service;
 
-import com.spring.green2209s_08.web.controller.vendor.ChangePasswordRequest;
-import com.spring.green2209s_08.web.controller.vendor.VendorInfoChangeRequest;
+import com.spring.green2209s_08.web.controller.vendor.dto.ChangePasswordRequest;
+import com.spring.green2209s_08.web.controller.vendor.dto.VendorInfoChangeRequest;
 import com.spring.green2209s_08.web.domain.Vendor;
 import com.spring.green2209s_08.web.exception.errorResult.VendorErrorResult;
 import com.spring.green2209s_08.web.exception.VendorException;
@@ -12,7 +12,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.Optional;
 
 @Service

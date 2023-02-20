@@ -42,15 +42,15 @@
     <div class="col-lg-4 d-flex align-items-end justify-content-end">
       <div class="header__cart">
         <ul>
-          <li>
-            <a th:href="@{/order/list}" href="http://localhost:9090/">
+          <li th:if="${session.vendorId eq null}">
+            <a th:href="@{/home/order/list}" href="http://localhost:9090/">
               <i class="  fa fa-user"></i>
               <div th:text="#{nav.myhome}">
                 myhome
               </div>
             </a>
           </li>
-          <li>
+          <li th:if="${session.vendorId eq null}">
             <a th:href="@{/wishlist}" href="http://localhoost:9090/green2209s_08/wishlist" class="nav__list">
               <i class="fa-solid fa-cart-shopping"></i>
               <span>3</span>

@@ -2,12 +2,12 @@ package com.spring.green2209s_08.web.controller.vendor;
 
 import com.spring.green2209s_08.web.constants.SessionConst;
 import com.spring.green2209s_08.web.controller.StatusResponse;
-import com.spring.green2209s_08.web.domain.Fish;
-import com.spring.green2209s_08.web.domain.ItemImage;
+import com.spring.green2209s_08.web.controller.vendor.dto.ChangePasswordRequest;
+import com.spring.green2209s_08.web.controller.vendor.dto.VendorLoginRequest;
+import com.spring.green2209s_08.web.controller.vendor.dto.VendorRegisterRequest;
 import com.spring.green2209s_08.web.domain.Vendor;
 import com.spring.green2209s_08.web.domain.enums.AccountType;
 import com.spring.green2209s_08.web.service.VendorService;
-import com.spring.green2209s_08.web.utility.FileUpload;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -19,8 +19,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.io.IOException;
-import java.util.List;
 
 @RestController
 @Slf4j

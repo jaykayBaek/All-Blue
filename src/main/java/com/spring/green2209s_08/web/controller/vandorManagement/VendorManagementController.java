@@ -1,7 +1,7 @@
-package com.spring.green2209s_08.web.controller.delivery;
+package com.spring.green2209s_08.web.controller.vandorManagement;
 
 import com.spring.green2209s_08.web.constants.SessionConst;
-import com.spring.green2209s_08.web.controller.vendor.VendorHomeResponse;
+import com.spring.green2209s_08.web.controller.vendor.dto.VendorHomeResponse;
 import com.spring.green2209s_08.web.domain.Vendor;
 import com.spring.green2209s_08.web.service.VendorService;
 import lombok.RequiredArgsConstructor;

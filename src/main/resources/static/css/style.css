@@ -36,6 +36,7 @@
 	--content : #ebebeb;
 	--grey : #6c757d;
 	--lightgrey : #adb5bd;
+	--backgroundgrey : #e9ecef;
 	--font-size-content : 12px;
 	--red : #ef233c;
 }
@@ -173,6 +174,7 @@ ol {
 .search__wishlist{
 	border: 1px solid var(--grey);
 }
+
 .search__wishlist__title{
 	font-size: 12px;
 	padding: 6px;
@@ -562,6 +564,7 @@ ol {
 
 .register__form .validate__result{
 	font-size: 12px;
+
 	color: var(--red);
 }
 
@@ -3429,6 +3432,12 @@ ol {
 }
 
 /*--------------------------------- Responsive Media Quaries -----------------------------*/
+
+@media only screen and (max-width: 1400px) {
+	.search__wishlist{
+		display: none;
+	}
+}
 
 @media only screen and (min-width: 1200px) {
 	.container {

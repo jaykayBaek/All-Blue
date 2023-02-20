@@ -1,6 +1,3 @@
-.home__nav{
-
-}
 
 .home__nav .title__box{
     background-color: var(--maincolor);
@@ -32,4 +29,57 @@
 .list__content{
     font-size: 2rem;
     font-weight: lighter;
+}
+
+.myhome__nav__wrap{
+    border-left: 1px solid var(--maincolor);
+    border-right: 1px solid var(--maincolor);
+    border-bottom: 1px solid var(--maincolor);
+    background-color: var(--backgroundgrey);
+    padding: 16px 10px;
+}
+
+.myhome__nav__wrap div{
+    margin-top: 16px;
+    margin-bottom: 8px;
+    border-bottom: 1px solid var(--grey);
+}
+
+.myhome__nav .myhome__title{
+    font-size: 14px;
+    font-weight: 700;
+
+}
+
+.myhome__nav li{
+    font-size: 12px;
+    margin: 8px;
+}
+
+.my__address__list__wrap{
+    margin: 0 auto;
+    width: 80%;
+}
+
+.address__content__wrap{
+    border: 2px solid var(--lightgrey);
+    margin-top: 16px;
+    margin-bottom: 14px;
+    padding: 8px;
+}
+
+.address__content{
+    padding: 8px;
+    border-bottom: 1px solid var(--lightgrey);
+}
+
+.btn__addAddress{
+    width: 100%;
+    height: 50px;
+    background-color: #fff;
+    font-weight: 700;
+    border-bottom: 2px solid var(--lightgrey);
+    border-top: 1px solid var(--lightgrey);
+    border-right: 1px solid var(--lightgrey);
+    border-left: 1px solid var(--lightgrey);
 }

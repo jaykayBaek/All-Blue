@@ -1,4 +1,4 @@
-package com.spring.green2209s_08.web.controller.vendor;
+package com.spring.green2209s_08.web.controller.vendor.dto;
 
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import lombok.AllArgsConstructor;

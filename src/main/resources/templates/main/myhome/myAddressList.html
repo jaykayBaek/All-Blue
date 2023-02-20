@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+</html><!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>올! 블루</title>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+  <th:block th:replace="main/common/common-css :: common_css"></th:block>
+  <link rel="stylesheet" th:href="@{/css/home/home.css}" href="/css/home/home.css" type="text/css">
+
+</head>
+<body>
+<header th:replace="main/common/header :: header"></header>
+
+<div class="container-fluid">
+  <div class="row home__nav">
+    <div class="col-xl-2 col-2" style="padding-right: 0px">
+      <div class="title__box">MY 블루</div>
+      <th:block th:replace="main/common/myhome-nav :: myhomeNav"></th:block>
+    </div>
+    <div class="col-xl-9 col-10">
+      <th:block th:replace="main/common/myhome-listbox :: listbox"></th:block>
+
+      <div class="row d-flex flex-row">
+
+        <div class="my__address__list__wrap">
+          <div class="my__address__list">
+
+            <div class="address__content__wrap">
+              <div class="address__content">
+                <div class="address__name"><b>백정광</b></div>
+                <div class="address__info">충청북도 청주시 청주시 청주청주 3-17</div>
+                <div class="address__info">010-5555-5555</div>
+                <div class="address__info">문 앞</div>
+                <div class="address__info">
+                  <button class="btn btn-primary">수정</button>
+                </div>
+              </div>
+            </div>
+
+          </div>
+          <div>
+            <button class="btn__addAddress">배송지 추가</button>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+    <div class="col-xl-1">
+      <th:block th:replace="main/common/wishlist :: wishlist"></th:block>
+    </div>
+  </div>
+</div>
+
+
+<footer th:replace="main/common/footer :: footer"></footer>
+<th:block th:replace="main/common/common-js :: common_js"></th:block>
+</body>
+</html>

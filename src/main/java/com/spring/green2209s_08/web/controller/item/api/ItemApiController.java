@@ -2,10 +2,7 @@ package com.spring.green2209s_08.web.controller.item.api;
 
 import com.spring.green2209s_08.web.constants.SessionConst;
 import com.spring.green2209s_08.web.controller.StatusResponse;
-import com.spring.green2209s_08.web.controller.vendor.VendorHomeResponse;
-import com.spring.green2209s_08.web.domain.Item;
 import com.spring.green2209s_08.web.domain.ItemImage;
-import com.spring.green2209s_08.web.repository.ItemRepository;
 import com.spring.green2209s_08.web.service.ItemService;
 import com.spring.green2209s_08.web.utility.FileUpload;
 import lombok.RequiredArgsConstructor;

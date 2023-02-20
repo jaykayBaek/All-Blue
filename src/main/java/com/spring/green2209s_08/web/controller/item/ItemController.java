@@ -1,8 +1,8 @@
 package com.spring.green2209s_08.web.controller.item;
 
 import com.spring.green2209s_08.web.constants.SessionConst;
-import com.spring.green2209s_08.web.controller.vendor.VendorHomeResponse;
-import com.spring.green2209s_08.web.controller.vendor.VendorInventoryRequest;
+import com.spring.green2209s_08.web.controller.vendor.dto.VendorHomeResponse;
+import com.spring.green2209s_08.web.controller.vendor.dto.VendorInventoryRequest;
 import com.spring.green2209s_08.web.domain.*;
 import com.spring.green2209s_08.web.domain.enums.ItemStatus;
 import com.spring.green2209s_08.web.service.CategoryService;
