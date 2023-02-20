@@ -20,13 +20,11 @@ public class MyHomeController {
         return "main/myhome/cancelReturnExchangeList";
     }
 
-
-
-
     @GetMapping("/my-address/list")
     public String myAddressList(){
         return "main/myhome/myAddressList";
     }
+
     @GetMapping("/my-address/form/add")
     public String myAddressAdd(){
         return "main/myhome/myAddressAddForm";

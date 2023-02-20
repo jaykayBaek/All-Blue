@@ -5,6 +5,7 @@ import com.spring.green2209s_08.web.controller.StatusResponse;
 import com.spring.green2209s_08.web.service.AddressService;
 import com.spring.green2209s_08.web.service.MemberService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,10 +15,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 @RestController
 @RequestMapping("/home")
 @RequiredArgsConstructor
+@Slf4j
 public class MyHomeRestController {
 
     private final MemberService memberService;
@@ -25,7 +28,8 @@ public class MyHomeRestController {
 
     @PostMapping("/address")
     public ResponseEntity<StatusResponse> addressAdd(@ModelAttribute AddressRequest addressRequest, HttpServletRequest request){
-        Long memberId = (Long) request.getAttribute(SessionConst.MEMBER_ID);
+        HttpSession session = request.getSession();
+        Long memberId = (Long) session.getAttribute(SessionConst.MEMBER_ID);
 
         addressService.addAddress(memberId, addressRequest);
 

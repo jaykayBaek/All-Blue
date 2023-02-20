@@ -148,9 +148,11 @@
                 },
                 success: function (result){
                   console.log(result);
+                  alert('주소 등록이 완료되었습니다');
+                  location.replace('/green2209s_08/home/my-address/list');
                 },
                 error: function (result){
-                  console.log(result);
+                  console.log(result.responseJSON);
                 }
               })
             }
