@@ -20,8 +20,6 @@ public class FileUpload {
     private final Pattern pattern = Pattern.compile("<img\\s+src=\"([^\"]+)\"");
 
     public ItemImage thumbnailImageUpload(MultipartFile multipartFile) throws IOException {
-//        String folderCreatedPath = createFolderPath();
-//        String getFolderPath = getFolderPath(UrlConst.THUMBNAIL_URL, folderCreatedPath);
         String imageName = createImage(UrlConst.THUMBNAIL_URL, multipartFile);
         ItemImage itemImage = ItemImage.builder()
                 .thumbnailImage(true)
@@ -33,8 +31,6 @@ public class FileUpload {
     }
 
     public List<ItemImage> extraImagesUpload(List<MultipartFile> extra) throws IOException {
-//        String folderCreatedPath = createFolderPath();
-//        String getFolderPath = getFolderPath(UrlConst.EXTRA_URL, folderCreatedPath);
         List<ItemImage> result = new ArrayList<>();
         for (MultipartFile multipartFile : extra) {
             String imageName = createImage(UrlConst.EXTRA_URL, multipartFile);
@@ -57,24 +53,6 @@ public class FileUpload {
         multipartFile.transferTo(new File(filePath));
         return savedFilename + extension;
     }
-    private String getFolderPath(String urlConst, String folderCreatedPath) {
-        String folderPath = Paths.get(urlConst, folderCreatedPath).toString();
-        File folder = new File(folderPath);
-
-        if (!folder.exists()) {
-            folder.mkdirs();
-        }
-        return folderPath+"\\";
-    }
-
-    private String createFolderPath() {
-        LocalDate currentDate = LocalDate.now();
-        String yyyy = String.valueOf(currentDate.getYear());
-        String MM = String.valueOf(currentDate.getMonthValue());
-        String dd = String.valueOf(currentDate.getDayOfMonth());
-
-        return yyyy+"\\"+MM+"\\"+dd+"\\";
-    }
 
     private String getExtension(String originalFilename) {
         return originalFilename.substring(originalFilename.indexOf("."));
@@ -89,8 +67,6 @@ public class FileUpload {
             // 복사할 파일 경로 + 파일
             String sourcePath = UrlConst.IMAGE_TEMP_DISPLAY_URL;
 
-//            String createFolderPath = createFolderPath();
-//            String folderPath = getFolderPath(UrlConst.IMAGE_DISPLAY_URL, createFolderPath);
             // 옮겨갈 파일 경로 + 파일
             File sourceFile = new File(sourcePath + source);
             File targetFile = new File(UrlConst.IMAGE_DISPLAY_URL + source);

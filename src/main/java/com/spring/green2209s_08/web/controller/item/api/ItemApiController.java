@@ -4,16 +4,20 @@ import com.spring.green2209s_08.web.constants.SessionConst;
 import com.spring.green2209s_08.web.controller.StatusResponse;
 import com.spring.green2209s_08.web.controller.vendor.VendorHomeResponse;
 import com.spring.green2209s_08.web.domain.Item;
+import com.spring.green2209s_08.web.domain.ItemImage;
 import com.spring.green2209s_08.web.repository.ItemRepository;
 import com.spring.green2209s_08.web.service.ItemService;
+import com.spring.green2209s_08.web.utility.FileUpload;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
 
 @RestController
 @Slf4j
@@ -24,7 +28,8 @@ public class ItemApiController {
     private final ItemService itemService;
 
     @PatchMapping("/name")
-    public ResponseEntity<StatusResponse> changeItemName(@RequestParam Long itemId, @RequestParam String itemName, HttpServletRequest request){
+    public ResponseEntity<StatusResponse> changeItemName(@RequestParam Long itemId, @RequestParam String itemName,
+                                                         HttpServletRequest request){
         HttpSession session = request.getSession();
         Long vendorId = (Long) session.getAttribute(SessionConst.VENDOR_ID);
 
@@ -41,7 +46,8 @@ public class ItemApiController {
                 .body(statusResponse);
     }
     @PatchMapping("/number")
-    public ResponseEntity<StatusResponse> changeNumber(@ModelAttribute EditNumberRequest editNumberRequest, HttpServletRequest request){
+    public ResponseEntity<StatusResponse> changeNumber(@ModelAttribute EditNumberRequest editNumberRequest,
+                                                       HttpServletRequest request){
         HttpSession session = request.getSession();
         Long vendorId = (Long) session.getAttribute(SessionConst.VENDOR_ID);
 
@@ -59,7 +65,8 @@ public class ItemApiController {
     }
 
     @PatchMapping("/fish")
-    public ResponseEntity<StatusResponse> changeFish(@ModelAttribute EditFishRequest editFishRequest, HttpServletRequest request){
+    public ResponseEntity<StatusResponse> changeFish(@ModelAttribute EditFishRequest editFishRequest,
+                                                     HttpServletRequest request){
         HttpSession session = request.getSession();
         Long vendorId = (Long) session.getAttribute(SessionConst.VENDOR_ID);
 
@@ -77,7 +84,8 @@ public class ItemApiController {
     }
 
     @PatchMapping("/product")
-    public ResponseEntity<StatusResponse> changeProduct(@ModelAttribute EditProductRequest editProductRequest, HttpServletRequest request){
+    public ResponseEntity<StatusResponse> changeProduct(@ModelAttribute EditProductRequest editProductRequest,
+                                                        HttpServletRequest request){
         HttpSession session = request.getSession();
         Long vendorId = (Long) session.getAttribute(SessionConst.VENDOR_ID);
 
@@ -92,6 +100,16 @@ public class ItemApiController {
 
         return ResponseEntity.status(HttpStatus.OK)
                 .body(statusResponse);
+    }
+
+    @PostMapping("/thumbnail")
+    public ResponseEntity<StatusResponse> changeThumbnail(@RequestParam MultipartFile thumbnail, @RequestParam Long itemId,
+                                                          HttpServletRequest request) throws IOException {
+        FileUpload fileUpload = new FileUpload();
+        ItemImage itemImage = fileUpload.thumbnailImageUpload(thumbnail);
+
+
+        return null;
     }
 
 

@@ -11,10 +11,11 @@ import java.time.LocalDate;
 public class UploadItem {
     private Long id;
     private String itemName;
-    private ItemStatus itemStatus;
     private int price;
     private int stockQuantity;
     private LocalDate uploadDate;
     private String categoryName;
     private String categoryId;
+    private String itemStatus;
+
 }

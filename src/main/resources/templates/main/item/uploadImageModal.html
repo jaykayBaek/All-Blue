@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<section th:fragment="extra">
+  <div class="modal" id="extraModal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-body">
+          <form id="extra-form">
+            <input type="file" class="form-control" id="extra-image" name="extra" multiple="multiple"/>
+            <div class="d-flex flex-row mt-3 justify-content-center pt-5 pb-3">
+              <button type="button" class="btn btn-outline-warning mr-1" data-dismiss="modal">돌아가기</button>
+              <button type="button" onclick="extraSubmit()" class="btn btn-primary">수정하기</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function extraSubmit() {
+      if($('#extra-image').get(0).files.length === 0) {
+        alert('추가이미지는 최소 한 장 이상 업로드해야 합니다.');
+        return;
+      }
+
+      const itemId = $('#itemId').val();
+
+      $('#extra-form').attr("action", 'http://localhost:9090/green2209s_08/item/thumbnail');
+      $('#extra-form').attr("method", 'post');
+      $('#extra-form').attr("enctype", 'multipart/form-data');
+
+      let extra = document.createElement("input")
+      $(extra).attr("type", "hidden");
+      $(extra).attr("name", "itemId");
+      $(extra).val(itemId);
+      $('#extra-form').append(extra);
+      // $('#extra-form').submit();
+    }
+  </script>
+</section>
+
+<section th:fragment="thumbnail">
+  <div class="modal" id="thumbnailModal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-body">
+          <form id="thumbnail-form">
+            <input type="file" class="form-control" id="thumbnail-image" name="extra" multiple="multiple"/>
+            <div class="d-flex flex-row mt-3 justify-content-center pt-5 pb-3">
+              <button type="button" class="btn btn-outline-warning mr-1" data-dismiss="modal">돌아가기</button>
+              <button type="button" onclick="thumbnailSubmit()" class="btn btn-primary">수정하기</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function thumbnailSubmit() {
+      if($('#thumbnail-image').get(0).files.length === 0) {
+        alert('대표이미지는 최소 한 장 이상 업로드해야 합니다.');
+        return;
+      }
+
+      const itemId = $('#itemId').val();
+
+      $('#thumbnail-form').attr("action", 'http://localhost:9090/green2209s_08/item/thumbnail');
+      $('#thumbnail-form').attr("method", 'post');
+      $('#thumbnail-form').attr("enctype", 'multipart/form-data');
+
+      let thumbnail = document.createElement("input")
+      $(thumbnail).attr("type", "hidden");
+      $(thumbnail).attr("name", "itemId");
+      $(thumbnail).val(itemId);
+      $('#thumbnail-form').append(thumbnail);
+      // $('#thumbnail-form').submit();
+    }
+  </script>
+</section>

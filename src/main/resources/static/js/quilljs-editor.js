@@ -17,7 +17,7 @@ function quilljsediterInit(){
     };
 
     quill = new Quill('#item__content', option);
-    // quill.setContent([[${uploadItem.getContent()}]],'silent');
+
     quill.on('text-change', function() {
         document.getElementById("quill_data").value = quill.root.innerHTML;
     });
