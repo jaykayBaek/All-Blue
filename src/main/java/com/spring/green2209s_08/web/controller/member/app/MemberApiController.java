@@ -65,4 +65,20 @@ public class MemberApiController {
                 .body(statusResponse);
     }
 
+    @PatchMapping("/account/phone-no")
+    public ResponseEntity<StatusResponse> changePhoneNo(
+            @RequestParam String phoneNo, HttpServletRequest request){
+        HttpSession session = request.getSession(false);
+        Long memberId = (Long) session.getAttribute(SessionConst.MEMBER_ID);
+
+        memberService.changePhoneNo(memberId, phoneNo);
+
+        StatusResponse statusResponse = new StatusResponse(
+                HttpStatus.OK.toString(), "휴대폰 번호 변경 완료", "TRUE"
+        );
+
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(statusResponse);
+    }
+
 }

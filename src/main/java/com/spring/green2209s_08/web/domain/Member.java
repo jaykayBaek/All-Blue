@@ -64,4 +64,8 @@ public class Member {
     public void changePassword(String newPassword) {
         password = newPassword;
     }
+
+    public void changePhoneNo(String phoneNo) {
+        this.phoneNo = phoneNo;
+    }
 }

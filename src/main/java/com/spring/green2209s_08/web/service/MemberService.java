@@ -142,4 +142,10 @@ public class MemberService {
         Member findMember = memberRepository.findById(memberId).get();
         findMember.changePassword(newPassword);
     }
+
+    @Transactional
+    public void changePhoneNo(Long memberId, String phoneNo) {
+        Member findMember = memberRepository.findById(memberId).get();
+        findMember.changePhoneNo(phoneNo);
+    }
 }

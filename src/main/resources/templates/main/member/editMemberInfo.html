@@ -131,6 +131,11 @@
             function checkPassword(){
               const password = $('#memberPassword').val();
 
+              if(password.trim() == ''){
+                alert('비밀번호를 번호를 입력하세요.');
+                return false;
+              }
+
               $.ajax({
                 method:"post",
                 url:"http://localhost:9090/green2209s_08/member/account/modify",
@@ -168,6 +173,28 @@
             }
 
             function changePhoneNo(){
+              const phoneNo = $('#phoneNo').val();
+
+              if(phoneNo.trim() == ''){
+                alert('휴대폰 번호를 입력하세요.');
+                return false;
+              }
+
+              $.ajax({
+                method: "patch",
+                url: "http://localhost:9090/green2209s_08/member/account/phone-no",
+                data: {
+                  phoneNo: phoneNo
+                },
+                success: function (result) {
+                  console.log(result);
+                  alert('휴대폰 번호 변경이 완료되었습니다');
+                  location.reload();
+                },
+                error: function (result) {
+                  console.log(result);
+                }
+              })
 
             }
 
@@ -216,7 +243,6 @@
                   if(result.status == 401 || data.success == 'FALSE'){
                     alert(data.message);
                   }
-
                 }
               })
             }
