@@ -1,14 +1,16 @@
 package com.spring.green2209s_08.web.controller.member.app;
 
+import com.spring.green2209s_08.web.constants.SessionConst;
 import com.spring.green2209s_08.web.controller.StatusResponse;
 import com.spring.green2209s_08.web.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 @RestController
 @RequestMapping("member")
@@ -28,4 +30,18 @@ public class MemberApiController {
         return ResponseEntity.status(HttpStatus.OK)
                 .body(statusResponse);
     }
-}
+
+    @PatchMapping("account/name")
+    public ResponseEntity<StatusResponse> changeName(@RequestParam String name, HttpServletRequest request){
+        HttpSession session = request.getSession(false);
+        Long memberId = (Long) session.getAttribute(SessionConst.MEMBER_ID);
+
+        memberService.changeName(memberId, name);
+
+        StatusResponse statusResponse = new StatusResponse(
+                HttpStatus.OK.toString(), "이메일 검증 완료", "TRUE"
+        );
+
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(statusResponse);
+    }}

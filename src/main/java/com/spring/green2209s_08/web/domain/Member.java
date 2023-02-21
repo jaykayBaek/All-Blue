@@ -56,4 +56,8 @@ public class Member {
         this.lastVisitedTime = now;
         this.lastVisitedIp = remoteAddr;
     }
+
+    public void changeName(String name) {
+        this.name = name;
+    }
 }

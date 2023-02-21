@@ -8,8 +8,7 @@ import lombok.RequiredArgsConstructor;
 
 @Getter
 public class VendorInfoChangeStatusResponse extends StatusResponse {
-
-    private VendorInfoChangeResponse response;
+    private final VendorInfoChangeResponse response;
 
     public VendorInfoChangeStatusResponse(String CODE, String MESSAGE, String SUCCESS, VendorInfoChangeResponse response) {
         super(CODE, MESSAGE, SUCCESS);

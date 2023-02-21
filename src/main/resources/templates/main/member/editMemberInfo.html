@@ -42,88 +42,90 @@
             <span class="email__text" th:text="${email}">test@gmail.com</span>님의 정보를 안전하게 보호하기 위해 비밀번호를 다시 입력해주세요.
           </div>
           <table class="table">
-            <tr>
-              <th>아이디(이메일)</th>
-              <td th:text="${email}"></td>
-              <input type="hidden" name="email" th:value="${email}"/>
-            </tr>
-            <tr>
-              <th>비밀번호</th>
-              <td>
-                <input type="password" name="memberPassword" id="memberPassword"/>
-              </td>
-            </tr>
-            <tr>
-              <td colspan="2">
-                <div class="modify__button__wrap d-flex flex-row justify-content-center">
-                  <button type="reset" class="mr-2 modify__button">취소</button>
-                  <button type="button" onclick="checkPassword()" class="modify__button">확인</button>
-                </div>
-              </td>
-            </tr>
+            <tbody class="member__info__table">
+              <tr>
+                <th>아이디(이메일)</th>
+                <td th:text="${email}"></td>
+                <input type="hidden" name="email" th:value="${email}"/>
+              </tr>
+              <tr>
+                <th>비밀번호</th>
+                <td>
+                  <input type="password" name="memberPassword" id="memberPassword"/>
+                </td>
+              </tr>
+              <tr>
+                <td colspan="2">
+                  <div class="modify__button__wrap d-flex flex-row justify-content-center">
+                    <button type="reset" class="mr-2 modify__button">취소</button>
+                    <button type="button" onclick="checkPassword()" class="modify__button">확인</button>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
 
-            <tr>
-              <th>아이디(이메일)</th>
-              <td>이메일</td>
-            </tr>
-            <tr>
-              <th>이름</th>
-              <td>
-                <div>
-                  <input type="text" name="memberName" id="memberName" th:value="">
-                  홍길동
-                </div>
-                <button class="btn btn-sm btn-primary m-2">이름 변경</button>
-              </td>
+<!--            <tr>-->
+<!--              <th>아이디(이메일)</th>-->
+<!--              <td>이메일</td>-->
+<!--            </tr>-->
+<!--            <tr>-->
+<!--              <th>이름</th>-->
+<!--              <td>-->
+<!--                <div>-->
+<!--                  <input type="text" name="memberName" id="memberName">-->
+<!--                  홍길동-->
+<!--                </div>-->
+<!--                <button type="button" onclick="changeName()" class="btn btn-sm btn-primary m-2">이름 변경</button>-->
+<!--              </td>-->
 
-            </tr>
-            <tr>
-              <th>휴대폰 번호</th>
-              <td>
-                <div>
-                  01055555555
-                </div>
-                <button class="btn btn-sm btn-primary m-2">휴대폰 번호 변경</button>
-              </td>
-            </tr>
-            <tr>
-              <th>비밀번호 변경</th>
-              <td class="pwd__wrap">
-                <div class="pwd__content__wrap">
-                  <div class="pwd__title">
-                    현재 비밀번호
-                  </div>
-                  <div class="pwd__input">
-                    <input type="password" name="memberPassword" id="memberPassword"><br/>
-                  </div>
-                </div>
-                <div class="pwd__content__wrap">
-                  <div class="pwd__title">
-                    새 비밀번호
-                  </div>
-                  <div class="pwd__input">
-                    <input type="password" name="newPassword" id="newPassword"><br/>
-                  </div>
-                </div>
-                <div class="pwd__content__wrap">
-                  <div class="pwd__title">
-                    새 비밀번호 다시입력
-                  </div>
-                  <div class="pwd__input">
-                    <input type="password" name="repeatNewPassword" id="repeatNewPassword"><br/>
-                  </div>
-                </div>
-                <div class="pwd__content__wrap">
-                  <button class="btn btn-sm btn-primary m-2">비밀번호 변경</button>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <th>주소지</th>
-              <td class="address__change">
-                주소지 추가, 수정, 삭제는 <strong><a th:href="@{/home/my-address/list}">[배송지 관리]</a></strong>에서 가능합니다.
-              </td>
-            </tr>
+<!--            </tr>-->
+<!--            <tr>-->
+<!--              <th>휴대폰 번호</th>-->
+<!--              <td>-->
+<!--                <div>-->
+<!--                  01055555555-->
+<!--                </div>-->
+<!--                <button type="button" onclick="changePhoneNo()" class="btn btn-sm btn-primary m-2">휴대폰 번호 변경</button>-->
+<!--              </td>-->
+<!--            </tr>-->
+<!--            <tr>-->
+<!--              <th>비밀번호 변경</th>-->
+<!--              <td class="pwd__wrap">-->
+<!--                <div class="pwd__content__wrap">-->
+<!--                  <div class="pwd__title">-->
+<!--                    현재 비밀번호-->
+<!--                  </div>-->
+<!--                  <div class="pwd__input">-->
+<!--                    <input type="password" name="memberPassword" id="memberPassword"><br/>-->
+<!--                  </div>-->
+<!--                </div>-->
+<!--                <div class="pwd__content__wrap">-->
+<!--                  <div class="pwd__title">-->
+<!--                    새 비밀번호-->
+<!--                  </div>-->
+<!--                  <div class="pwd__input">-->
+<!--                    <input type="password" name="newPassword" id="newPassword"><br/>-->
+<!--                  </div>-->
+<!--                </div>-->
+<!--                <div class="pwd__content__wrap">-->
+<!--                  <div class="pwd__title">-->
+<!--                    새 비밀번호 다시입력-->
+<!--                  </div>-->
+<!--                  <div class="pwd__input">-->
+<!--                    <input type="password" name="repeatNewPassword" id="repeatNewPassword"><br/>-->
+<!--                  </div>-->
+<!--                </div>-->
+<!--                <div class="pwd__content__wrap">-->
+<!--                  <button type="button" onclick="changePassword()" class="btn btn-sm btn-primary m-2">비밀번호 변경</button>-->
+<!--                </div>-->
+<!--              </td>-->
+<!--            </tr>-->
+<!--            <tr>-->
+<!--              <th>주소지</th>-->
+<!--              <td class="address__change">-->
+<!--                주소지 추가, 수정, 삭제는 <strong><a th:href="@{/home/my-address/list}">[배송지 관리]</a></strong>에서 가능합니다.-->
+<!--              </td>-->
+<!--            </tr>-->
           </table>
           <script>
             function checkPassword(){
@@ -137,11 +139,20 @@
                 },
                 success:function (result){
                   console.log(result);
-                  // location.replace("/green2209s_08/member/account/modify-confirm");
+                  $('.member__info__table').html('<tr><th>아이디(이메일)</th><td>'+result.response.email+'</td></tr><tr><th>이름</th><td><div><input type="text"name="memberName"id="memberName" value="'+result.response.name+'"></div><button type="button"onclick="changeName()"class="btn btn-sm btn-primary m-2">이름변경</button></td></tr><tr><th>휴대폰번호</th><td><div>'+result.response.phoneNo+'</div><button type="button"onclick="changePhoneNo()"class="btn btn-sm btn-primary m-2">휴대폰번호변경</button></td></tr><tr><th>비밀번호변경</th><td class="pwd__wrap"><div class="pwd__content__wrap"><div class="pwd__title">현재비밀번호</div><div class="pwd__input"><input type="password"name="memberPassword"id="memberPassword"><br/></div></div><div class="pwd__content__wrap"><div class="pwd__title">새 비밀번호</div><div class="pwd__input"><input type="password"name="newPassword"id="newPassword"><br/></div></div><div class="pwd__content__wrap"><div class="pwd__title">새 비밀번호 다시입력</div><div class="pwd__input"><input type="password"name="repeatNewPassword"id="repeatNewPassword"><br/></div></div><div class="pwd__content__wrap"><button type="button"onclick="changePassword()"class="btn btn-sm btn-primary m-2">비밀번호 변경</button></div></td></tr><tr><th>주소지</th><td class="address__change">주소지 추가, 수정, 삭제는 <strong><a href="/green2209s_08/home/my-address/list">[배송지관리]</a></strong>에서 가능합니다.</td></tr>');
                 },
                 error:function (result){
                   console.log(result);
                 }
+              })
+            }
+
+            function changeName() {
+              const name = $('#memberName').val();
+
+              $.ajax({
+                post: "patch",
+                url:"http://localhost:9090/green2209s_08/member/account/name"
               })
             }
 

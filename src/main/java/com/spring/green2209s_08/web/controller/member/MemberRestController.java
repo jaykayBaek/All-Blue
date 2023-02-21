@@ -93,12 +93,11 @@ public class MemberRestController {
 
         Member member = memberService.passwordCheck(memberId, password);
 
-        StatusResponse statusResponse = new StatusResponse(
-                HttpStatus.OK.toString(), "본인 확인 완료", "TRUE"
-        );
-
         MemberEditResponse response = new MemberEditResponse(member.getEmail(), member.getName(), member.getPhoneNo());
 
+        MemberEditStatusResponse statusResponse = new MemberEditStatusResponse(
+                HttpStatus.OK.toString(), "본인 확인 완료", "TRUE", response
+        );
         return ResponseEntity.status(HttpStatus.OK)
                 .body(statusResponse);
     }

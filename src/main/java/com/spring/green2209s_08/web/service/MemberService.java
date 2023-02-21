@@ -20,9 +20,9 @@ import java.time.LocalDateTime;
 import java.util.Optional;
 
 @Service
-@Transactional(readOnly = true)
-@RequiredArgsConstructor
 @Slf4j
+@RequiredArgsConstructor
+@Transactional(readOnly = true)
 public class MemberService {
     private final MemberRepository memberRepository;
     private final AddressRepository addressRepository;
@@ -118,5 +118,11 @@ public class MemberService {
         }
 
         return findMember;
+    }
+
+    @Transactional
+    public void changeName(Long memberId, String name) {
+        Member findMember = memberRepository.findById(memberId).get();
+        findMember.changeName(name);
     }
 }
