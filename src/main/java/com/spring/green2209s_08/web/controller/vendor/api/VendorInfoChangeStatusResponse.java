@@ -1,13 +1,18 @@
 package com.spring.green2209s_08.web.controller.vendor.api;
 
+import com.spring.green2209s_08.web.controller.StatusResponse;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 
 @Getter
-@RequiredArgsConstructor
-public class VendorInfoChangeStatusResponse {
-    private final String CODE;
-    private final String MESSAGE;
-    private final String SUCCESS;
-    private final VendorInfoChangeResponse response;
+public class VendorInfoChangeStatusResponse extends StatusResponse {
+
+    private VendorInfoChangeResponse response;
+
+    public VendorInfoChangeStatusResponse(String CODE, String MESSAGE, String SUCCESS, VendorInfoChangeResponse response) {
+        super(CODE, MESSAGE, SUCCESS);
+        this.response = response;
+    }
 }

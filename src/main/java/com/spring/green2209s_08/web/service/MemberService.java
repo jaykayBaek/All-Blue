@@ -109,12 +109,14 @@ public class MemberService {
         return getLeavedDate.isPresent();
     }
 
-    public void passwordCheck(Long memberId, String password) {
+    public Member passwordCheck(Long memberId, String password) {
         Member findMember = memberRepository.findById(memberId).get();
         boolean matches = passwordEncoder.matches(password, findMember.getPassword());
 
         if(matches == false){
             throw new MemberException(MemberErrorResult.PASSWORD_NOT_MATCH);
         }
+
+        return findMember;
     }
 }

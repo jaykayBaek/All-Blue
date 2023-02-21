@@ -173,3 +173,32 @@
     height: 100vh;
 }
 
+.pwd__wrap{
+    display: table;
+}
+
+.pwd__content__wrap{
+    display: table-row;
+}
+
+.pwd__title{
+    font-size: 12px;
+    display: table-cell;
+}
+
+.pwd__input{
+    margin-left: 8px;
+    margin-bottom: 12px;
+}
+
+.pwd__input .input{
+    padding: 8px;
+}
+
+.address__change a{
+    color: var(--maincolor);
+}
+.address__change a:hover{
+    color: var(--maincolor);
+}
+

@@ -4,6 +4,7 @@ import com.spring.green2209s_08.web.constants.SessionConst;
 import com.spring.green2209s_08.web.controller.StatusResponse;
 import com.spring.green2209s_08.web.controller.member.MemberLoginRequest;
 import com.spring.green2209s_08.web.controller.member.MemberRegisterRequest;
+import com.spring.green2209s_08.web.domain.Member;
 import com.spring.green2209s_08.web.domain.MemberRegister;
 import com.spring.green2209s_08.web.service.MemberService;
 import com.spring.green2209s_08.web.service.RegisterEmailSend;
@@ -90,11 +91,13 @@ public class MemberRestController {
         HttpSession session = request.getSession(false);
         Long memberId = (Long) session.getAttribute(SessionConst.MEMBER_ID);
 
-        memberService.passwordCheck(memberId, password);
+        Member member = memberService.passwordCheck(memberId, password);
 
         StatusResponse statusResponse = new StatusResponse(
                 HttpStatus.OK.toString(), "본인 확인 완료", "TRUE"
         );
+
+        MemberEditResponse response = new MemberEditResponse(member.getEmail(), member.getName(), member.getPhoneNo());
 
         return ResponseEntity.status(HttpStatus.OK)
                 .body(statusResponse);
