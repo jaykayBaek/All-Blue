@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+</html><!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>올! 블루</title>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+  <th:block th:replace="main/common/common-css :: common_css"></th:block>
+  <link rel="stylesheet" th:href="@{/css/home/home.css}" href="/css/home/home.css" type="text/css">
+
+</head>
+<body>
+<header th:replace="main/common/header :: header"></header>
+
+<div class="container-fluid">
+  <div class="row home__nav">
+    <div class="col-xl-2 col-2" style="padding-right: 0px">
+      <div class="title__box">MY 블루</div>
+      <th:block th:replace="main/common/myhome-nav :: myhomeNav"></th:block>
+    </div>
+    <div class="col-xl-9 col-10">
+      <th:block th:replace="main/common/myhome-listbox :: listbox"></th:block>
+
+      <div class="modify__member container mt-4">
+        <nav class="member__info__edit">
+          <h2>회원정보 확인</h2>
+        </nav>
+        <div class="member__info__content__wrap">
+          <div class="member__info__content__top">
+            <span class="email__text" th:text="${email}">test@gmail.com</span>님의 정보를 안전하게 보호하기 위해 비밀번호를 다시 입력해주세요.
+          </div>
+          <table class="table">
+            <tr>
+              <th>아이디(이메일)</th>
+              <td th:text="${email}"></td>
+              <input type="hidden" name="email" th:value="${email}"/>
+            </tr>
+            <tr>
+              <th>비밀번호</th>
+              <td>
+                <input type="password" name="password" id="password"/>
+              </td>
+            </tr>
+            <tr>
+              <td colspan="2">
+                <div class="modify__button__wrap d-flex flex-row justify-content-center">
+                  <button type="reset" class="mr-2 modify__button">취소</button>
+                  <button type="button" onclick="checkPassword()" class="modify__button">확인</button>
+                </div>
+              </td>
+            </tr>
+          </table>
+          <script>
+            function checkPassword(){
+              const email = $('#email').val();
+              const password = $('#password').val();
+
+              $.ajax({
+                method:"post",
+                url:"http://localhost:9090/green2209s_08/member/account/modify",
+                data:{
+                  email:email,
+                  password:password
+                },
+                success:function (result){
+                  console.log(result);
+                },
+                error:function (result){
+                  console.log(result);
+                }
+              })
+            }
+
+          </script>
+        </div>
+      </div>
+
+    </div>
+    <div class="col-xl-1">
+      <th:block th:replace="main/common/wishlist :: wishlist"></th:block>
+    </div>
+  </div>
+</div>
+
+
+<footer th:replace="main/common/footer :: footer"></footer>
+<th:block th:replace="main/common/common-js :: common_js"></th:block>
+</body>
+</html>

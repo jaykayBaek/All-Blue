@@ -15,9 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -80,6 +78,22 @@ public class MemberRestController {
 
         StatusResponse statusResponse = new StatusResponse(
                 HttpStatus.OK.toString(), "로그인 완료", "TRUE"
+        );
+
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(statusResponse);
+    }
+
+    @PostMapping("/account/modify")
+    public ResponseEntity<StatusResponse> modifyAccountPasswordCheck(@RequestParam String password,
+                                                                     HttpServletRequest request){
+        HttpSession session = request.getSession(false);
+        Long memberId = (Long) session.getAttribute(SessionConst.MEMBER_ID);
+
+        memberService.passwordCheck(memberId, password);
+
+        StatusResponse statusResponse = new StatusResponse(
+                HttpStatus.OK.toString(), "본인 확인 완료", "TRUE"
         );
 
         return ResponseEntity.status(HttpStatus.OK)

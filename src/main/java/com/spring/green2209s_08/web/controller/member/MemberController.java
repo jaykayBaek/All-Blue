@@ -1,6 +1,9 @@
 package com.spring.green2209s_08.web.controller.member;
 
+import com.spring.green2209s_08.web.constants.SessionConst;
+import com.spring.green2209s_08.web.domain.Member;
 import com.spring.green2209s_08.web.exception.RedisDataNotFoundException;
+import com.spring.green2209s_08.web.repository.MemberRepository;
 import com.spring.green2209s_08.web.service.MemberService;
 import com.spring.green2209s_08.web.service.register.RegisterService;
 import lombok.RequiredArgsConstructor;
@@ -20,6 +23,7 @@ public class MemberController {
 
     private final MemberService memberService;
     private final RegisterService registerService;
+    private final MemberRepository memberRepository;
 
     @GetMapping("/signup")
     public String signup(){
@@ -56,4 +60,18 @@ public class MemberController {
 
         return "redirect:/";
     }
+
+    @GetMapping("/account/modify")
+    public String accountModifyForm(HttpServletRequest request, Model model){
+        HttpSession session = request.getSession();
+        Long memberId = (Long) session.getAttribute(SessionConst.MEMBER_ID);
+
+        Member findMember = memberRepository.findById(memberId).get();
+
+        String email = findMember.getEmail();
+        model.addAttribute("email", email);
+        return "main/member/editMemberInfo";
+    }
+
+
 }

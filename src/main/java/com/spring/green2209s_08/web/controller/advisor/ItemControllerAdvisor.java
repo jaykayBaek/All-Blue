@@ -16,9 +16,9 @@ public class ItemControllerAdvisor {
     public ResponseEntity<StatusResponse> handleMemberException(ItemException e){
         log.warn("ItemException occur: ", e);
         StatusResponse statusResponse = new StatusResponse(
-                HttpStatus.BAD_REQUEST.toString(), e.getErrorResult().getMessage(), "FALSE"
+                e.getErrorResult().getStatus().toString(), e.getErrorResult().getMessage(), "FALSE"
         );
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+        return ResponseEntity.status(e.getErrorResult().getStatus())
                 .body(statusResponse);
     }
 }
