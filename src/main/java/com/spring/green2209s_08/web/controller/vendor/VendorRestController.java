@@ -86,7 +86,7 @@ public class VendorRestController {
         Long vendorId = (Long) session.getAttribute(SessionConst.VENDOR_ID);
 
         Vendor findVendor = vendorService.findById(vendorId).get();
-        vendorService.matchPasswordForChangePassword(passwordRequest.getPassword(), passwordRequest.getNewPassword(), findVendor.getVendorPassword());
+        vendorService.matchPasswordForChangePassword(passwordRequest.getPassword(), findVendor.getVendorPassword());
 
         vendorService.changePassword(vendorId, passwordRequest);
 

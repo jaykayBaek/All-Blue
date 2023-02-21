@@ -5,9 +5,11 @@ import com.spring.green2209s_08.web.controller.myhome.AddressRequest;
 import com.spring.green2209s_08.web.domain.Address;
 import com.spring.green2209s_08.web.domain.Member;
 import com.spring.green2209s_08.web.domain.enums.AccountType;
+import com.spring.green2209s_08.web.exception.VendorException;
 import com.spring.green2209s_08.web.exception.errorResult.MemberErrorResult;
 import com.spring.green2209s_08.web.domain.enums.MemberGrade;
 import com.spring.green2209s_08.web.exception.MemberException;
+import com.spring.green2209s_08.web.exception.errorResult.VendorErrorResult;
 import com.spring.green2209s_08.web.repository.AddressRepository;
 import com.spring.green2209s_08.web.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
@@ -124,5 +126,20 @@ public class MemberService {
     public void changeName(Long memberId, String name) {
         Member findMember = memberRepository.findById(memberId).get();
         findMember.changeName(name);
+    }
+
+    public void matchPasswordForChangePassword(String password, Long memberId) {
+        Member findMember = memberRepository.findById(memberId).get();
+        boolean result = passwordEncoder.matches(password, findMember.getPassword());
+
+        if(result == false){
+            throw new MemberException(MemberErrorResult.PASSWORD_NOT_MATCH);
+        }
+    }
+
+    @Transactional
+    public void changePassword(Long memberId, String newPassword) {
+        Member findMember = memberRepository.findById(memberId).get();
+        findMember.changePassword(newPassword);
     }
 }

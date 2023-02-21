@@ -60,4 +60,8 @@ public class Member {
     public void changeName(String name) {
         this.name = name;
     }
+
+    public void changePassword(String newPassword) {
+        password = newPassword;
+    }
 }

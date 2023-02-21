@@ -66,7 +66,7 @@ public class VendorService {
         findVendor.changeInfo(changeRequest.getVendorName(), changeRequest.getVendorEmail(), changeRequest.getVendorPhoneNo());
     }
 
-    public void matchPasswordForChangePassword(String password, String newPassword, String vendorPassword) {
+    public void matchPasswordForChangePassword(String password, String vendorPassword) {
         boolean result = passwordEncoder.matches(password, vendorPassword);
 
         if(result == false){

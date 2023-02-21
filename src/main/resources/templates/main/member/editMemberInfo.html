@@ -139,7 +139,7 @@
                 },
                 success:function (result){
                   console.log(result);
-                  $('.member__info__table').html('<tr><th>아이디(이메일)</th><td>'+result.response.email+'</td></tr><tr><th>이름</th><td><div><input type="text"name="memberName"id="memberName" value="'+result.response.name+'"></div><button type="button"onclick="changeName()"class="btn btn-sm btn-primary m-2">이름변경</button></td></tr><tr><th>휴대폰번호</th><td><div>'+result.response.phoneNo+'</div><button type="button"onclick="changePhoneNo()"class="btn btn-sm btn-primary m-2">휴대폰번호변경</button></td></tr><tr><th>비밀번호변경</th><td class="pwd__wrap"><div class="pwd__content__wrap"><div class="pwd__title">현재비밀번호</div><div class="pwd__input"><input type="password"name="memberPassword"id="memberPassword"><br/></div></div><div class="pwd__content__wrap"><div class="pwd__title">새 비밀번호</div><div class="pwd__input"><input type="password"name="newPassword"id="newPassword"><br/></div></div><div class="pwd__content__wrap"><div class="pwd__title">새 비밀번호 다시입력</div><div class="pwd__input"><input type="password"name="repeatNewPassword"id="repeatNewPassword"><br/></div></div><div class="pwd__content__wrap"><button type="button"onclick="changePassword()"class="btn btn-sm btn-primary m-2">비밀번호 변경</button></div></td></tr><tr><th>주소지</th><td class="address__change">주소지 추가, 수정, 삭제는 <strong><a href="/green2209s_08/home/my-address/list">[배송지관리]</a></strong>에서 가능합니다.</td></tr>');
+                  $('.member__info__table').html('<tr><th>아이디(이메일)</th><td>'+result.response.email+'</td></tr><tr><th>이름</th><td><input type="text"name="memberName"id="memberName" value="'+result.response.name+'"><button type="button"onclick="changeName()"class="btn btn-sm btn-primary m-2">이름변경</button></td></tr><tr><th>휴대폰번호</th><td><input type="text" name="phoneNo" id="phoneNo" value="'+result.response.phoneNo+'"/><button type="button"onclick="changePhoneNo()"class="btn btn-sm btn-primary m-2">휴대폰번호변경</button></td></tr><tr><th>비밀번호변경</th><td class="pwd__wrap"><div class="pwd__content__wrap"><div class="pwd__title">현재비밀번호</div><div class="pwd__input"><input type="password"name="memberPassword"id="memberPassword"><br/></div></div><div class="pwd__content__wrap"><div class="pwd__title">새 비밀번호</div><div class="pwd__input"><input type="password"name="newPassword"id="newPassword"><br/></div></div><div class="pwd__content__wrap"><div class="pwd__title">새 비밀번호 다시입력</div><div class="pwd__input"><input type="password"name="repeatNewPassword"id="repeatNewPassword"><br/></div></div><div class="pwd__content__wrap"><button type="button"onclick="changePassword()"class="btn btn-sm btn-primary m-2">비밀번호 변경</button></div></td></tr><tr><th>주소지</th><td class="address__change">주소지 추가, 수정, 삭제는 <strong><a href="/green2209s_08/home/my-address/list">[배송지관리]</a></strong>에서 가능합니다.</td></tr>');
                 },
                 error:function (result){
                   console.log(result);
@@ -151,8 +151,73 @@
               const name = $('#memberName').val();
 
               $.ajax({
-                post: "patch",
-                url:"http://localhost:9090/green2209s_08/member/account/name"
+                method: "patch",
+                url:"http://localhost:9090/green2209s_08/member/account/name",
+                data:{
+                  name: name
+                },
+                success: function (result){
+                  console.log(result);
+                  alert('이름 변경이 완료되었습니다');
+                  location.reload();
+                },
+                error: function (result){
+                  console.log(result);
+                }
+              })
+            }
+
+            function changePhoneNo(){
+
+            }
+
+            function changePassword(){
+              const password = $('#memberPassword').val();
+              const newPassword = $('#newPassword').val();
+              const repeatNewPassword = $('#repeatNewPassword').val();
+
+              const regPwd = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,16}$/;
+
+              if(password.trim() == ''){
+                alert('비밀번호를 입력하세요.');
+                return false;
+              }
+              if(newPassword.trim() == '' || repeatNewPassword.trim()==''){
+                alert('비밀번호를 입력하세요.');
+                return false;
+              }
+
+              if(!newPassword.match(regPwd) || !repeatNewPassword.match(regPwd)){
+                alert('비밀번호는 8자 이상 16자 이하, 하나 이상의 문자, 숫자, 특수문자를 포함하여 만들어주세요.');
+                return false;
+              }
+
+              if(newPassword != repeatNewPassword){
+                alert('비밀번호가 일치하지 않습니다.');
+                return false;
+              }
+
+              $.ajax({
+                method: "patch",
+                url: "http://localhost:9090/green2209s_08/member/account/password",
+                data: {
+                  password: password,
+                  newPassword: newPassword,
+                  repeatNewPassword: repeatNewPassword
+                },
+                success: function (result) {
+                  console.log(result);
+                  alert('비밀번호 변경이 완료되었습니다');
+                  location.reload();
+                },
+                error: function (result) {
+                  console.log(result);
+                  const data = result.responseJSON;
+                  if(result.status == 401 || data.success == 'FALSE'){
+                    alert(data.message);
+                  }
+
+                }
               })
             }
 

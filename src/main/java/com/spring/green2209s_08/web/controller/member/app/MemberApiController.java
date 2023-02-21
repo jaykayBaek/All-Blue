@@ -2,11 +2,13 @@ package com.spring.green2209s_08.web.controller.member.app;
 
 import com.spring.green2209s_08.web.constants.SessionConst;
 import com.spring.green2209s_08.web.controller.StatusResponse;
+import com.spring.green2209s_08.web.controller.vendor.dto.ChangePasswordRequest;
 import com.spring.green2209s_08.web.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -19,8 +21,9 @@ import javax.servlet.http.HttpSession;
 public class MemberApiController {
 
     private final MemberService memberService;
+    private final PasswordEncoder passwordEncoder;
 
-    @PostMapping("verify/email")
+    @PostMapping("/verify/email")
     public ResponseEntity<StatusResponse> verifyEmail(String email){
         memberService.validateEmail(email);
         StatusResponse statusResponse = new StatusResponse(
@@ -31,7 +34,7 @@ public class MemberApiController {
                 .body(statusResponse);
     }
 
-    @PatchMapping("account/name")
+    @PatchMapping("/account/name")
     public ResponseEntity<StatusResponse> changeName(@RequestParam String name, HttpServletRequest request){
         HttpSession session = request.getSession(false);
         Long memberId = (Long) session.getAttribute(SessionConst.MEMBER_ID);
@@ -39,9 +42,27 @@ public class MemberApiController {
         memberService.changeName(memberId, name);
 
         StatusResponse statusResponse = new StatusResponse(
-                HttpStatus.OK.toString(), "이메일 검증 완료", "TRUE"
+                HttpStatus.OK.toString(), "이름 변경 완료", "TRUE"
         );
 
         return ResponseEntity.status(HttpStatus.OK)
                 .body(statusResponse);
-    }}
+    }
+    @PatchMapping("/account/password")
+    public ResponseEntity<StatusResponse> changePassword(
+            @ModelAttribute ChangePasswordRequest passwordRequest, HttpServletRequest request){
+        HttpSession session = request.getSession(false);
+        Long memberId = (Long) session.getAttribute(SessionConst.MEMBER_ID);
+
+        memberService.matchPasswordForChangePassword(passwordRequest.getPassword(), memberId);
+        memberService.changePassword(memberId, passwordEncoder.encode(passwordRequest.getNewPassword()));
+
+        StatusResponse statusResponse = new StatusResponse(
+                HttpStatus.OK.toString(), "비밀번호 변경 완료", "TRUE"
+        );
+
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(statusResponse);
+    }
+
+}
