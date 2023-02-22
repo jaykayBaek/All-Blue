@@ -3,6 +3,7 @@ package com.spring.green2209s_08.web.domain;
 import com.spring.green2209s_08.web.domain.enums.AccountType;
 import com.spring.green2209s_08.web.domain.enums.MemberGrade;
 import lombok.*;
+import org.springframework.data.util.Lazy;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -42,6 +43,9 @@ public class Member {
 
     @OneToMany(mappedBy = "member")
     private List<Address> addresses = new ArrayList<>();
+
+    @OneToMany(mappedBy = "member", fetch = FetchType.LAZY)
+    private List<Review> review = new ArrayList<>();
 
     private LocalDateTime createdTime;
     private LocalDateTime lastVisitedTime;

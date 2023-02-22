@@ -26,10 +26,6 @@ public class Vendor {
     @Enumerated(EnumType.STRING)
     private AccountType accountType;
 
-    @OneToOne
-    @JoinColumn(name = "business_registration_id")
-    private BusinessRegistration businessRegistration;
-
     @OneToMany(mappedBy = "vendor")
     private List<Item> items = new ArrayList<>();
 

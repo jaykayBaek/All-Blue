@@ -18,7 +18,7 @@
       <div class="col-xl-11">
         <div class="container">
           <div class="filter__item">
-            <strong>'구피'</strong>에 대한 검색결과
+            <strong>'<span th:text="${query}"></span>'</strong>에 대한 검색결과
           </div>
 
           <div class="row">
@@ -48,384 +48,51 @@
               </div>
               <div class="item__search__result__wrap">
                 <div class="row item__search__result">
-                  <div class="col item__search__content">
-                    <div class="search__img">
-                      <img th:src="@{/img/product/test.jpg}" alt="">
-                    </div>
-                    <div class="item__info">
+                  <th:block th:each="item, itemStat : ${items}">
+                    <a th:href="@{/search/detail/{itemId}(itemId=${item.id})}">
 
-                    </div>
-                    <div class="item__result__title">
-                      LED 전구 PAR30 파삼공 15W 5개 E26
-                    </div>
-                    <div class="item__result__amount">
-                      <span>
-                        22,000
-                      </span>
-                      <span>
-                         원
-                      </span>
-                    </div>
-                    <div>
-                      ★★★★★
-                    </div>
+                      <div class="col item__search__content">
+                        <div class="search__img">
+                          <img th:src="@{/images/thumbnail/{itemImage}(itemImage=${item.savedImageName})}" alt="">
+                        </div>
+                        <div class="item__result__title" th:text="${item.itemName}">
+                          제목
+                        </div>
+                        <div class="item__result__amount">
+                          <span th:text="${item.salePrice}">
+                            22,000
+                          </span>
+                          <span>
+                            원
+                          </span>
+                        </div>
+                        <div class="review__content">
+                          <span th:if="${item.likeAvg eq null}" class="review__rating">
+                            <span>
+                              ★
+                            </span>
+                            평점을 남기지 않은 상품
+                          </span>
+                          <span th:if="${item.likeAvg ne null}" class="review__rating">
+                            <div>
+                              ★
+                            </div>
+                            리뷰 : <span th:text="${item.likeAvg}"></span>
+                          </span>
+                          <span class="review__count">
+                            (<span th:text="${item.reviewCount}"></span>)
+                          </span>
+                        </div>
+                      </div>
 
-                  </div>
-                  <div class="col item__search__content">
-                    <div class="search__img">
-                      <img th:src="@{/img/product/test.jpg}" alt="">
-                    </div>
-                    <div class="item__info">
-
-                    </div>
-                    <div class="item__result__title">
-                      LED 전구 PAR30 파삼공 15W 5개 E26
-                    </div>
-                    <div class="item__result__amount">
-                      <span>
-                        22,000
-                      </span>
-                      <span>
-                         원
-                      </span>
-                    </div>
-                    <div>
-                      ★★★★★
-                    </div>
-
-                  </div>
-                  <div class="col item__search__content">
-                    <div class="search__img">
-                      <img th:src="@{/img/product/test.jpg}" alt="">
-                    </div>
-                    <div class="item__info">
-
-                    </div>
-                    <div class="item__result__title">
-                      LED 전구 PAR30 파삼공 15W 5개 E26
-                    </div>
-                    <div class="item__result__amount">
-                      <span>
-                        22,000
-                      </span>
-                      <span>
-                         원
-                      </span>
-                    </div>
-                    <div>
-                      ★★★★★
-                    </div>
-
-                  </div>
-                  <div class="col item__search__content">
-                    <div class="search__img">
-                      <img th:src="@{/img/product/test.jpg}" alt="">
-                    </div>
-                    <div class="item__info">
-
-                    </div>
-                    <div class="item__result__title">
-                      LED 전구 PAR30 파삼공 15W 5개 E26
-                    </div>
-                    <div class="item__result__amount">
-                      <span>
-                        22,000
-                      </span>
-                      <span>
-                         원
-                      </span>
-                    </div>
-                    <div>
-                      ★★★★★
-                    </div>
-
-                  </div>
+                    </a>
+                    <th:block th:if="${itemStat.count % 4 == 0}">
+                      </div>
+                      <div class="row item__search__result">
+                    </th:block>
+                  </th:block>
                 </div>
-
-                <div class="row item__search__result">
-                  <div class="col item__search__content">
-                    <div class="search__img">
-                      <img th:src="@{/img/product/test.jpg}" alt="">
-                    </div>
-                    <div class="item__info">
-
-                    </div>
-                    <div class="item__result__title">
-                      LED 전구 PAR30 파삼공 15W 5개 E26
-                    </div>
-                    <div class="item__result__amount">
-                      <span>
-                        22,000
-                      </span>
-                      <span>
-                         원
-                      </span>
-                    </div>
-                    <div>
-                      ★★★★★
-                    </div>
-
-                  </div>
-                  <div class="col item__search__content">
-                    <div class="search__img">
-                      <img th:src="@{/img/product/test.jpg}" alt="">
-                    </div>
-                    <div class="item__info">
-
-                    </div>
-                    <div class="item__result__title">
-                      LED 전구 PAR30 파삼공 15W 5개 E26
-                    </div>
-                    <div class="item__result__amount">
-                      <span>
-                        22,000
-                      </span>
-                      <span>
-                         원
-                      </span>
-                    </div>
-                    <div>
-                      ★★★★★
-                    </div>
-
-                  </div>
-                  <div class="col item__search__content">
-                    <div class="search__img">
-                      <img th:src="@{/img/product/test.jpg}" alt="">
-                    </div>
-                    <div class="item__info">
-
-                    </div>
-                    <div class="item__result__title">
-                      LED 전구 PAR30 파삼공 15W 5개 E26
-                    </div>
-                    <div class="item__result__amount">
-                      <span>
-                        22,000
-                      </span>
-                      <span>
-                         원
-                      </span>
-                    </div>
-                    <div>
-                      ★★★★★
-                    </div>
-
-                  </div>
-                  <div class="col item__search__content">
-                    <div class="search__img">
-                      <img th:src="@{/img/product/test.jpg}" alt="">
-                    </div>
-                    <div class="item__info">
-
-                    </div>
-                    <div class="item__result__title">
-                      LED 전구 PAR30 파삼공 15W 5개 E26
-                    </div>
-                    <div class="item__result__amount">
-                      <span>
-                        22,000
-                      </span>
-                      <span>
-                         원
-                      </span>
-                    </div>
-                    <div>
-                      ★★★★★
-                    </div>
-
-                  </div>
-                </div>
-
-                <div class="row item__search__result">
-                  <div class="col item__search__content">
-                    <div class="search__img">
-                      <img th:src="@{/img/product/test.jpg}" alt="">
-                    </div>
-                    <div class="item__info">
-
-                    </div>
-                    <div class="item__result__title">
-                      LED 전구 PAR30 파삼공 15W 5개 E26
-                    </div>
-                    <div class="item__result__amount">
-                      <span>
-                        22,000
-                      </span>
-                      <span>
-                         원
-                      </span>
-                    </div>
-                    <div>
-                      ★★★★★
-                    </div>
-
-                  </div>
-                  <div class="col item__search__content">
-                    <div class="search__img">
-                      <img th:src="@{/img/product/test.jpg}" alt="">
-                    </div>
-                    <div class="item__info">
-
-                    </div>
-                    <div class="item__result__title">
-                      LED 전구 PAR30 파삼공 15W 5개 E26
-                    </div>
-                    <div class="item__result__amount">
-                      <span>
-                        22,000
-                      </span>
-                      <span>
-                         원
-                      </span>
-                    </div>
-                    <div>
-                      ★★★★★
-                    </div>
-
-                  </div>
-                  <div class="col item__search__content">
-                    <div class="search__img">
-                      <img th:src="@{/img/product/test.jpg}" alt="">
-                    </div>
-                    <div class="item__info">
-
-                    </div>
-                    <div class="item__result__title">
-                      LED 전구 PAR30 파삼공 15W 5개 E26
-                    </div>
-                    <div class="item__result__amount">
-                      <span>
-                        22,000
-                      </span>
-                      <span>
-                         원
-                      </span>
-                    </div>
-                    <div>
-                      ★★★★★
-                    </div>
-
-                  </div>
-                  <div class="col item__search__content">
-                    <div class="search__img">
-                      <img th:src="@{/img/product/test.jpg}" alt="">
-                    </div>
-                    <div class="item__info">
-
-                    </div>
-                    <div class="item__result__title">
-                      LED 전구 PAR30 파삼공 15W 5개 E26
-                    </div>
-                    <div class="item__result__amount">
-                      <span>
-                        22,000
-                      </span>
-                      <span>
-                         원
-                      </span>
-                    </div>
-                    <div>
-                      ★★★★★
-                    </div>
-
-                  </div>
-                </div>
-
-                <div class="row item__search__result">
-                  <div class="col item__search__content">
-                    <div class="search__img">
-                      <img th:src="@{/img/product/test.jpg}" alt="">
-                    </div>
-                    <div class="item__info">
-
-                    </div>
-                    <div class="item__result__title">
-                      LED 전구 PAR30 파삼공 15W 5개 E26
-                    </div>
-                    <div class="item__result__amount">
-                      <span>
-                        22,000
-                      </span>
-                      <span>
-                         원
-                      </span>
-                    </div>
-                    <div>
-                      ★★★★★
-                    </div>
-
-                  </div>
-                  <div class="col item__search__content">
-                    <div class="search__img">
-                      <img th:src="@{/img/product/test.jpg}" alt="">
-                    </div>
-                    <div class="item__info">
-
-                    </div>
-                    <div class="item__result__title">
-                      LED 전구 PAR30 파삼공 15W 5개 E26
-                    </div>
-                    <div class="item__result__amount">
-                      <span>
-                        22,000
-                      </span>
-                      <span>
-                         원
-                      </span>
-                    </div>
-                    <div>
-                      ★★★★★
-                    </div>
-
-                  </div>
-                  <div class="col item__search__content">
-                    <div class="search__img">
-                      <img th:src="@{/img/product/test.jpg}" alt="">
-                    </div>
-                    <div class="item__info">
-
-                    </div>
-                    <div class="item__result__title">
-                      LED 전구 PAR30 파삼공 15W 5개 E26
-                    </div>
-                    <div class="item__result__amount">
-                      <span>
-                        22,000
-                      </span>
-                      <span>
-                         원
-                      </span>
-                    </div>
-                    <div>
-                      ★★★★★
-                    </div>
-
-                  </div>
-                  <div class="col item__search__content">
-                    <div class="search__img">
-                      <img th:src="@{/img/product/test.jpg}" alt="">
-                    </div>
-                    <div class="item__info">
-
-                    </div>
-                    <div class="item__result__title">
-                      LED 전구 PAR30 파삼공 15W 5개 E26
-                    </div>
-                    <div class="item__result__amount">
-                      <span>
-                        22,000
-                      </span>
-                      <span>
-                         원
-                      </span>
-                    </div>
-                    <div>
-                      ★★★★★
-                    </div>
-
-                  </div>
-                </div>
+              </div>
 
                 <nav class="mb-5" aria-label="Page navigation">
                   <ul class="pagination justify-content-center">
@@ -446,9 +113,10 @@
             </div>
           </div>
         </div>
-      </div>
-      <div class="col-xl-1">
-        <th:block th:replace="main/common/wishlist :: wishlist"></th:block>
+        <div class="col-xl-1">
+          <th:block th:replace="main/common/wishlist :: wishlist"></th:block>
+        </div>
+
       </div>
     </div>
   </div>

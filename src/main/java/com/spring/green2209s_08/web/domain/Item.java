@@ -50,6 +50,10 @@ public abstract class Item {
 
     private LocalDate uploadDate;
 
+    @BatchSize(size = 1000)
+    @OneToMany(mappedBy = "item")
+    private List<Review> reviews = new ArrayList<>();
+
     /**
      * 생성
      */
