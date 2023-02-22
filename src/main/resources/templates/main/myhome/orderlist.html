@@ -1,13 +1,4 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-
-</body>
-</html><!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
@@ -18,6 +9,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
     <th:block th:replace="main/common/common-css :: common_css"></th:block>
+
     <link rel="stylesheet" th:href="@{/css/home/home.css}" href="/css/home/home.css" type="text/css">
 
 </head>
@@ -33,8 +25,329 @@
         <div class="col-xl-9 col-10">
             <th:block th:replace="main/common/myhome-listbox :: listbox"></th:block>
 
-            <div class="row">
-                gd
+            <div class="order__list__wrap container mt-4">
+                <nav class="order__list">
+                    <h2>주문목록</h2>
+                    <div class="search__wrap mt-2 mb-2">
+                        <input type="text" name="search" id="search" class="search" placeholder="주문한 상품을 검색해 보세요!"/>
+                    </div>
+                    <div class="cond__wrap">
+                        <a class="btn badge badge-primary searchCond">최근 6개월</a>
+                        <a class="btn badge badge-primary searchCond">1년</a>
+                        <a class="btn badge badge-primary searchCond">전체 조회</a>
+                    </div>
+                </nav>
+                <hr/>
+                <div class="order__status__info mb-4">
+                    <div class="order__status__title">
+                        <span class="font-weight-bold h5">
+                            주문 상태 안내
+                        </span>
+                    </div>
+                    <ul class="d-flex flex-row">
+                        <li class="mr-2">
+                            <span class="badge badge-warning">
+                                주문, 결제완료
+                            </span>
+                        </li>
+                        <li class="mr-2">
+                            <span class="badge badge-warning">
+                                상품준비중
+                            </span>
+                        </li>
+                        <li class="mr-2">
+                            <span class="badge badge-warning">
+                                배송중
+                            </span>
+                        </li>
+                        <li>
+                            <span class="badge badge-warning">
+                                배송완료
+                            </span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="card__wrap">
+                    <div class="card shadow h-100 py-2 mb-3">
+                        <div class="card-body">
+                            <div class="form-group">
+                                <div class="mb-3 font-weight-lighter order__card__title">
+                                    <b>2023. 1. 29 주문</b>
+                                </div>
+                                <div class="card order__card">
+                                    <div class="card-body">
+                                        <div class="card__title">
+                                            <span class="title">
+                                                배송 완료
+                                            </span>
+                                            <span class="arrived__date">
+                                                1/30(월) 도착
+                                            </span>
+                                        </div>
+                                        <div class="card__content">
+                                            <table class="table order__table">
+                                                <tbody>
+                                                    <tr>
+                                                        <td>
+                                                            <div class="table__info__wrap d-flex flex-row">
+                                                                <div class="img__wrap">
+                                                                    <img th:src="@{/img/product/product-1.jpg}" alt="">
+                                                                </div>
+                                                                <div class="card__right">
+                                                                    <div class="title">
+                                                                        질레트 스킨텍 쉐이빙폼
+                                                                    </div>
+                                                                    <div class="amount">
+                                                                        13,190원 1 개
+                                                                    </div>
+
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <div class="d-flex flex-column p-2">
+                                                                <button class="btn btn-outline-primary mb-2">주문상세조회</button>
+                                                                <button class="btn btn-outline-dark mb-2">리뷰작성</button>
+                                                                <button class="btn btn-outline-dark">반품, 교환 신청</button>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                            <div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card shadow h-100 py-2 mb-3">
+                        <div class="card-body">
+                            <div class="form-group">
+                                <div class="mb-3 font-weight-lighter order__card__title">
+                                    <b>2023. 1. 29 주문</b>
+                                </div>
+                                <div class="card order__card">
+                                    <div class="card-body">
+                                        <div class="card__title">
+                                            <span class="title">
+                                                배송 완료
+                                            </span>
+                                            <span class="arrived__date">
+                                                1/30(월) 도착
+                                            </span>
+                                        </div>
+                                        <div class="card__content">
+                                            <table class="table order__table">
+                                                <tbody>
+                                                <tr>
+                                                    <td>
+                                                        <div class="table__info__wrap d-flex flex-row">
+                                                            <div class="img__wrap">
+                                                                <img th:src="@{/img/product/product-1.jpg}" alt="">
+                                                            </div>
+                                                            <div class="card__right">
+                                                                <div class="title">
+                                                                    질레트 스킨텍 쉐이빙폼
+                                                                </div>
+                                                                <div class="amount">
+                                                                    13,190원 1 개
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="d-flex flex-column p-2">
+                                                            <button class="btn btn-outline-primary mb-2">주문상세조회</button>
+                                                            <button class="btn btn-outline-dark mb-2">리뷰작성</button>
+                                                            <button class="btn btn-outline-dark">반품, 교환 신청</button>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                            <div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card shadow h-100 py-2 mb-3">
+                        <div class="card-body">
+                            <div class="form-group">
+                                <div class="mb-3 font-weight-lighter order__card__title">
+                                    <b>2023. 1. 29 주문</b>
+                                </div>
+                                <div class="card order__card">
+                                    <div class="card-body">
+                                        <div class="card__title">
+                                            <span class="title">
+                                                배송 완료
+                                            </span>
+                                            <span class="arrived__date">
+                                                1/30(월) 도착
+                                            </span>
+                                        </div>
+                                        <div class="card__content">
+                                            <table class="table order__table">
+                                                <tbody>
+                                                <tr>
+                                                    <td>
+                                                        <div class="table__info__wrap d-flex flex-row">
+                                                            <div class="img__wrap">
+                                                                <img th:src="@{/img/product/product-1.jpg}" alt="">
+                                                            </div>
+                                                            <div class="card__right">
+                                                                <div class="title">
+                                                                    질레트 스킨텍 쉐이빙폼
+                                                                </div>
+                                                                <div class="amount">
+                                                                    13,190원 1 개
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="d-flex flex-column p-2">
+                                                            <button class="btn btn-outline-primary mb-2">주문상세조회</button>
+                                                            <button class="btn btn-outline-dark mb-2">리뷰작성</button>
+                                                            <button class="btn btn-outline-dark">반품, 교환 신청</button>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                            <div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card shadow h-100 py-2 mb-3">
+                        <div class="card-body">
+                            <div class="form-group">
+                                <div class="mb-3 font-weight-lighter order__card__title">
+                                    <b>2023. 1. 29 주문</b>
+                                </div>
+                                <div class="card order__card">
+                                    <div class="card-body">
+                                        <div class="card__title">
+                                            <span class="title">
+                                                배송 완료
+                                            </span>
+                                            <span class="arrived__date">
+                                                1/30(월) 도착
+                                            </span>
+                                        </div>
+                                        <div class="card__content">
+                                            <table class="table order__table">
+                                                <tbody>
+                                                <tr>
+                                                    <td>
+                                                        <div class="table__info__wrap d-flex flex-row">
+                                                            <div class="img__wrap">
+                                                                <img th:src="@{/img/product/product-1.jpg}" alt="">
+                                                            </div>
+                                                            <div class="card__right">
+                                                                <div class="title">
+                                                                    질레트 스킨텍 쉐이빙폼
+                                                                </div>
+                                                                <div class="amount">
+                                                                    13,190원 1 개
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="d-flex flex-column p-2">
+                                                            <button class="btn btn-outline-primary mb-2">주문상세조회</button>
+                                                            <button class="btn btn-outline-dark mb-2">리뷰작성</button>
+                                                            <button class="btn btn-outline-dark">반품, 교환 신청</button>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                            <div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card shadow h-100 py-2 mb-3">
+                        <div class="card-body">
+                            <div class="form-group">
+                                <div class="mb-3 font-weight-lighter order__card__title">
+                                    <b>2023. 1. 29 주문</b>
+                                </div>
+                                <div class="card order__card">
+                                    <div class="card-body">
+                                        <div class="card__title">
+                                            <span class="title">
+                                                배송 완료
+                                            </span>
+                                            <span class="arrived__date">
+                                                1/30(월) 도착
+                                            </span>
+                                        </div>
+                                        <div class="card__content">
+                                            <table class="table order__table">
+                                                <tbody>
+                                                <tr>
+                                                    <td>
+                                                        <div class="table__info__wrap d-flex flex-row">
+                                                            <div class="img__wrap">
+                                                                <img th:src="@{/img/product/product-1.jpg}" alt="">
+                                                            </div>
+                                                            <div class="card__right">
+                                                                <div class="title">
+                                                                    질레트 스킨텍 쉐이빙폼
+                                                                </div>
+                                                                <div class="amount">
+                                                                    13,190원 1 개
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="d-flex flex-column p-2">
+                                                            <button class="btn btn-outline-primary mb-2">주문상세조회</button>
+                                                            <button class="btn btn-outline-dark mb-2">리뷰작성</button>
+                                                            <button class="btn btn-outline-dark">반품, 교환 신청</button>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                            <div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="order__btn__wrap">
+                        <button class="page__prev order__btn">이전</button>
+                        <button class="page__next order__btn">다음</button>
+                    </div>
+                </div>
             </div>
 
         </div>

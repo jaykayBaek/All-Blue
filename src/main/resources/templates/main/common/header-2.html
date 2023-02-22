@@ -67,8 +67,8 @@
               </div>
             </a>
           </li>
-          <li>
-            <a href="http://localhost:9090/" class="nav__list">
+          <li th:if="${session.memberId eq 1}">
+            <a th:href="@{/admin/home}" href="http://localhost:9090/" class="nav__list">
               <i class="fa-solid fa-gear"></i>
               <div th:text="#{nav.admin}">
                 Admin

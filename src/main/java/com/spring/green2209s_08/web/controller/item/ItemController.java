@@ -62,6 +62,7 @@ public class ItemController {
 
         /* --- 카테고리 찾기 --- */
         String grandchildCategory = inventoryRequest.getGrandchildCategory();
+        log.info("category? = {}",grandchildCategory);
         Category category = categoryService.findCategoryId(grandchildCategory);
 
         /* --- 저장시킨 파일 이름 디비에 저장시키기 --- */

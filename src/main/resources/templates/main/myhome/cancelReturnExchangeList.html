@@ -20,6 +20,8 @@
     <th:block th:replace="main/common/common-css :: common_css"></th:block>
     <link rel="stylesheet" th:href="@{/css/home/home.css}" href="/css/home/home.css" type="text/css">
 
+    <!-- 다음 배송 api -->
+    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 </head>
 <body>
 <header th:replace="main/common/header :: header"></header>
@@ -33,11 +35,49 @@
         <div class="col-xl-9 col-10">
             <th:block th:replace="main/common/myhome-listbox :: listbox"></th:block>
 
-            <div class="row">
-                gd
+            <div class="return__list__wrap container mt-4">
+                <nav class="return__list mb-2">
+                    <h2>취소/반품/교환/환불</h2>
+                </nav>
+                <div class="card mt2 mb-2">
+                    <div class="card-header">
+                        <span>
+                            취소접수일 : <b>2022/8/11</b>
+                            |
+                        </span>
+                        <span>
+                            주문일 : <b>2022/8/10</b>
+                            |
+                        </span>
+                        <span>
+                            주문번호 : <b>23000148534019</b>
+                        </span>
+                    </div>
+                    <div class="card-body">
+                        <table class="table">
+                            <tr>
+                                <td>
+                                    <h4>
+                                        신지모루 에어클로 휴대폰 케이스
+                                    </h4>
+                                </td>
+                                <td>
+                                    1 개 9452원
+                                </td>
+                                <td>
+                                    <span>
+                                        취소완료
+                                    </span>
+                                    <button class="btn btn-sm btn-outline-primary">상세 정보</button>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
             </div>
-
         </div>
+
+
         <div class="col-xl-1">
             <th:block th:replace="main/common/wishlist :: wishlist"></th:block>
         </div>

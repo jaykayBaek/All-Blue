@@ -9,7 +9,7 @@ function formSubmit(){
         return;
     }
 
-    $('#vendorInventory').attr("action", 'http://localhost:9090/green2209s_08/item/thumbnail');
+    $('#vendorInventory').attr("action", 'http://localhost:9090/green2209s_08/item/enroll');
     $('#vendorInventory').attr("method", 'post');
     $('#vendorInventory').attr("enctype", 'multipart/form-data');
 

@@ -15,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.List;
 
 @RestController
 @Slf4j
@@ -99,11 +100,25 @@ public class ItemApiController {
                 .body(statusResponse);
     }
 
-    @PostMapping("/thumbnail")
+    @PatchMapping("/thumbnail")
     public ResponseEntity<StatusResponse> changeThumbnail(@RequestParam MultipartFile thumbnail, @RequestParam Long itemId,
                                                           HttpServletRequest request) throws IOException {
-        FileUpload fileUpload = new FileUpload();
-        ItemImage itemImage = fileUpload.thumbnailImageUpload(thumbnail);
+//        FileUpload fileUpload = new FileUpload();
+//        ItemImage itemImage = fileUpload.thumbnailImageUpload(thumbnail);
+
+
+        return null;
+    }
+
+    @PatchMapping("/extra")
+    public ResponseEntity<StatusResponse> changeExtra(@RequestParam List<MultipartFile> images,
+                                                      @RequestParam Long itemId,
+                                                      HttpServletRequest request) throws IOException {
+
+        log.info("itemId = {}", itemId);
+        log.info("images = {}", images);
+//        FileUpload fileUpload = new FileUpload();
+//        ItemImage itemImage = fileUpload.thumbnailImageUpload(thumbnail);
 
 
         return null;

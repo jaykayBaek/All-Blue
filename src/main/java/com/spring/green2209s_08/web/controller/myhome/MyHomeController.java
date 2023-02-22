@@ -46,6 +46,7 @@ public class MyHomeController {
     public String myAddressAdd(){
         return "main/myhome/myAddressAddForm";
     }
+
     @GetMapping("/my-address/{addressId}/edit")
     public String myAddressEdit(@PathVariable Long addressId, HttpServletRequest request, Model model){
         HttpSession session = request.getSession();
@@ -54,6 +55,11 @@ public class MyHomeController {
 
         model.addAttribute("address", address);
         return "main/myhome/myAddressEditForm";
+    }
+
+    @GetMapping("/review/list")
+    public String reviewListHome(){
+        return "main/myhome/reviewHome";
     }
 
 

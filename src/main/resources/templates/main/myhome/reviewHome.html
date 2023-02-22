@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+</html><!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>올! 블루</title>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <th:block th:replace="main/common/common-css :: common_css"></th:block>
+    <link rel="stylesheet" th:href="@{/css/home/home.css}" href="/css/home/home.css" type="text/css">
+</head>
+<body>
+<header th:replace="main/common/header :: header"></header>
+
+<div class="container-fluid">
+    <div class="row home__nav">
+        <div class="col-xl-2 col-2" style="padding-right: 0px">
+            <div class="title__box">MY 블루</div>
+            <th:block th:replace="main/common/myhome-nav :: myhomeNav"></th:block>
+        </div>
+        <div class="col-xl-9 col-10">
+            <th:block th:replace="main/common/myhome-listbox :: listbox"></th:block>
+
+            <div class="review__list__wrap container mt-4 pl-5 pr-5">
+                <nav class="review__list mb-2">
+                    <h2>리뷰관리</h2>
+                </nav>
+                <article class="review__top">
+                    <div class="review__top__left">
+                        <span>
+                            홍길동
+                        </span>
+                    </div>
+                    <div class="review__top__middle">
+                        <div class="title">도움</div>
+                        <div class="content">
+                            <strong>0</strong>명
+                        </div>
+                    </div>
+                    <div class="review__top__right">
+                        <div class="title">
+                            도움 랭킹
+                        </div>
+                        <div class="content">
+                            <strong>100</strong> 등
+                        </div>
+                    </div>
+                </article>
+                <ul class="d-flex review__check__wrap">
+                    <li>리뷰 작성하기</li>
+                    <li>작성한 리뷰보기</li>
+                </ul>
+                <ul>
+                    <li>
+                        1
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+
+        <div class="col-xl-1">
+            <th:block th:replace="main/common/wishlist :: wishlist"></th:block>
+        </div>
+    </div>
+</div>
+
+
+<footer th:replace="main/common/footer :: footer"></footer>
+<th:block th:replace="main/common/common-js :: common_js"></th:block>
+</body>
+</html>

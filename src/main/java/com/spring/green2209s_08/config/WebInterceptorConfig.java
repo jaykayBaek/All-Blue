@@ -15,16 +15,17 @@ public class WebInterceptorConfig implements WebMvcConfigurer {
         registry.addInterceptor(new VendorLoginCheck())
                 .order(1)
                 .addPathPatterns("/vendor/**", "/item/**", "/management/**")
-                .excludePathPatterns("/vendor/login/**")
-                .excludePathPatterns("/vendor/logout/**")
-                .excludePathPatterns("/vendor/verify/**")
-                .excludePathPatterns("/vendor/register/**")
-                .excludePathPatterns("/vendor/join/**");
+                .excludePathPatterns("/vendor/login", "/vendor/logout/**")
+                .excludePathPatterns("/vendor/verify/**", "/vendor/register/**")
+                .excludePathPatterns("/vendor/join/**")
+                .excludePathPatterns("/css/**", "/js/**", "/img/**");
         registry.addInterceptor(new VendorAlreadyLoginCheck())
                 .order(2)
-                .addPathPatterns("/vendor/login");
+                .addPathPatterns("/vendor/login")
+                .excludePathPatterns("/css/**", "/js/**", "/img/**");
         registry.addInterceptor(new MemberLoginCheck())
                 .order(3)
-                .addPathPatterns("/home/**", "/inquiry/**", "/member/account/**");
+                .addPathPatterns("/home/**", "/inquiry/**", "/member/account/**")
+                .excludePathPatterns("/css/**", "/js/**", "/img/**");
     }
 }

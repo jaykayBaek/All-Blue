@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>올! 블루, 어드민</title>
+
+    <link th:href="@{/vendor/fontawesome-free/css/all.min.css}" href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link th:href="@{/css/vendor/vendor-admin-2.css}" href="css/sb-admin-2.min.css" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/8b6103ad59.js" crossorigin="anonymous"></script>
+</head>
+
+<body id="page-top">
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+        <!-- Sidebar -->
+        <div th:replace="main/admin/common/sidebar :: admin-sidebar"></div>
+
+        <!-- End of Sidebar -->
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+            <div id="content">
+
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+
+                    <!-- Page Heading -->
+                    <div class="mt-3 d-sm-flex align-items-center justify-content-between mb-4">
+                        <h1 class="h3 mb-0 text-gray-800">안녕하세요, 관리자님</h1>
+                    </div>
+
+                    <!-- Content Row -->
+                    <div class="row">
+
+                        <div class="col-12 mb-4">
+
+                            <div class="card shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col-6 d-flex align-items-center">
+                                            <i class="h4 fa-regular fa-circle mr-2"></i>
+                                            <div class="mb-0 font-weight-lighter text-gray-800">
+                                                <span class="text-primary font-weight-normal">상품등록</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-6 d-flex align-items-center">
+                                            <i class="h4 fa-regular fa-circle mr-2"></i>
+                                            <div class="mb-0 font-weight-lighter text-gray-800">
+                                                <span class="text-primary font-weight-normal">사업자인증</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- Content Row -->
+                    <div class="row">
+
+                        <!-- Content Column -->
+                        <div class="col-lg-6 mb-4">
+                            <div class="card shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="mb-0 text-gray-800">
+                                            <div class="row">
+                                                <div class="vendor-home-title h4 font-weight-bold col-12">
+                                                    상품을 등록해 주세요.
+                                                </div>
+                                                <div class="vendor-home-content col-12">
+                                                    등록 완료된 상품이 0건 있습니다.<br/>
+                                                    지금 바로, 판매 상품을 등록해주세요.
+                                                </div>
+                                                <div class="vendor-home-bottom col-12 mt-2">
+                                                    <button class="btn btn-primary btn-lg">상품등록</button>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6 mb-4">
+                            <div class="card shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="mb-0 text-gray-800">
+                                            <div class="row">
+                                                <div class="vendor-home-title h4 font-weight-bold col-12">
+                                                    판매자 정보를<br/>
+                                                    입력해 주세요.
+                                                </div>
+                                                <div class="vendor-home-content col-12">
+                                                    사업자 인증으로 입점이 승인되면<br/>
+                                                    등록한 상품이 고객에게 노출됩니다.
+                                                </div>
+                                                <div class="vendor-home-bottom col-12 mt-2">
+                                                    <button class="btn btn-primary btn-lg">상품등록</button>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+                <!-- /.container-fluid -->
+
+            </div>
+            <!-- End of Main Content -->
+
+            <!-- Footer -->
+            <footer class="sticky-footer bg-white">
+                <div class="container my-auto">
+                    <div class="copyright text-center my-auto">
+                        <span>Copyright &copy; Your Website 2021</span>
+                    </div>
+                </div>
+            </footer>
+            <!-- End of Footer -->
+
+        </div>
+        <!-- End of Content Wrapper -->
+
+    </div>
+    <!-- End of Page Wrapper -->
+
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+
+    <!-- Bootstrap core JavaScript-->
+    <script th:src="@{/vendor/jquery/jquery.min.js}" src="vendor/jquery/jquery.min.js"></script>
+    <script th:src="@{/vendor/bootstrap/js/bootstrap.bundle.min.js}" src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script th:src="@{/vendor/jquery-easing/jquery.easing.min.js}" src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+
+    <!-- Custom scripts for all pages-->
+    <script th:src="@{/js/vendor/sb-admin-2.min.js}" src="js/sb-admin-2.min.js"></script>
+
+</body>
+
+</html>

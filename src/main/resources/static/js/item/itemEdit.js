@@ -90,7 +90,8 @@ function changeProduct(){
             if(result.success == 'TRUE'){
                 alert('상품 수정이 완료되었습니다.');
                 location.reload();
-            }        },
+            }
+        },
         error: function (result) {
             console.log('result? ', result);
         }

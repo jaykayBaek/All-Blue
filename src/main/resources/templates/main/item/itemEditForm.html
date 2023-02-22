@@ -33,318 +33,313 @@
 
         <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
-            <form id="vendorInventory" name="vendorInventory">
+            <div id="content">
+                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+                    <div th:replace="main/vendor/common/vendor-navbar :: vendor-navbar"></div>
+                </nav>
 
-                <div id="content">
-                    <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
-                        <div th:replace="main/vendor/common/vendor-navbar :: vendor-navbar"></div>
-                    </nav>
+                <div class="container-fluid">
 
-                    <div class="container-fluid">
-
-                        <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                            <h1 class="h3 mb-0 text-gray-800">상품수정</h1>
-                            <input type="hidden" name="itemId" id="itemId" th:value="${itemId}">
-                        </div>
-
-                        <div class="row">
-                            <div class="col-12 mb-4">
-
-                                <div class="card shadow h-100 py-2">
-                                    <div class="card-body">
-                                        <div class="form-group">
-                                            <div class="mb-3 font-weight-lighter text-gray-800">
-                                                <span class="font-weight-bold h5">
-                                                    노출상품명
-                                                </span>
-                                            </div>
-                                            <div class="mb-3 font-weight-lighter text-gray-800">
-                                                <input class="form-control" type="text" name="itemName" id="itemName" placeholder="노출상품명 입력(브랜드명 + 제품명)" th:value="${uploadItem.itemName}"/>
-                                            </div>
-                                            <div class="mb-3 font-weight-lighter text-gray-800">
-                                                <button class="btn btn-primary" type="button" th:onclick="changeName()">
-                                                    수정하기
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-12 mb-4">
-
-                                <div class="card shadow h-100 py-2">
-                                    <div class="card-body">
-                                        <div class="form-group">
-                                            <div class="mb-3 font-weight-lighter text-gray-800">
-                                                <span class="font-weight-bold h5">
-                                                    카테고리
-                                                </span>
-                                            </div>
-                                            <div class="mb-3 font-weight-lighter text-gray-800 d-flex">
-                                                <div class="product__category col">
-                                                    <div class="product__layer parent__product__layer">
-                                                        <div class="h4 font-weight-bold">
-                                                            <th:block th:text="${uploadItem.category.parentName}"></th:block>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col">
-                                                    <div class="h4 font-weight-bold">
-                                                        <i class="fa-sharp fa-solid fa-arrow-right"></i>
-                                                    </div>
-                                                </div>
-                                                <div class="product__category col">
-                                                    <div class="product__layer parent__product__layer">
-                                                        <div class="h4 font-weight-bold">
-                                                            <th:block th:text="${uploadItem.category.childName}"></th:block>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col">
-                                                    <div class="h4 font-weight-bold">
-                                                        <i class="fa-sharp fa-solid fa-arrow-right"></i>
-                                                    </div>
-                                                </div>
-                                                <div class="product__category col">
-                                                    <div class="product__layer grandchild__product__layer">
-                                                        <div class="h4 font-weight-bold">
-                                                            <th:block th:text="${uploadItem.category.grandchildName}"></th:block>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-12 mb-4">
-
-                                <div class="card shadow h-100 py-2">
-                                    <div class="card-body">
-                                        <div class="form-group">
-                                            <div class="mb-3 font-weight-lighter text-gray-800">
-                                                <span class="font-weight-bold h5">
-                                                    옵션
-                                                </span>
-                                            </div>
-                                            <table class="table text-center table-bordered vendor__table">
-                                                <thead class="thead-light">
-                                                    <tr>
-                                                        <th>정상가 (원)</th>
-                                                        <th>판매가 (원)</th>
-                                                        <th>재고수량</th>
-                                                        <th>배달비 (원)</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody class="vendor__table__input">
-                                                    <tr>
-                                                        <td>
-                                                            <input type="number" id="price" name="price" th:value="${uploadItem.getPrice()}">
-                                                        </td>
-                                                        <td>
-                                                            <input type="number" id="salePrice" name="salePrice" th:value="${uploadItem.getSalePrice()}">
-                                                        </td>
-                                                        <td>
-                                                            <input type="number" id="stockQuantity" name="stockQuantity" th:value="${uploadItem.getStockQuantity()}">
-                                                        </td>
-                                                        <td>
-                                                            <input type="number" id="deliveryPrice" name="deliveryPrice" th:value="${uploadItem.getDeliveryPrice()}">
-                                                        </td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-
-                                            <div class="mb-3 font-weight-lighter text-gray-800">
-                                                <button class="btn btn-primary" type="button" th:onclick="changeNumber()">
-                                                    수정하기
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-12 mb-4">
-
-                                <div class="card shadow h-100 py-2">
-                                    <div class="card-body">
-                                        <div class="form-group">
-                                            <div class="mb-3 font-weight-lighter text-gray-800">
-                                                <span class="font-weight-bold h5">
-                                                    세부 옵션
-                                                </span>
-                                            </div>
-                                            <table class="table text-center table-bordered vendor__table">
-                                                <thead class="thead-light">
-                                                    <tr th:if="${uploadItem.category.parentId == '01'}" class="detail__input__title">
-                                                        <th>브리더 이름</th>
-                                                        <th>사이즈</th>
-                                                        <th>성별</th>
-                                                    </tr>
-                                                    <tr th:if="${uploadItem.category.parentId == '02'}" class="detail__input__title">
-                                                        <td>브랜드명</td>
-                                                    </tr>
-                                                </thead>
-                                                <tbody class="vendor__table__input">
-                                                    <tr th:if="${uploadItem.category.parentId == '01'}" class="detail__input__content">
-                                                        <td>
-                                                            <input th:value="${uploadItem.breederName}" name="breederName" id="breederName" placeholder="브리더 이름">                                                        </td>
-                                                        <td>
-                                                            <input th:value="${uploadItem.size}" name="size" id="size" placeholder="사이즈">
-                                                        </td>
-                                                        <td>
-                                                            <select class="form-control" name="fishSex" id="fishSex">
-                                                                <option value="MALE">수컷</option>
-                                                                <option value="FEMALE">암컷</option>
-                                                                <option value="UNKNOWN">불분명</option>
-                                                            </select>
-                                                        </td>
-                                                    </tr>
-                                                    <tr th:if="${uploadItem.category.parentId == '02'}" class="detail__input__content">
-                                                        <td>
-                                                            <input th:value="${uploadItem.brandName}" name="brandName" placeholder="브랜드명">
-                                                        </td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-
-                                            <div class="mb-3 font-weight-lighter text-gray-800">
-                                                <th:block th:if="${uploadItem.category.parentId == '01'}">
-                                                    <button class="btn btn-primary" type="button" th:onclick="changeFish()">
-                                                        수정하기
-                                                    </button>
-                                                </th:block>
-                                                <th:block  th:if="${uploadItem.category.parentId == '02'}">
-                                                    <button class="btn btn-primary" type="button" th:onclick="changeProduct()">
-                                                        수정하기
-                                                    </button>
-                                                </th:block>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-12 mb-4">
-
-                                <div class="card shadow h-100 py-2">
-                                    <div class="card-body">
-                                        <div class="form-group">
-                                            <div class="mb-3 font-weight-lighter text-gray-800">
-                                                <div class="font-weight-bold h5">
-                                                    상품이미지
-                                                </div>
-                                                <div>
-                                                    용량 : 10MB 이하, 파일 형식 JPG, PNG 지원
-                                                </div>
-                                            </div>
-                                            <table class="table text-center table-bordered vendor__table">
-                                                <thead class="thead-light">
-                                                    <tr>
-                                                        <th style="width: 350px">대표이미지</th>
-                                                        <th>추가이미지(최대 7장)</th>
-                                                </thead>
-                                                <tbody>
-                                                    <tr>
-                                                        <td class="item__info__img">
-                                                            <div class="img__wrap">
-                                                                <img th:src="@{/images/thumbnail/{thumbnailName}(thumbnailName=${thumbnailImage})}" alt=""/>
-                                                            </div>
-                                                        </td>
-                                                        <td class="item__info__img d-flex flex-row">
-                                                            <th:block th:each="extra : ${extraImages}">
-                                                                <div class="img__wrap mr-1">
-                                                                    <img th:src="@{/images/extra/{extraName}(extraName=${extra})}"/>
-                                                                </div>
-                                                            </th:block>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#thumbnailModal">수정하기</button>
-                                                        </td>
-                                                        <td>
-                                                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#extraModal">수정하기</button>
-                                                        </td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-
-                                            <script th:src="@{/js/vendor/fileSizeCheck.js}"></script>
-
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-
-
-                        <div th:insert="main/item/uploadImageModal :: extra"></div>
-                        <div th:insert="main/item/uploadImageModal :: thumbnail"></div>
-
-                        <div class="row">
-                            <div class="col-12 mb-4">
-
-                                <div class="card shadow h-100 py-2">
-                                    <div class="card-body">
-                                        <div class="form-group">
-                                            <div class="mb-3 font-weight-lighter text-gray-800">
-                                                <span class="font-weight-bold h5">
-                                                    상세설명
-                                                </span>
-                                            </div>
-                                            <div class="mb-3 font-weight-lighter text-gray-800">
-                                                <div name="item__content" id="item__content" style="height: 400px">
-                                                    <th:block th:utext="${uploadItem.getContent()}"></th:block>
-                                                </div>
-                                                <input type="hidden" id="quill_data" name="content">
-
-                                                <script th:src="@{/js/quilljs-editor.js}" src="/js/quilljs-editor.js"></script>
-                                            </div>
-                                            <div class="mb-3 font-weight-lighter text-gray-800">
-                                                <button class="btn btn-primary" type="button" th:onclick="changeName(${uploadItem.id})">
-                                                    수정하기
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-
-
+                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                        <h1 class="h3 mb-0 text-gray-800">상품수정</h1>
+                        <input type="hidden" name="itemId" id="itemId" th:value="${itemId}">
                     </div>
+
+                    <div class="row">
+                        <div class="col-12 mb-4">
+
+                            <div class="card shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="form-group">
+                                        <div class="mb-3 font-weight-lighter text-gray-800">
+                                            <span class="font-weight-bold h5">
+                                                노출상품명
+                                            </span>
+                                        </div>
+                                        <div class="mb-3 font-weight-lighter text-gray-800">
+                                            <input class="form-control" type="text" name="itemName" id="itemName" placeholder="노출상품명 입력(브랜드명 + 제품명)" th:value="${uploadItem.itemName}"/>
+                                        </div>
+                                        <div class="mb-3 font-weight-lighter text-gray-800">
+                                            <button class="btn btn-primary" type="button" th:onclick="changeName()">
+                                                수정하기
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-12 mb-4">
+
+                            <div class="card shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="form-group">
+                                        <div class="mb-3 font-weight-lighter text-gray-800">
+                                            <span class="font-weight-bold h5">
+                                                카테고리
+                                            </span>
+                                        </div>
+                                        <div class="mb-3 font-weight-lighter text-gray-800 d-flex">
+                                            <div class="product__category col">
+                                                <div class="product__layer parent__product__layer">
+                                                    <div class="h4 font-weight-bold">
+                                                        <th:block th:text="${uploadItem.category.parentName}"></th:block>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col">
+                                                <div class="h4 font-weight-bold">
+                                                    <i class="fa-sharp fa-solid fa-arrow-right"></i>
+                                                </div>
+                                            </div>
+                                            <div class="product__category col">
+                                                <div class="product__layer parent__product__layer">
+                                                    <div class="h4 font-weight-bold">
+                                                        <th:block th:text="${uploadItem.category.childName}"></th:block>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col">
+                                                <div class="h4 font-weight-bold">
+                                                    <i class="fa-sharp fa-solid fa-arrow-right"></i>
+                                                </div>
+                                            </div>
+                                            <div class="product__category col">
+                                                <div class="product__layer grandchild__product__layer">
+                                                    <div class="h4 font-weight-bold">
+                                                        <th:block th:text="${uploadItem.category.grandchildName}"></th:block>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-12 mb-4">
+
+                            <div class="card shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="form-group">
+                                        <div class="mb-3 font-weight-lighter text-gray-800">
+                                            <span class="font-weight-bold h5">
+                                                옵션
+                                            </span>
+                                        </div>
+                                        <table class="table text-center table-bordered vendor__table">
+                                            <thead class="thead-light">
+                                                <tr>
+                                                    <th>정상가 (원)</th>
+                                                    <th>판매가 (원)</th>
+                                                    <th>재고수량</th>
+                                                    <th>배달비 (원)</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody class="vendor__table__input">
+                                                <tr>
+                                                    <td>
+                                                        <input type="number" id="price" name="price" th:value="${uploadItem.getPrice()}">
+                                                    </td>
+                                                    <td>
+                                                        <input type="number" id="salePrice" name="salePrice" th:value="${uploadItem.getSalePrice()}">
+                                                    </td>
+                                                    <td>
+                                                        <input type="number" id="stockQuantity" name="stockQuantity" th:value="${uploadItem.getStockQuantity()}">
+                                                    </td>
+                                                    <td>
+                                                        <input type="number" id="deliveryPrice" name="deliveryPrice" th:value="${uploadItem.getDeliveryPrice()}">
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+
+                                        <div class="mb-3 font-weight-lighter text-gray-800">
+                                            <button class="btn btn-primary" type="button" th:onclick="changeNumber()">
+                                                수정하기
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-12 mb-4">
+
+                            <div class="card shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="form-group">
+                                        <div class="mb-3 font-weight-lighter text-gray-800">
+                                            <span class="font-weight-bold h5">
+                                                세부 옵션
+                                            </span>
+                                        </div>
+                                        <table class="table text-center table-bordered vendor__table">
+                                            <thead class="thead-light">
+                                                <tr th:if="${uploadItem.category.parentId == '01'}" class="detail__input__title">
+                                                    <th>브리더 이름</th>
+                                                    <th>사이즈</th>
+                                                    <th>성별</th>
+                                                </tr>
+                                                <tr th:if="${uploadItem.category.parentId == '02'}" class="detail__input__title">
+                                                    <td>브랜드명</td>
+                                                </tr>
+                                            </thead>
+                                            <tbody class="vendor__table__input">
+                                                <tr th:if="${uploadItem.category.parentId == '01'}" class="detail__input__content">
+                                                    <td>
+                                                        <input th:value="${uploadItem.breederName}" name="breederName" id="breederName" placeholder="브리더 이름">                                                        </td>
+                                                    <td>
+                                                        <input th:value="${uploadItem.size}" name="size" id="size" placeholder="사이즈">
+                                                    </td>
+                                                    <td>
+                                                        <select class="form-control" name="fishSex" id="fishSex">
+                                                            <option value="MALE">수컷</option>
+                                                            <option value="FEMALE">암컷</option>
+                                                            <option value="UNKNOWN">불분명</option>
+                                                        </select>
+                                                    </td>
+                                                </tr>
+                                                <tr th:if="${uploadItem.category.parentId == '02'}" class="detail__input__content">
+                                                    <td>
+                                                        <input th:value="${uploadItem.brandName}" name="brandName" placeholder="브랜드명">
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+
+                                        <div class="mb-3 font-weight-lighter text-gray-800">
+                                            <th:block th:if="${uploadItem.category.parentId == '01'}">
+                                                <button class="btn btn-primary" type="button" th:onclick="changeFish()">
+                                                    수정하기
+                                                </button>
+                                            </th:block>
+                                            <th:block  th:if="${uploadItem.category.parentId == '02'}">
+                                                <button class="btn btn-primary" type="button" th:onclick="changeProduct()">
+                                                    수정하기
+                                                </button>
+                                            </th:block>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-12 mb-4">
+
+                            <div class="card shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="form-group">
+                                        <div class="mb-3 font-weight-lighter text-gray-800">
+                                            <div class="font-weight-bold h5">
+                                                상품이미지
+                                            </div>
+                                            <div>
+                                                용량 : 10MB 이하, 파일 형식 JPG, PNG 지원
+                                            </div>
+                                        </div>
+                                        <table class="table text-center table-bordered vendor__table">
+                                            <thead class="thead-light">
+                                                <tr>
+                                                    <th style="width: 350px">대표이미지</th>
+                                                    <th>추가이미지(최대 7장)</th>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td class="item__info__img">
+                                                        <div class="img__wrap">
+                                                            <img th:src="@{/images/thumbnail/{thumbnailName}(thumbnailName=${thumbnailImage})}" alt=""/>
+                                                        </div>
+                                                    </td>
+                                                    <td class="item__info__img d-flex flex-row">
+                                                        <th:block th:each="extra : ${extraImages}">
+                                                            <div class="img__wrap mr-1">
+                                                                <img th:src="@{/images/extra/{extraName}(extraName=${extra})}"/>
+                                                            </div>
+                                                        </th:block>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#thumbnailModal">수정하기</button>
+                                                    </td>
+                                                    <td>
+                                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#extraModal">수정하기</button>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+
+                                        <script th:src="@{/js/vendor/fileSizeCheck.js}"></script>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div th:insert="main/item/uploadImageModal :: extra"></div>
+                    <div th:insert="main/item/uploadImageModal :: thumbnail"></div>
+
+                    <div class="row">
+                        <div class="col-12 mb-4">
+
+                            <div class="card shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="form-group">
+                                        <div class="mb-3 font-weight-lighter text-gray-800">
+                                            <span class="font-weight-bold h5">
+                                                상세설명
+                                            </span>
+                                        </div>
+                                        <div class="mb-3 font-weight-lighter text-gray-800">
+                                            <div name="item__content" id="item__content" style="height: 400px">
+                                                <th:block th:utext="${uploadItem.getContent()}"></th:block>
+                                            </div>
+                                            <input type="hidden" id="quill_data" name="content">
+
+                                            <script th:src="@{/js/quilljs-editor.js}" src="/js/quilljs-editor.js"></script>
+                                        </div>
+                                        <div class="mb-3 font-weight-lighter text-gray-800">
+                                            <button class="btn btn-primary" type="button" th:onclick="changeName(${uploadItem.id})">
+                                                수정하기
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
 
                 </div>
 
-                <!-- Footer -->
-                <footer class="sticky-footer bg-white">
-                    <div class="container my-auto">
-                        <div class="col">
-                            <a class="btn btn-primary" th:href="@{/vendor/home}">홈으로</a>
-                        </div>
-                    </div>
-                </footer>
-            <!-- End of Footer -->
-            </form>
+            </div>
 
-            <script th:src="@{/js/vendor/vendorJs.js}" src=""></script>
+            <!-- Footer -->
+            <footer class="sticky-footer bg-white">
+                <div class="container my-auto">
+                    <div class="col">
+                        <a class="btn btn-primary" th:href="@{/vendor/home}">홈으로</a>
+                    </div>
+                </div>
+            </footer>
+        <!-- End of Footer -->
+
+        <script th:src="@{/js/vendor/vendorJs.js}" src=""></script>
 
         </div>
         <!-- End of Content Wrapper -->

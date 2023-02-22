@@ -9,7 +9,16 @@
 <body>
     <header th:replace="main/common/header :: header"></header>
 
-    <a th:href="@{/vendor/join}" href="https://localhost:9090/">가입하기</a>
+    <div class="container" style="height: 100vh">
+        <div class="title__wrap text-center mt-5">
+            <h2>환영합니다!</h2>
+            <span>올 블루와 함께</span>
+            <span><strong>비즈니스</strong>를 시작하세요!</span>
+        </div>
+        <div class="content__wrap text-center pt-5 pb-5">
+            <a class="btn btn-lg btn-outline-primary" th:href="@{/vendor/join}" href="https://localhost:9090/">가입하기</a>
+        </div>
+    </div>
 
     <footer th:replace="main/common/footer :: footer"></footer>
     <th:block th:replace="main/common/common-js :: common_js"></th:block>
