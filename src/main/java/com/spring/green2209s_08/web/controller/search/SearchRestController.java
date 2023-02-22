@@ -25,6 +25,7 @@ public class SearchRestController {
     private final ItemService itemService;
     private final ReviewService reviewService;
     private final QueryService queryService;
+
     @PostMapping("/query")
     public ResponseEntity<StatusResponse> query(
             @RequestParam String content, @RequestParam Long itemId, HttpServletRequest request){

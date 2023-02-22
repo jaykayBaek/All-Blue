@@ -24,7 +24,6 @@ public class SearchController {
     @GetMapping
     public String view(@ModelAttribute ItemSearchCond condition, Pageable pageable, Model model){
         Page<ItemDto> items = itemSearchService.findItemsByCond(condition, pageable);
-        log.info("cond={}", condition);
         model.addAttribute("items", items);
         model.addAttribute("condition", condition);
 

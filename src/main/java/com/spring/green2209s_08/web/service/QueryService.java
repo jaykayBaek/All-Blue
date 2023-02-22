@@ -3,6 +3,10 @@ package com.spring.green2209s_08.web.service;
 import com.spring.green2209s_08.web.domain.Item;
 import com.spring.green2209s_08.web.domain.ItemQuery;
 import com.spring.green2209s_08.web.domain.Member;
+import com.spring.green2209s_08.web.exception.ItemException;
+import com.spring.green2209s_08.web.exception.MemberException;
+import com.spring.green2209s_08.web.exception.errorResult.ItemErrorResult;
+import com.spring.green2209s_08.web.exception.errorResult.MemberErrorResult;
 import com.spring.green2209s_08.web.repository.ItemRepository;
 import com.spring.green2209s_08.web.repository.MemberRepository;
 import com.spring.green2209s_08.web.repository.QueryRepository;
@@ -21,13 +25,21 @@ public class QueryService {
     private final QueryRepository queryRepository;
     private final ItemRepository itemRepository;
     private final MemberRepository memberRepository;
+
     public Long writeItemQuery(Long itemId, Long memberId, String content) {
-        Item item = itemRepository.findById(itemId).get();
-        Member member = memberRepository.findById(memberId).get();
+        Optional<Item> findItem = itemRepository.findById(itemId);
+        Optional<Member> findMember = memberRepository.findById(memberId);
+
+        if(findItem.isEmpty()){
+            throw new ItemException(ItemErrorResult.ITEM_NOT_FOUND);
+        }
+        if(findMember.isEmpty()){
+            throw new MemberException(MemberErrorResult.MEMBER_NOT_FOUND);
+        }
 
         ItemQuery itemQuery = ItemQuery.builder()
-                .item(item)
-                .member(member)
+                .item(findItem.get())
+                .member(findMember.get())
                 .content(content)
                 .build();
         return queryRepository.save(itemQuery).getId();
