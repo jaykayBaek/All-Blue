@@ -3,12 +3,18 @@ package com.spring.green2209s_08.web.service;
 import com.spring.green2209s_08.web.controller.item.api.EditFishRequest;
 import com.spring.green2209s_08.web.controller.item.api.EditNumberRequest;
 import com.spring.green2209s_08.web.controller.item.api.EditProductRequest;
+import com.spring.green2209s_08.web.controller.search.FishRequestDto;
+import com.spring.green2209s_08.web.controller.search.ItemRequestDto;
+import com.spring.green2209s_08.web.controller.search.ProductRequestDto;
 import com.spring.green2209s_08.web.domain.Fish;
 import com.spring.green2209s_08.web.domain.Item;
 import com.spring.green2209s_08.web.domain.ItemImage;
 import com.spring.green2209s_08.web.domain.Product;
 import com.spring.green2209s_08.web.exception.ItemException;
+import com.spring.green2209s_08.web.exception.PageNotFoundException;
 import com.spring.green2209s_08.web.exception.errorResult.ItemErrorResult;
+import com.spring.green2209s_08.web.exception.errorResult.SearchErrorResult;
+import com.spring.green2209s_08.web.repository.CategoryRepository;
 import com.spring.green2209s_08.web.repository.ItemImageRepository;
 import com.spring.green2209s_08.web.repository.ItemRepository;
 import com.spring.green2209s_08.web.repository.VendorRepository;
@@ -28,7 +34,6 @@ import java.util.Optional;
 @Slf4j
 @Transactional(readOnly = true)
 public class ItemService {
-    private final VendorRepository vendorRepository;
     private final ItemRepository itemRepository;
     private final ItemImageRepository itemImageRepository;
     private final VendorViewRepository vendorViewRepository;
@@ -95,5 +100,15 @@ public class ItemService {
     public void changeProduct(EditProductRequest request) {
         Product product = (Product) itemRepository.findById(request.getItemId()).get();
         product.changeProduct(request.getBrandName());
+    }
+
+
+    public Item findItem(Long itemId) {
+        Optional<Item> findItem = itemRepository.findById(itemId);
+
+        if(findItem.isEmpty()){
+            throw new PageNotFoundException(SearchErrorResult.ITEM_NOT_FOUND);
+        }
+        return findItem.get();
     }
 }

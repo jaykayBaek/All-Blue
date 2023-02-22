@@ -18,7 +18,11 @@
       <div class="col-xl-11">
         <div class="container">
           <div class="filter__item">
-            <strong>'<span th:text="${query}"></span>'</strong>에 대한 검색결과
+            <strong th:if="condition ne null">
+              <span th:if="${condition.query ne null}" th:text="${query}"></span>
+              <span th:if="${condition.grandchildId ne null}">카테고리</span>
+              <span th:if="${condition.parentId ne null}">카테고리</span>
+            </strong>에 대한 검색결과
           </div>
 
           <div class="row">

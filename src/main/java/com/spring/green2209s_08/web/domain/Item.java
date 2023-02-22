@@ -54,6 +54,10 @@ public abstract class Item {
     @OneToMany(mappedBy = "item")
     private List<Review> reviews = new ArrayList<>();
 
+    @BatchSize(size = 100)
+    @OneToMany(mappedBy = "item")
+    private List<ItemQuery> itemQueries = new ArrayList<>();
+
     /**
      * 생성
      */

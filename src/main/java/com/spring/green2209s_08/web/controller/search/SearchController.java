@@ -1,5 +1,8 @@
 package com.spring.green2209s_08.web.controller.search;
 
+import com.spring.green2209s_08.web.domain.Fish;
+import com.spring.green2209s_08.web.domain.Item;
+import com.spring.green2209s_08.web.domain.Product;
 import com.spring.green2209s_08.web.service.ItemSearchService;
 import com.spring.green2209s_08.web.service.ItemService;
 import lombok.RequiredArgsConstructor;
@@ -9,8 +12,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @Slf4j
 @Controller
@@ -23,21 +24,38 @@ public class SearchController {
     @GetMapping
     public String view(@ModelAttribute ItemSearchCond condition, Pageable pageable, Model model){
         Page<ItemDto> items = itemSearchService.findItemsByCond(condition, pageable);
-
-        for (ItemDto item : items) {
-            System.out.println("item = " + item);
-        }
+        log.info("cond={}", condition);
         model.addAttribute("items", items);
-        model.addAttribute("query", condition.getQuery());
+        model.addAttribute("condition", condition);
 
         return "main/search/search";
     }
 
     @GetMapping("/detail/{itemId}")
     public String itemDetail(@PathVariable Long itemId, Model model){
-//        itemService.itemDetails();
+        Item item = itemService.findItem(itemId);
+
+        if(item instanceof Fish){
+            FishRequestDto request = new FishRequestDto(
+                    item.getId(), item.getItemName(), item.getCategory(), item.getPrice(), item.getSalePrice(), item.getStockQuantity(),
+                    item.getDeliveryPrice(), item.getContent(), item.getItemImages(), item.getVendor(), item.getUploadDate(),
+                    item.getReviews(), ((Fish) item).getBreederName(), ((Fish) item).getSex(), ((Fish) item).getSize()
+            );
+            model.addAttribute("item", request);
+        }else if(item instanceof Product){
+            ProductRequestDto request = new ProductRequestDto(
+                    item.getId(), item.getItemName(), item.getCategory(), item.getPrice(), item.getSalePrice(), item.getStockQuantity(),
+                    item.getDeliveryPrice(), item.getContent(), item.getItemImages(), item.getVendor(), item.getUploadDate(),
+                    item.getReviews(), ((Product) item).getBrandName()
+            );
+            model.addAttribute("item", request);
+        }
+
+        model.addAttribute("itemId", itemId);
         return "main/search/detail";
     }
+
+
 
 
 }

@@ -7,6 +7,15 @@
 
   <th:block th:replace="main/common/common-css :: common_css"></th:block>
 </head>
+<script>
+  $(function () {
+    $(".image__content").mouseenter(function () {
+      const imageSrc = $(this).attr("data-src");
+      console.log(imageSrc);
+      $(".main__image__content").attr("src", imageSrc);
+    });
+  });
+</script>
 
 <body>
 <header th:replace="main/common/header :: header"></header>
@@ -18,62 +27,54 @@
       <div class="col">
         <div class="row">
           <div class="col-1 mr-2">
-            <ul class="images__list">
-              <li>
-                <img th:src="@{/img/product/product-1.jpg}" alt="">
+            <ul class="images__list" th:each="image : ${item.itemImages}">
+              <li th:if="${image.thumbnailImage}" class="image__content">
+                <img class="image__content image__thumbnail"
+                     th:src="@{/images/thumbnail/{savedName}(savedName=${image.savedImageName})}"
+                     th:attr="data-src='/green2209s_08/images/thumbnail/' + ${image.savedImageName}"
+                     alt="">
               </li>
-              <li>
-                <img th:src="@{/img/product/product-2.jpg}" alt="">
-              </li>
-              <li>
-                <img th:src="@{/img/product/product-3.jpg}" alt="">
-              </li>
-              <li>
-                <img th:src="@{/img/product/product-4.jpg}" alt="">
-              </li>
-              <li>
-                <img th:src="@{/img/product/product-5.jpg}" alt="">
-              </li>
-              <li>
-                <img th:src="@{/img/product/product-6.jpg}" alt="">
-              </li>
-              <li>
-                <img th:src="@{/img/product/product-7.jpg}" alt="">
-              </li>
-              <li>
-                <img th:src="@{/img/product/product-8.jpg}" alt="">
+              <li th:if="${not image.thumbnailImage}" class="image__content__wrap">
+                <img class="image__content image__extra"
+                     th:src="@{/images/extra/{savedName}(savedName=${image.savedImageName})}"
+                     th:attr="data-src='/green2209s_08/images/extra/' + ${image.savedImageName}"
+                     alt="">
               </li>
             </ul>
           </div>
           <div class="col">
-            <div class="item__images">
-              <img th:src="@{/img/product/test.jpg}" alt="">
+            <div class="item__images" id="main__image">
+              <th:block th:each="image : ${item.itemImages}">
+                <th:block th:if="${image.thumbnailImage}">
+                  <img class="main__image__content" th:src="@{/images/thumbnail/{savedName}(savedName=${image.savedImageName})}" alt="">
+                </th:block>
+              </th:block>
             </div>
           </div>
 
         </div>
       </div>
       <div class="col">
-        <div class="detail__title">
-          LED 전구 PAR30 파삼공 15W 5개 E26
+        <div class="detail__title" th:text="${item.itemName}">
+          제목
         </div>
         <div class="detail__star">
-          ★★★★★
+          ★
         </div>
         <hr/>
         <div class="detail__amount">
-          <span>
+          <span th:text="${#numbers.formatInteger(item.price, 3, 'COMMA')}">
             36,000원
           </span>
-          <b>23,900원</b>
+          <b th:text="${#numbers.formatInteger(item.salePrice, 3, 'COMMA')}">23,900원</b>
         </div>
         <div class="delivery__content">
           <span>배송비 추가</span>
-          <b>15,000원</b>
+          <b th:text="${#numbers.formatInteger(item.deliveryPrice, 3, 'COMMA')}">15,000원</b>
           <sub>배송비는 추가적인 비용입니다.</sub>
         </div>
         <div class="detail__total__amount">
-          주문 총 금액은 <strong>35000</strong>원 입니다
+          주문 총 금액은 <strong th:text="${#numbers.formatInteger(item.totalPrice, 3, 'COMMA')}">35000</strong>원 입니다
         </div>
 
         <hr/>
@@ -116,9 +117,13 @@
             </li>
           </ul>
         </nav>
+        <input type="hidden" name="itemId" id="itemId" th:value="${itemId}">
         <div class="detail__content detail__about" id="detail__about">
           <h2>상품상세</h2>
-
+          <hr/>
+          <div class="container">
+            <th:block th:utext="${item.content}"></th:block>
+          </div>
         </div>
         <div class="detail__content detail__review" id="detail__review">
           <h2>리뷰</h2>
@@ -274,9 +279,44 @@
             </div>
           </div>
 
+          <div class="product__pagination d-flex justify-content-center">
+            <a href="#"><i class="fa fa-long-arrow-left"></i></a>
+            <a href="#">1</a>
+            <a href="#">2</a>
+            <a href="#">3</a>
+            <a href="#"><i class="fa fa-long-arrow-right"></i></a>
+          </div>
+
         </div>
         <div class="detail__content detail__question p-4" id="detail__question">
-          <h2>상품문의</h2>
+          <div class="detail__top">
+            <h2>상품문의</h2>
+            <textarea class="query__content" name="query"></textarea>
+            <script>
+              function query(){
+                const content = $('.query__content').val();
+                const itemId = $('#itemId').val();
+                $.ajax({
+                  url:"http://localhost:9090/green2209s_08/search/query",
+                  method:"post",
+                  data:{
+                    content:content,
+                    itemId:itemId
+                  },
+                  success: function(result){
+
+                  },
+                  error: function (result){
+
+                  }
+                })
+              }
+            </script>
+            <div class="button__wrap">
+              <button type="button" onclick="query()" class="query__btn submit__btn">작성</button>
+              <button type="reset" class="query__btn cancel__btn">취소</button>
+            </div>
+          </div>
           <div class="detail__question__list">
             해당 상품에 관련 없는 글은 예고 없이 삭제 등의 조취가 취해질 수 있습니다. <br/>
             공개 게시판이므로 개인정보는 절대 남기지 말아주세요.

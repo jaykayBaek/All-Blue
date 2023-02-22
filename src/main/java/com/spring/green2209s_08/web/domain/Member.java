@@ -47,6 +47,9 @@ public class Member {
     @OneToMany(mappedBy = "member", fetch = FetchType.LAZY)
     private List<Review> review = new ArrayList<>();
 
+    @OneToMany(mappedBy = "member", fetch = FetchType.LAZY)
+    private List<ItemQuery> itemQueries = new ArrayList<>();
+
     private LocalDateTime createdTime;
     private LocalDateTime lastVisitedTime;
     private String createdIp;
