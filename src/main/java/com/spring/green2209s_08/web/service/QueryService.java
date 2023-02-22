@@ -29,6 +29,11 @@ public class QueryService {
     public Long writeItemQuery(Long itemId, Long memberId, String content) {
         Optional<Item> findItem = itemRepository.findById(itemId);
         Optional<Member> findMember = memberRepository.findById(memberId);
+        boolean result = queryRepository.existsByItemIdAndMemberId(itemId, memberId);
+
+        if(result==true){
+            throw new ItemException(ItemErrorResult.ALREADY_WRITE_ITEM_QUERY);
+        }
 
         if(findItem.isEmpty()){
             throw new ItemException(ItemErrorResult.ITEM_NOT_FOUND);
@@ -36,6 +41,7 @@ public class QueryService {
         if(findMember.isEmpty()){
             throw new MemberException(MemberErrorResult.MEMBER_NOT_FOUND);
         }
+
 
         ItemQuery itemQuery = ItemQuery.builder()
                 .item(findItem.get())
