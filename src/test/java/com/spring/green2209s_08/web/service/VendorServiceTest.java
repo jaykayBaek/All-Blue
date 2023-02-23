@@ -103,5 +103,36 @@ class VendorServiceTest {
         //then
         assertThat(saveDetails).isEqualTo(1L);
     }
+    
+    @Test
+    void 상세정보등록했는지확인() {
+        //given
+        Vendor tester1 = Vendor.builder()
+                .vendorName("tester1")
+                .build();
+        Vendor tester2 = Vendor.builder()
+                .vendorName("tester2")
+                .build();
+        vendorService.register(tester1);
+        vendorService.register(tester2);
+
+        LicenseRequest request = LicenseRequest.builder()
+                .address("test")
+                .zipcode("1")
+                .licenseNo("1")
+                .storeName("1")
+                .detail("1")
+                .build();
+        vendorService.addLicense(tester1.getId(), request);
+
+        //when
+        boolean result1 = vendorService.isLicenseVendor(tester1.getId());
+        boolean result2 = vendorService.isLicenseVendor(tester2.getId());
+
+        //then
+        assertThat(result1).isTrue();
+        assertThat(result2).isFalse();
+
+    }
 
 }

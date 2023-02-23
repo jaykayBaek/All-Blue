@@ -57,7 +57,9 @@ public class VendorController {
         VendorHomeResponse response = getVendorHomeResponse(request);
         Long vendorId = response.getVendorId();
         ItemCountResponse uploadItemsCount = itemService.findUploadItemsCount(vendorId);
+        boolean result = vendorService.isLicenseVendor(vendorId);
 
+        model.addAttribute("isConfirmLicense", result);
         model.addAttribute("vendor", response);
         model.addAttribute("uploadItemsCount", uploadItemsCount);
 

@@ -38,7 +38,7 @@
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
                         <h1 class="h3 mb-0 text-gray-800">안녕하세요, 판매자님</h1>
                     </div>
-                    
+
                     <!-- Content Row -->
                     <div class="row">
 
@@ -62,7 +62,7 @@
                                             </div>
                                             <div class="row" th:if="${uploadItemsCount.getUploadItemsCount() != 0 && uploadItemsCount.getApprovalItemsCount() == 0}">
                                                 <div class="vendor-home-title h4 font-weight-bold col-12">
-                                                    상품을 등록해 주세요.
+                                                    대기중
                                                 </div>
                                                 <div class="vendor-home-content col-12">
                                                     등록 완료된 상품이 <strong th:text="${uploadItemsCount.getUploadItemsCount()}"></strong>건 있지만 승인된 상품이 없습니다.<br/>
@@ -76,7 +76,7 @@
 
                                             <div class="row" th:if="${uploadItemsCount.getUploadItemsCount() != 0 && uploadItemsCount.getApprovalItemsCount() != 0}">
                                                 <div class="vendor-home-title h4 font-weight-bold col-12">
-                                                    상품을 등록해 주세요.
+                                                    상품 등록 현황
                                                 </div>
                                                 <div class="vendor-home-content col-12">
                                                     등록 완료된 상품 <strong th:text="${uploadItemsCount.getUploadItemsCount()}"></strong>건 승인된 상품 <strong th:text="${uploadItemsCount.getApprovalItemsCount()}"></strong>건 있습니다.<br/>
@@ -98,17 +98,25 @@
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
                                         <div class="mb-0 text-gray-800">
-                                            <div class="row">
+                                            <div class="row" th:if="${not isConfirmLicense}">
                                                 <div class="vendor-home-title h4 font-weight-bold col-12">
                                                     판매자 정보를<br/>
                                                     입력해 주세요.
                                                 </div>
                                                 <div class="vendor-home-content col-12">
-                                                    판매자 상세 정보를<br/>
-                                                    입력해주세요.
+                                                    판매자 상세 정보를 입력해주세요. <br/>
+                                                    판매자 상세 정보를 입력하지 않으면 상품이 승인되지 않습니다! <br/>
                                                 </div>
                                                 <div class="vendor-home-bottom col-12 mt-2">
-                                                    <button class="btn btn-primary btn-lg">상세정보 등록</button>
+                                                    <a th:href="@{/vendor/account/confirm/license}" class="btn btn-primary btn-lg">상세정보 등록하기</a>
+                                                </div>
+                                            </div>
+                                            <div class="row" th:if="${isConfirmLicense}">
+                                                <div class="vendor-home-title h4 font-weight-bold col-12">
+                                                    기입 완료
+                                                </div>
+                                                <div class="vendor-home-content col-12">
+                                                    판매자 정보를 기입하셨습니다! 이제부터 상품 등록 승인이 정상적으로 처리됩니다.
                                                 </div>
                                             </div>
 

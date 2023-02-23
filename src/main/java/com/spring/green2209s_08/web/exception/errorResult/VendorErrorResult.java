@@ -15,7 +15,7 @@ public enum VendorErrorResult {
     ALREADY_LOGIN(HttpStatus.BAD_REQUEST ,"이미 로그인되었습니다"),
     PASSWORD_NOT_MATCH(HttpStatus.UNAUTHORIZED, "비밀번호를 잘못 입력하셨습니다. 비밀번호를 다시 확인하세요."),
     CHANGE_PASSWORD_NOT_MATCH(HttpStatus.BAD_REQUEST, "변경하고자 하는 비밀번호를 다시 확인하세요."),
-    ;
+    ALREADY_ADD_LICENSE(HttpStatus.BAD_REQUEST, "이미 상세정보 등록을 완료하셨습니다.");
     private final HttpStatus status;
     private final String message;
 }

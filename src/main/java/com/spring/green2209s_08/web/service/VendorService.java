@@ -6,6 +6,7 @@ import com.spring.green2209s_08.web.controller.vendor.dto.VendorInfoChangeReques
 import com.spring.green2209s_08.web.domain.StoreAddress;
 import com.spring.green2209s_08.web.domain.Vendor;
 import com.spring.green2209s_08.web.domain.VendorLicense;
+import com.spring.green2209s_08.web.exception.ItemException;
 import com.spring.green2209s_08.web.exception.errorResult.VendorErrorResult;
 import com.spring.green2209s_08.web.exception.VendorException;
 import com.spring.green2209s_08.web.repository.LicenseRepository;
@@ -92,6 +93,12 @@ public class VendorService {
 
     public Long addLicense(Long vendorId, LicenseRequest request) {
         Vendor vendor = vendorRepository.findById(vendorId).get();
+
+        boolean result = isLicenseVendor(vendorId);
+        if(result == true){
+            throw new VendorException(VendorErrorResult.ALREADY_ADD_LICENSE);
+        }
+        
         StoreAddress address = StoreAddress.builder()
                 .zipcode(request.getZipcode())
                 .address(request.getAddress())
@@ -105,5 +112,9 @@ public class VendorService {
                 .build();
 
         return licenseRepository.save(license).getId();
+    }
+
+    public boolean isLicenseVendor(Long vendorId) {
+        return licenseRepository.existsLicenseByVendorId(vendorId);
     }
 }
