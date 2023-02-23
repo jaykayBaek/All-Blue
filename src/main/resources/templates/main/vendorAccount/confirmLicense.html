@@ -76,14 +76,17 @@
                             <div class="card shadow h-100 py-2">
                                 <div class="card-body">
                                     <div class="form-group">
+                                        <div class="alert alert-danger" role="alert">
+                                            한번 등록된 상세정보는 <strong>수정할 수 없습니다</strong>. (추후 수정 기능 추가 예정)
+                                        </div>
                                         <form id="licenseForm">
                                             <div class="mb-3 font-weight-lighter text-gray-800">
                                                 <span class="font-weight-bold h5">
-                                                    스토어 이름 등록(법인명으로 작성해주세요. 상품 등록 시 노출되는 이름입니다.)
+                                                    스토어 이름 등록
                                                 </span>
                                             </div>
                                             <div class="mb-3 font-weight-lighter text-gray-800">
-                                                <input class="form-control" type="text" name="storeName" id="storeName" placeholder="스토어 이름"/>
+                                                <input class="form-control" type="text" name="storeName" id="storeName" placeholder="스토어 이름 (법인명으로 작성해주세요. 상품 등록 시 노출되는 이름입니다.)"/>
                                             </div>
 
                                             <div class="mb-3 font-weight-lighter text-gray-800">
@@ -151,7 +154,7 @@
                                                         detail : detail
                                                     },
                                                     success: function (result){
-                                                        console.log(result);
+                                                        alert('상세정보 ')
                                                     },
                                                     error: function (result){
                                                         console.log(result);

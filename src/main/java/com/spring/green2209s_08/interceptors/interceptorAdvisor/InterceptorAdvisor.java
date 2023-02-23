@@ -24,7 +24,7 @@ public class InterceptorAdvisor {
         log.warn("InterceptorException occur: ", e);
 
         StatusResponse statusResponse = new StatusResponse(
-                HttpStatus.UNAUTHORIZED.toString(), e.getErrorResult().getMessage(), "FALSE"
+                e.getErrorResult().getStatus().toString(), e.getErrorResult().getMessage(), "FALSE"
         );
 
         response.setContentType("text/html; charset=UTF-8");
@@ -41,7 +41,7 @@ public class InterceptorAdvisor {
         log.warn("VendorException occur: ", e);
 
         StatusResponse statusResponse = new StatusResponse(
-                HttpStatus.BAD_REQUEST.toString(), e.getErrorResult().getMessage(), "FALSE"
+                e.getErrorResult().getStatus().toString(), e.getErrorResult().getMessage(), "FALSE"
         );
 
         response.setContentType("text/html; charset=UTF-8");

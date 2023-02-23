@@ -1,5 +1,6 @@
 package com.spring.green2209s_08.config;
 
+import com.spring.green2209s_08.interceptors.AdminLoginCheck;
 import com.spring.green2209s_08.interceptors.MemberLoginCheck;
 import com.spring.green2209s_08.interceptors.VendorAlreadyLoginCheck;
 import com.spring.green2209s_08.interceptors.VendorLoginCheck;
@@ -26,6 +27,10 @@ public class WebInterceptorConfig implements WebMvcConfigurer {
         registry.addInterceptor(new MemberLoginCheck())
                 .order(3)
                 .addPathPatterns("/home/**", "/inquiry/**", "/member/account/**")
+                .excludePathPatterns("/css/**", "/js/**", "/img/**");
+        registry.addInterceptor(new AdminLoginCheck())
+                .order(4)
+                .addPathPatterns("/admin/**")
                 .excludePathPatterns("/css/**", "/js/**", "/img/**");
     }
 }

@@ -98,7 +98,7 @@ public class VendorService {
         if(result == true){
             throw new VendorException(VendorErrorResult.ALREADY_ADD_LICENSE);
         }
-        
+
         StoreAddress address = StoreAddress.builder()
                 .zipcode(request.getZipcode())
                 .address(request.getAddress())
