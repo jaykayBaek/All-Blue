@@ -6,6 +6,7 @@ import com.spring.green2209s_08.web.domain.Fish;
 import com.spring.green2209s_08.web.domain.ItemImage;
 import com.spring.green2209s_08.web.domain.Vendor;
 import com.spring.green2209s_08.web.domain.enums.FishSex;
+import com.spring.green2209s_08.web.domain.enums.ItemStatus;
 import com.spring.green2209s_08.web.exception.ItemException;
 import com.spring.green2209s_08.web.exception.errorResult.ItemErrorResult;
 import org.junit.jupiter.api.Test;
@@ -13,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityManager;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,6 +27,8 @@ import static org.junit.jupiter.api.Assertions.*;
 class ItemServiceTest {
     @Autowired
     private ItemService itemService;
+    @Autowired
+    EntityManager em;
 
     @Test
     void 상품등록실패_8장등록1() {
@@ -162,6 +166,55 @@ class ItemServiceTest {
         //then
         assertThat(fish.getBreederName()).isEqualTo(request.getBreederName());
         assertThat(fish.getSex()).isEqualTo(FishSex.MALE);
+    }
+
+    @Test
+    void 상품수정_상품상태수정() {
+        //given
+        Vendor vendor = Vendor.builder()
+                .vendorName("홍길동")
+                .build();
+        em.persist(vendor);
+
+        Fish fish = Fish.getFish("1", FishSex.MALE, "1", "name", 1, 1, 1, "1", LocalDate.now());
+        fish.changeStatus(ItemStatus.APPROVAL);
+        fish.assignVendor(vendor);
+
+        em.persist(fish);
+
+        //when
+        itemService.changeStatus(fish.getId(), vendor.getId(), ItemStatus.BLOCK_SELLING);
+
+        //then
+        assertThat(fish.getItemStatus()).isEqualTo(ItemStatus.BLOCK_SELLING);
+    }
+
+    @Test
+    void 상품수정실패_본인상품이아님() {
+        //given
+        Vendor vendor = Vendor.builder()
+                .vendorName("홍길동")
+                .build();
+        em.persist(vendor);
+
+        Fish fish = Fish.getFish("1", FishSex.MALE, "1", "name", 1, 1, 1, "1", LocalDate.now());
+        fish.changeStatus(ItemStatus.APPROVAL);
+        fish.assignVendor(vendor);
+        em.persist(fish);
+
+        Vendor tester = Vendor.builder()
+                .vendorName("김말숙")
+                .build();
+        em.persist(tester);
+
+
+        //when
+        ItemException e = assertThrows(ItemException.class, () ->
+                itemService.changeStatus(fish.getId(), tester.getId(), ItemStatus.BLOCK_SELLING)
+        );
+
+        //then
+        assertThat(e.getErrorResult().getMessage()).isEqualTo(ItemErrorResult.ITEM_EDIT_FAIL_VENDOR_NOT_MATCH.getMessage());
     }
 
 }

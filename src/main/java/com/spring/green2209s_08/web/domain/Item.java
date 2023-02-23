@@ -117,4 +117,8 @@ public abstract class Item {
         this.stockQuantity = stockQuantity;
         this.deliveryPrice = deliveryPrice;
     }
+
+    public void changeStatus(ItemStatus itemStatus) {
+        this.itemStatus = itemStatus;
+    }
 }

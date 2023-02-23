@@ -1,17 +1,18 @@
 package com.spring.green2209s_08.web.repository;
 
+import com.spring.green2209s_08.web.controller.item.ItemListStatusResponse;
 import com.spring.green2209s_08.web.controller.item.UploadItemCond;
 import com.spring.green2209s_08.web.controller.item.VendorUploadItemResponse;
-import com.spring.green2209s_08.web.service.dto.ItemCountResponse;
+import com.spring.green2209s_08.web.service.dto.VendorHomeItemCountResponse;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-import java.util.List;
-
 public interface ItemViewRepository {
-    ItemCountResponse findUploadItemsCount(Long vendorId);
+    VendorHomeItemCountResponse findUploadItemsCount(Long vendorId);
 
     Page<VendorUploadItemResponse> findUploadItemList(Long vendorId, Pageable pageable, UploadItemCond condition);
+
+    ItemListStatusResponse findUploadItemStatusCount(Long vendorId);
 
     //    List<ItemsOnDecisionInProcessDto> findItemsOnDecisionInProcess();
 }

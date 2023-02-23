@@ -51,23 +51,27 @@
                                 <div class="row">
                                     <div class="col">
                                         <span>전체</span><br>
-                                        <span class="item__status__font">0</span>건
+                                        <span class="item__status__font" th:text="${statusCount.total}">0</span>건
+                                    </div>
+                                    <div class="col">
+                                        <span>승인</span><br>
+                                        <span class="item__status__font" th:text="${statusCount.approval}">0</span>건
                                     </div>
                                     <div class="col">
                                         <span>심사중</span><br>
-                                        <span class="item__status__font">0</span>건
+                                        <span class="item__status__font" th:text="${statusCount.decisionInProcess}">0</span>건
                                     </div>
                                     <div class="col">
                                         <span>승인반려</span><br>
-                                        <span class="item__status__font">0</span>건
+                                        <span class="item__status__font" th:text="${statusCount.reject}">0</span>건
                                     </div>
                                     <div class="col">
                                         <span>판매중지</span><br>
-                                        <span class="item__status__font">0</span>건
+                                        <span class="item__status__font" th:text="${statusCount.shutdown}">0</span>건
                                     </div>
                                     <div class="col">
                                         <span>판매정지</span><br>
-                                        <span class="item__status__font">0</span>건
+                                        <span class="item__status__font" th:text="${statusCount.blockSelling}">0</span>건
                                     </div>
                                 </div>
                             </div>
@@ -95,7 +99,7 @@
                                                 <input type="checkbox" name="itemStatus" id="DECISION_IN_PROCESS" value="DECISION_IN_PROCESS"> <label for="decision_in_process">심사중</label>
                                                 <input type="checkbox" name="itemStatus" id="REJECT_APPROVAL" value="REJECT_APPROVAL"> <label for="REJECT_APPROVAL">승인반려</label>
                                                 <input type="checkbox" name="itemStatus" id="BLOCK_SELLING" value="BLOCK_SELLING"> <label for="BLOCK_SELLING">판매중지</label>
-                                                <input type="checkbox" name="itemStatus" id="SHUT_DOWN" value="BLOCK_SELLING"> <label for="SHUT_DOWN">판매정지</label>
+                                                <input type="checkbox" name="itemStatus" id="SHUT_DOWN" value="SHUT_DOWN"> <label for="SHUT_DOWN">판매정지</label>
                                                 <input type="checkbox" name="itemStatus" id="APPROVAL" value="APPROVAL"> <label for="APPROVAL">승인</label>
                                             </td>
                                         </tr>
@@ -136,6 +140,7 @@
                                             <th>재고수량</th>
                                             <th>상품게시일</th>
                                             <th>수정하기</th>
+                                            <th>비고</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -155,6 +160,35 @@
                                                 <td th:text="${item.uploadDate}"></td>
                                                 <td>
                                                     <a th:href="@{/item/{itemId}/{categoryId}/edit(itemId=${item.id}, categoryId=${item.categoryId})}">수정</a>
+                                                </td>
+                                                <td>
+                                                    <th:block th:if="${item.itemStatus.getDescription() eq '승인'}">
+                                                        <input type="hidden" id="itemId" th:value="${item.id}">
+                                                        <button type="button" onclick="statusChange()" class="btn btn-primary">판매정지 요청</button>
+                                                        <script>
+                                                            function statusChange(){
+                                                                const ans = confirm('정말 판매 중지를 원하시나요?');
+                                                                const itemId = $('#itemId').val();
+                                                                if(!ans){
+                                                                    return false;
+                                                                }
+                                                                $.ajax({
+                                                                    url:"http://localhost:9090/green2209s_08/item/status",
+                                                                    method: "patch",
+                                                                    data : {
+                                                                        itemId: itemId,
+                                                                        itemStatus : "SHUT_DOWN"
+                                                                    },
+                                                                    success: function (result){
+                                                                        console.log(result);
+                                                                    },
+                                                                    error: function (result){
+                                                                        console.log(result);
+                                                                    }
+                                                                })
+                                                            }
+                                                        </script>
+                                                    </th:block>
                                                 </td>
                                             </tr>
                                         </tr>

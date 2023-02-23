@@ -3,6 +3,7 @@ package com.spring.green2209s_08.web.controller.item.api;
 import com.spring.green2209s_08.web.constants.SessionConst;
 import com.spring.green2209s_08.web.controller.StatusResponse;
 import com.spring.green2209s_08.web.domain.ItemImage;
+import com.spring.green2209s_08.web.domain.enums.ItemStatus;
 import com.spring.green2209s_08.web.service.ItemService;
 import com.spring.green2209s_08.web.utility.FileUpload;
 import lombok.RequiredArgsConstructor;
@@ -114,15 +115,31 @@ public class ItemApiController {
     public ResponseEntity<StatusResponse> changeExtra(@RequestParam List<MultipartFile> images,
                                                       @RequestParam Long itemId,
                                                       HttpServletRequest request) throws IOException {
-
         log.info("itemId = {}", itemId);
         log.info("images = {}", images);
 //        FileUpload fileUpload = new FileUpload();
 //        ItemImage itemImage = fileUpload.thumbnailImageUpload(thumbnail);
 
-
         return null;
     }
 
+    @PatchMapping("/status")
+    public ResponseEntity<StatusResponse> changeStatus(@RequestParam Long itemId, @RequestParam String itemStatus, HttpServletRequest request) {
+            HttpSession session = request.getSession();
+            Long vendorId = (Long) session.getAttribute(SessionConst.VENDOR_ID);
+        log.info("itemID ={}", itemId);
+        log.info("itemstatus ={}", itemStatus);
+
+        ItemStatus status = Enum.valueOf(ItemStatus.class, itemStatus);
+
+        itemService.changeStatus(itemId, vendorId, status);
+
+        StatusResponse statusResponse = new StatusResponse(
+                HttpStatus.OK.toString(), "상품 정보 변경 완료", "TRUE"
+        );
+
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(statusResponse);
+    }
 
 }

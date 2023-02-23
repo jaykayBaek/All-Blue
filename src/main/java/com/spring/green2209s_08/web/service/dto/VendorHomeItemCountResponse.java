@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class ItemCountResponse {
+public class VendorHomeItemCountResponse {
     private Long uploadItemsCount;
     private Long approvalItemsCount;
 }

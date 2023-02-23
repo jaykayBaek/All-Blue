@@ -1,5 +1,6 @@
 package com.spring.green2209s_08.web.service;
 
+import com.spring.green2209s_08.web.controller.item.ItemListStatusResponse;
 import com.spring.green2209s_08.web.controller.item.UploadItemCond;
 import com.spring.green2209s_08.web.controller.item.VendorUploadItemResponse;
 import com.spring.green2209s_08.web.controller.item.api.EditFishRequest;
@@ -9,6 +10,7 @@ import com.spring.green2209s_08.web.domain.Fish;
 import com.spring.green2209s_08.web.domain.Item;
 import com.spring.green2209s_08.web.domain.ItemImage;
 import com.spring.green2209s_08.web.domain.Product;
+import com.spring.green2209s_08.web.domain.enums.ItemStatus;
 import com.spring.green2209s_08.web.exception.ItemException;
 import com.spring.green2209s_08.web.exception.PageNotFoundException;
 import com.spring.green2209s_08.web.exception.errorResult.ItemErrorResult;
@@ -16,7 +18,7 @@ import com.spring.green2209s_08.web.exception.errorResult.SearchErrorResult;
 import com.spring.green2209s_08.web.repository.ItemImageRepository;
 import com.spring.green2209s_08.web.repository.ItemRepository;
 import com.spring.green2209s_08.web.repository.vendor.viewRepository.VendorViewRepository;
-import com.spring.green2209s_08.web.service.dto.ItemCountResponse;
+import com.spring.green2209s_08.web.service.dto.VendorHomeItemCountResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -109,11 +111,35 @@ public class ItemService {
         return findItem.get();
     }
 
-    public ItemCountResponse findUploadItemsCount(Long vendorId) {
+    public VendorHomeItemCountResponse findUploadItemsCountInVendorHome(Long vendorId) {
         return itemRepository.findUploadItemsCount(vendorId);
     }
 
     public void findItemsOnDecisionInProcess() {
 //        itemRepository.findItemsOnDecisionInProcess();
+    }
+
+    public ItemListStatusResponse findUploadItemStatusCount(Long vendorId) {
+        return itemRepository.findUploadItemStatusCount(vendorId);
+    }
+
+    @Transactional
+    public void changeStatus(Long itemId, Long vendorId, ItemStatus itemStatus) {
+        Optional<Item> findItem = itemRepository.findItem(itemId);
+
+        if(findItem.isEmpty()){
+            throw new ItemException(ItemErrorResult.ITEM_NOT_FOUND);
+        }
+        if(isVendorNotMatch(vendorId, findItem)){
+            throw new ItemException(ItemErrorResult.ITEM_EDIT_FAIL_VENDOR_NOT_MATCH);
+        }
+
+        Item item = findItem.get();
+        item.changeStatus(itemStatus);
+
+    }
+
+    private static boolean isVendorNotMatch(Long vendorId, Optional<Item> findItem) {
+        return !findItem.get().getVendor().getId().equals(vendorId);
     }
 }

@@ -6,8 +6,7 @@ import com.spring.green2209s_08.web.domain.Vendor;
 import com.spring.green2209s_08.web.domain.enums.FishSex;
 import com.spring.green2209s_08.web.domain.enums.ItemStatus;
 import com.spring.green2209s_08.web.service.ItemService;
-import com.spring.green2209s_08.web.service.dto.ItemCountResponse;
-import org.assertj.core.api.Assertions;
+import com.spring.green2209s_08.web.service.dto.VendorHomeItemCountResponse;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -17,7 +16,6 @@ import javax.persistence.EntityManager;
 import java.time.LocalDate;
 
 import static org.assertj.core.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @Transactional
@@ -63,7 +61,7 @@ class ItemViewRepositoryImplTest {
         em.persist(product2);
 
         //when
-        ItemCountResponse itemCount = itemService.findUploadItemsCount(vendor.getId());
+        VendorHomeItemCountResponse itemCount = itemService.findUploadItemsCountInVendorHome(vendor.getId());
 
         //then
         assertThat(itemCount.getApprovalItemsCount()).isEqualTo(1);

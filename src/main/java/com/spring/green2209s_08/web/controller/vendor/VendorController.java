@@ -6,10 +6,9 @@ import com.spring.green2209s_08.web.controller.vendor.dto.VendorInfoChangeReques
 import com.spring.green2209s_08.web.domain.Vendor;
 import com.spring.green2209s_08.web.service.ItemService;
 import com.spring.green2209s_08.web.service.VendorService;
-import com.spring.green2209s_08.web.service.dto.ItemCountResponse;
+import com.spring.green2209s_08.web.service.dto.VendorHomeItemCountResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -56,7 +55,7 @@ public class VendorController {
     public String home(Model model, HttpServletRequest request){
         VendorHomeResponse response = getVendorHomeResponse(request);
         Long vendorId = response.getVendorId();
-        ItemCountResponse uploadItemsCount = itemService.findUploadItemsCount(vendorId);
+        VendorHomeItemCountResponse uploadItemsCount = itemService.findUploadItemsCountInVendorHome(vendorId);
         boolean result = vendorService.isLicenseVendor(vendorId);
 
         model.addAttribute("isConfirmLicense", result);
