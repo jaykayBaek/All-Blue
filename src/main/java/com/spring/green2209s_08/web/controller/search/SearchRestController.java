@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttribute;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -29,11 +30,8 @@ public class SearchRestController {
 
     @PostMapping("/query")
     public ResponseEntity<StatusResponse> query(
-            @RequestParam String content, @RequestParam Long itemId, HttpServletRequest request){
-
-        HttpSession session = request.getSession(false);
-
-        Long memberId = (Long) session.getAttribute(SessionConst.MEMBER_ID);
+            @RequestParam String content, @RequestParam Long itemId,
+            @SessionAttribute(name = SessionConst.MEMBER_ID, required = false) Long memberId){
 
         queryService.writeItemQuery(itemId, memberId, content);
 

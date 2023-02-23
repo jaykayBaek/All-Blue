@@ -11,10 +11,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -40,7 +37,12 @@ public class VendorController {
     }
 
     @GetMapping("/login")
-    public String loginForm(){
+    public String loginForm(@SessionAttribute(name = SessionConst.VENDOR_ID, required = false) Long vendorId){
+
+        if(vendorId != null){
+            return "redirect:/";
+        }
+
         return "main/vendor/vendorLogin";
     }
 
@@ -86,9 +88,8 @@ public class VendorController {
         return "main/vendorAccount/changeInfo";
     }
     @PostMapping("/account/change-info")
-    public String changeVendorInfo(@ModelAttribute VendorInfoChangeRequest changeRequest, HttpServletRequest request){
-        HttpSession session = request.getSession(false);
-        Long vendorId = (Long) session.getAttribute(SessionConst.VENDOR_ID);
+    public String changeVendorInfo(@ModelAttribute VendorInfoChangeRequest changeRequest,
+                                   @SessionAttribute(name = SessionConst.VENDOR_ID, required = false) Long vendorId){
         vendorService.changeVendorInfo(vendorId, changeRequest);
 
         return "redirect:/vendor/account/change-info";

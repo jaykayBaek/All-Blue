@@ -87,9 +87,7 @@ public class MemberRestController {
 
     @PostMapping("/account/modify")
     public ResponseEntity<StatusResponse> modifyAccountPasswordCheck(@RequestParam String password,
-                                                                     HttpServletRequest request){
-        HttpSession session = request.getSession(false);
-        Long memberId = (Long) session.getAttribute(SessionConst.MEMBER_ID);
+                                                                     @SessionAttribute(name = SessionConst.MEMBER_ID, required = false) Long memberId){
 
         Member member = memberService.passwordCheck(memberId, password);
 

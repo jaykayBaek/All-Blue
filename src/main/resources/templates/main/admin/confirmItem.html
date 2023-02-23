@@ -142,7 +142,9 @@
                             게시글 확인
                           </button>
                           <script>
-
+                            function preview(itemId){
+                              window.open("http://localhost:9090/green2209s_08/admin/item/preview/"+itemId);
+                            }
                           </script>
                         </td>
                         <td>
@@ -152,6 +154,7 @@
                             <option value="BLOCK_SELLING">판매정지</option>
                           </select>
                           <button class="btn btn-outline-primary btn-sm"
+                                  th:classappend="${item.vendorLicense eq null} ? disabled : ''"
                                   th:onclick="|changeStatus('${item.id}')|">
                                   상태 변경
                           </button>

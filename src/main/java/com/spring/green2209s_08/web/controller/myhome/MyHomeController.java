@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.SessionAttribute;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -33,9 +34,7 @@ public class MyHomeController {
     }
 
     @GetMapping("/my-address/list")
-    public String myAddressList(HttpServletRequest request, Model model){
-        HttpSession session = request.getSession(false);
-        Long memberId = (Long) session.getAttribute(SessionConst.MEMBER_ID);
+    public String myAddressList(@SessionAttribute(name = SessionConst.MEMBER_ID, required = false) Long memberId, Model model){
         List<AddressResponse> findAddresses = addressService.findAllMyAddress(memberId);
 
         model.addAttribute("addresses", findAddresses);
@@ -48,9 +47,8 @@ public class MyHomeController {
     }
 
     @GetMapping("/my-address/{addressId}/edit")
-    public String myAddressEdit(@PathVariable Long addressId, HttpServletRequest request, Model model){
-        HttpSession session = request.getSession(false);
-        Long memberId = (Long) session.getAttribute(SessionConst.MEMBER_ID);
+    public String myAddressEdit(@PathVariable Long addressId, Model model,
+                                @SessionAttribute(name = SessionConst.MEMBER_ID, required = false) Long memberId){
         AddressResponse address = addressService.findByMemberIdAndId(memberId, addressId);
 
         model.addAttribute("address", address);

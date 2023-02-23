@@ -2,10 +2,8 @@ package com.spring.green2209s_08.web.controller.item.api;
 
 import com.spring.green2209s_08.web.constants.SessionConst;
 import com.spring.green2209s_08.web.controller.StatusResponse;
-import com.spring.green2209s_08.web.domain.ItemImage;
 import com.spring.green2209s_08.web.domain.enums.ItemStatus;
 import com.spring.green2209s_08.web.service.ItemService;
-import com.spring.green2209s_08.web.utility.FileUpload;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -28,9 +26,7 @@ public class ItemApiController {
 
     @PatchMapping("/name")
     public ResponseEntity<StatusResponse> changeItemName(@RequestParam Long itemId, @RequestParam String itemName,
-                                                         HttpServletRequest request){
-        HttpSession session = request.getSession(false);
-        Long vendorId = (Long) session.getAttribute(SessionConst.VENDOR_ID);
+                                                         @SessionAttribute(name = SessionConst.VENDOR_ID, required = false) Long vendorId){
 
         /* --- 수정하고자 하는 상품에 대한 유효성 검사(본인이 게재한 상품이 맞는지, 존재하는 상품인지) --- */
         itemService.validateVendorIdToItem(vendorId, itemId);
@@ -45,15 +41,13 @@ public class ItemApiController {
                 .body(statusResponse);
     }
     @PatchMapping("/number")
-    public ResponseEntity<StatusResponse> changeNumber(@ModelAttribute EditNumberRequest editNumberRequest,
-                                                       HttpServletRequest request){
-        HttpSession session = request.getSession(false);
-        Long vendorId = (Long) session.getAttribute(SessionConst.VENDOR_ID);
+    public ResponseEntity<StatusResponse> changeNumber(@ModelAttribute EditNumberRequest request,
+                                                       @SessionAttribute(name = SessionConst.VENDOR_ID, required = false) Long vendorId){
 
         /* --- 수정하고자 하는 상품에 대한 유효성 검사(본인이 게재한 상품이 맞는지, 존재하는 상품인지) --- */
-        itemService.validateVendorIdToItem(vendorId, editNumberRequest.getItemId());
+        itemService.validateVendorIdToItem(vendorId, request.getItemId());
 
-        itemService.changeNumber(editNumberRequest);
+        itemService.changeNumber(request);
 
         StatusResponse statusResponse = new StatusResponse(
                 HttpStatus.OK.toString(), "금액 및 수량 변경완료", "TRUE"
@@ -65,9 +59,7 @@ public class ItemApiController {
 
     @PatchMapping("/fish")
     public ResponseEntity<StatusResponse> changeFish(@ModelAttribute EditFishRequest editFishRequest,
-                                                     HttpServletRequest request){
-        HttpSession session = request.getSession(false);
-        Long vendorId = (Long) session.getAttribute(SessionConst.VENDOR_ID);
+                                                     @SessionAttribute(name = SessionConst.VENDOR_ID, required = false) Long vendorId){
 
         /* --- 수정하고자 하는 상품에 대한 유효성 검사(본인이 게재한 상품이 맞는지, 존재하는 상품인지) --- */
         itemService.validateVendorIdToItem(vendorId, editFishRequest.getItemId());
@@ -84,10 +76,7 @@ public class ItemApiController {
 
     @PatchMapping("/product")
     public ResponseEntity<StatusResponse> changeProduct(@ModelAttribute EditProductRequest editProductRequest,
-                                                        HttpServletRequest request){
-        HttpSession session = request.getSession(false);
-        Long vendorId = (Long) session.getAttribute(SessionConst.VENDOR_ID);
-
+                                                        @SessionAttribute(name = SessionConst.VENDOR_ID, required = false) Long vendorId){
         /* --- 수정하고자 하는 상품에 대한 유효성 검사(본인이 게재한 상품이 맞는지, 존재하는 상품인지) --- */
         itemService.validateVendorIdToItem(vendorId, editProductRequest.getItemId());
 
@@ -124,9 +113,8 @@ public class ItemApiController {
     }
 
     @PatchMapping("/status")
-    public ResponseEntity<StatusResponse> changeStatus(@RequestParam Long itemId, @RequestParam String itemStatus, HttpServletRequest request) {
-        HttpSession session = request.getSession(false);
-        Long vendorId = (Long) session.getAttribute(SessionConst.VENDOR_ID);
+    public ResponseEntity<StatusResponse> changeStatus(@RequestParam Long itemId, @RequestParam String itemStatus,
+                                                       @SessionAttribute(name = SessionConst.VENDOR_ID, required = false) Long vendorId) {
 
         ItemStatus status = Enum.valueOf(ItemStatus.class, itemStatus);
         itemService.validateVendorIdToItem(itemId, vendorId);

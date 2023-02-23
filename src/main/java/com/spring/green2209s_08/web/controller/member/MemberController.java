@@ -62,9 +62,8 @@ public class MemberController {
     }
 
     @GetMapping("/account/modify")
-    public String accountModifyForm(HttpServletRequest request, Model model){
-        HttpSession session = request.getSession(false);
-        Long memberId = (Long) session.getAttribute(SessionConst.MEMBER_ID);
+    public String accountModifyForm(@SessionAttribute(name = SessionConst.MEMBER_ID, required = false) Long memberId,
+                                    Model model){
 
         Member findMember = memberRepository.findById(memberId).get();
 

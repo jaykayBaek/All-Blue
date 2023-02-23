@@ -24,10 +24,8 @@ public class MyHomeRestController {
     private final AddressService addressService;
 
     @PostMapping("/address")
-    public ResponseEntity<StatusResponse> addressAdd(@ModelAttribute AddressRequest addressRequest, HttpServletRequest request){
-        HttpSession session = request.getSession(false);
-        Long memberId = (Long) session.getAttribute(SessionConst.MEMBER_ID);
-
+    public ResponseEntity<StatusResponse> addressAdd(@ModelAttribute AddressRequest addressRequest,
+                                                     @SessionAttribute(name = SessionConst.MEMBER_ID, required = false) Long memberId){
         addressService.addAddress(memberId, addressRequest);
 
         StatusResponse response = new StatusResponse(
@@ -38,12 +36,8 @@ public class MyHomeRestController {
     }
 
     @PatchMapping("/address")
-    public ResponseEntity<StatusResponse> addressEdit(@ModelAttribute AddressRequest addressRequest,
-                                                      @RequestParam Long addressId,
-                                                      HttpServletRequest request){
-        HttpSession session = request.getSession(false);
-        Long memberId = (Long) session.getAttribute(SessionConst.MEMBER_ID);
-
+    public ResponseEntity<StatusResponse> addressEdit(@ModelAttribute AddressRequest addressRequest,  @RequestParam Long addressId,
+                                                      @SessionAttribute(name = SessionConst.MEMBER_ID, required = false) Long memberId){
         addressService.updateAddress(memberId, addressId, addressRequest);
 
         StatusResponse response = new StatusResponse(

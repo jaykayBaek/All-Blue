@@ -16,20 +16,20 @@ public class WebInterceptorConfig implements WebMvcConfigurer {
         registry.addInterceptor(new VendorLoginCheck())
                 .order(1)
                 .addPathPatterns("/vendor/**", "/item/**", "/management/**")
-                .excludePathPatterns("/vendor/login", "/vendor/logout/**")
+                .excludePathPatterns("/vendor/login/**", "/vendor/logout/**")
                 .excludePathPatterns("/vendor/verify/**", "/vendor/register/**")
                 .excludePathPatterns("/vendor/join/**")
                 .excludePathPatterns("/css/**", "/js/**", "/img/**");
-        registry.addInterceptor(new VendorAlreadyLoginCheck())
-                .order(2)
-                .addPathPatterns("/vendor/login")
-                .excludePathPatterns("/css/**", "/js/**", "/img/**");
+//        registry.addInterceptor(new VendorAlreadyLoginCheck())
+//                .order(2)
+//                .addPathPatterns("/vendor/login")
+//                .excludePathPatterns("/css/**", "/js/**", "/img/**");
         registry.addInterceptor(new MemberLoginCheck())
-                .order(3)
+                .order(2)
                 .addPathPatterns("/home/**", "/inquiry/**", "/member/account/**")
                 .excludePathPatterns("/css/**", "/js/**", "/img/**");
         registry.addInterceptor(new AdminLoginCheck())
-                .order(4)
+                .order(3)
                 .addPathPatterns("/admin/**")
                 .excludePathPatterns("/css/**", "/js/**", "/img/**");
     }

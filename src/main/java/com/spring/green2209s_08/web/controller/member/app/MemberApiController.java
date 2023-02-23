@@ -35,10 +35,8 @@ public class MemberApiController {
     }
 
     @PatchMapping("/account/name")
-    public ResponseEntity<StatusResponse> changeName(@RequestParam String name, HttpServletRequest request){
-        HttpSession session = request.getSession(false);
-        Long memberId = (Long) session.getAttribute(SessionConst.MEMBER_ID);
-
+    public ResponseEntity<StatusResponse> changeName(@RequestParam String name,
+                                                     @SessionAttribute(name = SessionConst.MEMBER_ID, required = false) Long memberId){
         memberService.changeName(memberId, name);
 
         StatusResponse statusResponse = new StatusResponse(
@@ -50,9 +48,8 @@ public class MemberApiController {
     }
     @PatchMapping("/account/password")
     public ResponseEntity<StatusResponse> changePassword(
-            @ModelAttribute ChangePasswordRequest passwordRequest, HttpServletRequest request){
-        HttpSession session = request.getSession(false);
-        Long memberId = (Long) session.getAttribute(SessionConst.MEMBER_ID);
+            @ModelAttribute ChangePasswordRequest passwordRequest,
+            @SessionAttribute(name = SessionConst.MEMBER_ID, required = false) Long memberId){
 
         memberService.matchPasswordForChangePassword(passwordRequest.getPassword(), memberId);
         memberService.changePassword(memberId, passwordEncoder.encode(passwordRequest.getNewPassword()));
@@ -67,9 +64,7 @@ public class MemberApiController {
 
     @PatchMapping("/account/phone-no")
     public ResponseEntity<StatusResponse> changePhoneNo(
-            @RequestParam String phoneNo, HttpServletRequest request){
-        HttpSession session = request.getSession(false);
-        Long memberId = (Long) session.getAttribute(SessionConst.MEMBER_ID);
+            @RequestParam String phoneNo, @SessionAttribute(name = SessionConst.MEMBER_ID, required = false) Long memberId){
 
         memberService.changePhoneNo(memberId, phoneNo);
 

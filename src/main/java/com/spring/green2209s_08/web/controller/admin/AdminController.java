@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
@@ -39,4 +40,10 @@ public class AdminController {
         model.addAttribute("condition", condition);
         return "main/admin/confirmItem";
     }
+
+    @GetMapping("/item/preview/{itemId}")
+    public String itemPreview(@PathVariable Long itemId){
+        return null;
+    }
+
 }

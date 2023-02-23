@@ -34,11 +34,8 @@ public class VendorApiController {
     }
 
     @PostMapping("/account/confirm-password")
-    public ResponseEntity<VendorInfoChangeStatusResponse> verifyPasswordForChangeInfo(
-            @RequestParam String vendorPassword, HttpServletRequest request){
-        HttpSession session = request.getSession(false);
-        Long vendorId = (Long) session.getAttribute(SessionConst.VENDOR_ID);
-
+    public ResponseEntity<VendorInfoChangeStatusResponse> verifyPasswordForChangeInfo(@RequestParam String vendorPassword,
+                                                                                      @SessionAttribute(name = SessionConst.VENDOR_ID, required = false) Long vendorId){
         vendorService.vendorPasswordCheck(vendorId, vendorPassword);
         Optional<Vendor> findVendor = vendorService.findById(vendorId);
 
@@ -57,10 +54,8 @@ public class VendorApiController {
     }
 
     @PostMapping("/account/change-password")
-    public ResponseEntity<StatusResponse> changePassword(@ModelAttribute ChangePasswordRequest passwordRequest, HttpServletRequest request){
-        HttpSession session = request.getSession(false);
-        Long vendorId = (Long) session.getAttribute(SessionConst.VENDOR_ID);
-
+    public ResponseEntity<StatusResponse> changePassword(@ModelAttribute ChangePasswordRequest passwordRequest,
+                                                         @SessionAttribute(name = SessionConst.VENDOR_ID, required = false) Long vendorId){
         Vendor findVendor = vendorService.findById(vendorId).get();
         vendorService.matchPasswordForChangePassword(passwordRequest.getPassword(), findVendor.getVendorPassword());
 
@@ -75,11 +70,7 @@ public class VendorApiController {
 
     @PostMapping("/account/confirm/license")
     public ResponseEntity<StatusResponse> confirmLicense(@ModelAttribute LicenseRequest licenseRequest,
-                                                         HttpServletRequest request){
-        log.info("store= {}", licenseRequest);
-        HttpSession session = request.getSession(false);
-        Long vendorId = (Long) session.getAttribute(SessionConst.VENDOR_ID);
-
+                                                         @SessionAttribute(name = SessionConst.VENDOR_ID, required = false) Long vendorId){
         vendorService.addLicense(vendorId, licenseRequest);
 
         StatusResponse statusResponse = new StatusResponse(

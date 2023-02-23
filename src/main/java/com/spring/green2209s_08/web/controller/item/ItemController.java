@@ -41,9 +41,8 @@ public class ItemController {
 
     @PostMapping("/enroll")
     public String itemUpload(
-            @ModelAttribute @Validated VendorInventoryRequest inventoryRequest, BindingResult bindingResult, HttpServletRequest request) throws IOException {
-        HttpSession session = request.getSession(false);
-        Long vendorId = (Long) session.getAttribute(SessionConst.VENDOR_ID);
+            @ModelAttribute @Validated VendorInventoryRequest inventoryRequest, BindingResult bindingResult,
+            @SessionAttribute(name = SessionConst.VENDOR_ID, required = false) Long vendorId) throws IOException {
         Vendor findVendor = vendorService.findById(vendorId).get();
 
         /* --- 이미지 파일 서버에 저장시키기(대표이미지, 상세이미지들) --- */
