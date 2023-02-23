@@ -1,6 +1,7 @@
 package com.spring.green2209s_08.web.service;
 
-import com.spring.green2209s_08.web.controller.item.ItemListStatusResponse;
+import com.spring.green2209s_08.web.controller.item.ItemConfirmListDto;
+import com.spring.green2209s_08.web.controller.item.ItemListStatusCountResponse;
 import com.spring.green2209s_08.web.controller.item.UploadItemCond;
 import com.spring.green2209s_08.web.controller.item.VendorUploadItemResponse;
 import com.spring.green2209s_08.web.controller.item.api.EditFishRequest;
@@ -115,11 +116,11 @@ public class ItemService {
         return itemRepository.findUploadItemsCount(vendorId);
     }
 
-    public void findItemsOnDecisionInProcess() {
-//        itemRepository.findItemsOnDecisionInProcess();
+    public Page<ItemConfirmListDto> findItemConfirmList(Pageable pageable, UploadItemCond condition) {
+        return itemRepository.findItemConfirmList(pageable, condition);
     }
 
-    public ItemListStatusResponse findUploadItemStatusCount(Long vendorId) {
+    public ItemListStatusCountResponse findUploadItemStatusCount(Long vendorId) {
         return itemRepository.findUploadItemStatusCount(vendorId);
     }
 

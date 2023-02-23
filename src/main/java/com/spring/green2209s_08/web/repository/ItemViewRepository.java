@@ -1,6 +1,7 @@
 package com.spring.green2209s_08.web.repository;
 
-import com.spring.green2209s_08.web.controller.item.ItemListStatusResponse;
+import com.spring.green2209s_08.web.controller.item.ItemConfirmListDto;
+import com.spring.green2209s_08.web.controller.item.ItemListStatusCountResponse;
 import com.spring.green2209s_08.web.controller.item.UploadItemCond;
 import com.spring.green2209s_08.web.controller.item.VendorUploadItemResponse;
 import com.spring.green2209s_08.web.service.dto.VendorHomeItemCountResponse;
@@ -12,7 +13,8 @@ public interface ItemViewRepository {
 
     Page<VendorUploadItemResponse> findUploadItemList(Long vendorId, Pageable pageable, UploadItemCond condition);
 
-    ItemListStatusResponse findUploadItemStatusCount(Long vendorId);
+    ItemListStatusCountResponse findUploadItemStatusCount(Long vendorId);
 
-    //    List<ItemsOnDecisionInProcessDto> findItemsOnDecisionInProcess();
+    Page<ItemConfirmListDto> findItemConfirmList(Pageable pageable, UploadItemCond condition);
+
 }

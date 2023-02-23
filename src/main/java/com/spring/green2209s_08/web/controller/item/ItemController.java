@@ -13,6 +13,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -95,7 +97,7 @@ public class ItemController {
     }
 
     @GetMapping("/list")
-    public String itemUploadList(Pageable pageable, HttpServletRequest request,
+    public String itemUploadList(@PageableDefault(size=5, sort = "id", direction = Sort.Direction.DESC) Pageable pageable, HttpServletRequest request,
                                  @ModelAttribute UploadItemCond condition, Model model){
         VendorHomeResponse response = getVendorHomeResponse(request);
         Long vendorId = response.getVendorId();
@@ -103,7 +105,7 @@ public class ItemController {
         log.info("condition={}", condition);
 
         Page<VendorUploadItemResponse> items = itemService.findUploadItemList(vendorId, pageable, condition);
-        ItemListStatusResponse statusCount = itemService.findUploadItemStatusCount(vendorId);
+        ItemListStatusCountResponse statusCount = itemService.findUploadItemStatusCount(vendorId);
 
         model.addAttribute("vendor", response);
         model.addAttribute("statusCount", statusCount);
@@ -112,6 +114,7 @@ public class ItemController {
         model.addAttribute("next", pageable.next().getPageNumber());
         model.addAttribute("hasNext", items.hasNext());
         model.addAttribute("hasPrev", items.hasPrevious());
+        model.addAttribute("condition", condition);
 
         return "main/item/itemUploadList";
     }

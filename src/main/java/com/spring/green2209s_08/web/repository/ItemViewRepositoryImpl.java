@@ -3,8 +3,10 @@ package com.spring.green2209s_08.web.repository;
 import com.querydsl.core.types.ExpressionUtils;
 import com.querydsl.core.types.Projections;
 import com.querydsl.core.types.dsl.BooleanExpression;
+import com.querydsl.jpa.JPAExpressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
-import com.spring.green2209s_08.web.controller.item.ItemListStatusResponse;
+import com.spring.green2209s_08.web.controller.item.ItemConfirmListDto;
+import com.spring.green2209s_08.web.controller.item.ItemListStatusCountResponse;
 import com.spring.green2209s_08.web.controller.item.UploadItemCond;
 import com.spring.green2209s_08.web.controller.item.VendorUploadItemResponse;
 import com.spring.green2209s_08.web.domain.enums.ItemStatus;
@@ -61,9 +63,11 @@ public class ItemViewRepositoryImpl implements ItemViewRepository{
                         queryEq(condition.getQuery()),
                         itemStatusEq(condition.getItemStatus())
                 )
+                .orderBy(item.id.desc())
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
                 .fetch();
+
         Long total = queryFactory
                 .select(item.count())
                 .from(item)
@@ -74,9 +78,9 @@ public class ItemViewRepositoryImpl implements ItemViewRepository{
     }
 
     @Override
-    public ItemListStatusResponse findUploadItemStatusCount(Long vendorId) {
+    public ItemListStatusCountResponse findUploadItemStatusCount(Long vendorId) {
         return queryFactory
-                .select(Projections.fields(ItemListStatusResponse.class,
+                .select(Projections.fields(ItemListStatusCountResponse.class,
                                 ExpressionUtils.as(
                                        select(item.count())
                                                .from(item)
@@ -117,6 +121,30 @@ public class ItemViewRepositoryImpl implements ItemViewRepository{
                 .from(item)
                 .where(item.vendor.id.eq(vendorId))
                 .fetchFirst();
+    }
+
+    @Override
+    public Page<ItemConfirmListDto> findItemConfirmList(Pageable pageable, UploadItemCond condition) {
+        List<ItemConfirmListDto> content = queryFactory.
+                select(Projections.fields(ItemConfirmListDto.class,
+                                item.id, item.category, item.itemName, item.salePrice,
+                                item.uploadDate, item.itemStatus
+                        )
+                )
+                .from(item)
+                .where(
+                        queryEq(condition.getQuery()),
+                        itemStatusEq(condition.getItemStatus())
+                )
+                .orderBy(item.id.desc())
+                .offset(pageable.getOffset())
+                .limit(pageable.getPageSize())
+                .fetch();
+        Long total = queryFactory
+                .select(item.count())
+                .from(item)
+                .fetchOne();
+        return new PageImpl<ItemConfirmListDto>(content, pageable, total);
     }
 
     private BooleanExpression queryEq(String query) {

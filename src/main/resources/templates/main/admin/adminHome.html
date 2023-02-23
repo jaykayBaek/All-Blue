@@ -53,7 +53,7 @@
                                                     현재 ~건의 상품 등록 신청이 있습니다.
                                                 </div>
                                                 <div class="vendor-home-bottom col-12 mt-2">
-                                                    <a th:href="@{/admin/item/confirm}" class="btn btn-primary btn-lg">상품 등록현황 확인하기</a>
+                                                    <a th:href="@{/admin/item/confirm(itemStatus = 'DECISION_IN_PROCESS')}" class="btn btn-primary btn-lg">상품 등록현황 확인하기</a>
                                                 </div>
                                             </div>
                                         </div>

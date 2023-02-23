@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
-public class ItemListStatusResponse {
+public class ItemListStatusCountResponse {
     private Long total;
     private Long decisionInProcess;
     private Long reject;

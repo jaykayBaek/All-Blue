@@ -38,66 +38,49 @@
             <h1 class="h3 mb-0 text-gray-800">등록 상품 목록</h1>
           </div>
 
-          <div class="row">
-            <div class="col-12 mb-4">
-
-              <div class="card shadow h-100 py-2">
-                <div class="card-body">
-                  <div class="row">
-                    <div class="col">
-                      <span>전체</span><br>
-                      <span class="item__status__font">0</span>건
-                    </div>
-                    <div class="col">
-                      <span>심사중</span><br>
-                      <span class="item__status__font">0</span>건
-                    </div>
-                    <div class="col">
-                      <span>승인반려</span><br>
-                      <span class="item__status__font">0</span>건
-                    </div>
-                    <div class="col">
-                      <span>판매중지</span><br>
-                      <span class="item__status__font">0</span>건
-                    </div>
-                    <div class="col">
-                      <span>판매정지</span><br>
-                      <span class="item__status__font">0</span>건
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-            </div>
-          </div>
-
-          <div class="row">
+          <div class="row mt-3">
             <div class="col-12 mb-4">
 
               <div class="card shadow h-100 py-2">
                 <div class="card-body">
                   <table class="table w-100">
-                    <tr>
-                      <th>검색어</th>
-                      <td>
-                        <input class="form-control" type="text" name="" placeholder="노출상품명"/>
-                      </td>
-                    </tr>
-                    <tr>
-                      <th>상품상태</th>
-                      <td>
-                        <input type="checkbox" id="decision_in_process"> <label for="decision_in_process">심사중</label>
-                        <input type="checkbox" id="approval"> <label for="approval">승인반려</label>
-                        <input type="checkbox" id="shut_down"> <label for="shut_down">판매중지</label>
-                        <input type="checkbox" id="block_selling"> <label for="block_selling">판매정지</label>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td colspan="2">
-                        <button class="btn btn-light">초기화</button>
-                        <button class="btn btn-primary">검색</button>
-                      </td>
-                    </tr>
+                    <form id="searchForm">
+                      <tr>
+                        <th>검색어</th>
+                        <td>
+                          <input class="form-control" type="text" name="query" placeholder="노출상품명"/>
+                        </td>
+                      </tr>
+                      <tr>
+                        <th>상품상태</th>
+                        <td>
+                          <input type="checkbox" name="itemStatus" id="DECISION_IN_PROCESS" value="DECISION_IN_PROCESS"> <label for="DECISION_IN_PROCESS">심사중</label>
+                          <input type="checkbox" name="itemStatus" id="REJECT_APPROVAL" value="REJECT_APPROVAL"> <label for="REJECT_APPROVAL">승인반려</label>
+                          <input type="checkbox" name="itemStatus" id="BLOCK_SELLING" value="BLOCK_SELLING"> <label for="BLOCK_SELLING">판매중지</label>
+                          <input type="checkbox" name="itemStatus" id="SHUT_DOWN" value="SHUT_DOWN"> <label for="SHUT_DOWN">판매정지</label>
+                          <input type="checkbox" name="itemStatus" id="APPROVAL" value="APPROVAL"> <label for="APPROVAL">승인</label>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td colspan="2">
+                          <button type="reset" class="btn btn-light">초기화</button>
+                          <button type="button" onclick="search()" class="btn btn-primary">검색</button>
+                          <select name="size" id="size">
+                            <option th:selected="${items.size == 50}" value="50">50</option>
+                            <option th:selected="${items.size == 100}" value="100">100</option>
+                            <option th:selected="${items.size == 150}" value="150">150</option>
+                            <option th:selected="${items.size == 300}" value="300">300</option>
+                          </select>
+                        </td>
+                        <script>
+                          function search(){
+                            $('#searchForm').attr("action", "http://localhost:9090/green2209s_08/admin/item/confirm");
+                            $('#searchForm').attr("method", "get");
+                            $('#searchForm').submit();
+                          }
+                        </script>
+                      </tr>
+                    </form>
                   </table>
                 </div>
               </div>
@@ -118,32 +101,32 @@
                       <th>노출상품명</th>
                       <th>판매가</th>
                       <th>상품게시일</th>
+                      <th>승인여부</th>
                       <th>게시글 확인하기</th>
                       <th>비고</th>
-                      <th>승인여부</th>
                     </tr>
                     </thead>
-<!--                    <tbody>-->
-<!--                    <tr th:if="${items.content.size() eq 0}" th:colspan="7">-->
-<!--                      <td>-->
-<!--                        열람 가능한 데이터가 없습니다.-->
-<!--                      </td>-->
-<!--                    </tr>-->
-<!--                    <th:blcok th:if="${items.content.size() ne 0}"/>-->
-<!--                    <tr th:each="item : ${items}">-->
-<!--                      <td th:text="${item.categoryName}"></td>-->
-<!--                      <td th:text="${item.getId()}"></td>-->
-<!--                      <td th:text="${item.itemName}"></td>-->
-<!--                      <td th:text="${item.itemStatus}"></td>-->
-<!--                      <td th:text="${item.price}"></td>-->
-<!--                      <td th:text="${item.stockQuantity}"></td>-->
-<!--                      <td th:text="${item.uploadDate}"></td>-->
-<!--                      <td>-->
-<!--                        <a th:href="@{/item/{itemId}/{categoryId}/edit(itemId=${item.id}, categoryId=${item.categoryId})}">수정</a>-->
-<!--                      </td>-->
-<!--                    </tr>-->
-<!--                    </tr>-->
-<!--                    </tbody>-->
+                    <tbody>
+                      <tr th:each="item : ${items}">
+                        <td th:text="${item.category.grandchildName}"></td>
+                        <td th:text="${item.id}"></td>
+                        <td th:text="${item.itemName}"></td>
+                        <td th:text="${item.salePrice}"></td>
+                        <td th:text="${item.uploadDate}"></td>
+                        <td th:text="${item.itemStatus.getDescription()}"></td>
+                        <td>
+                          <button class="btn btn-outline-dark btn-sm">게시글 확인</button>
+                        </td>
+                        <td>
+                          <select name="" id="" class="form-control-sm">
+                            <option value="">승인</option>
+                            <option value="">승인반려</option>
+                            <option value="">판매정지</option>
+                          </select>
+                          <button class="btn btn-outline-primary btn-sm">상태 변경</button>
+                        </td>
+                      </tr>
+                    </tbody>
                   </table>
                 </div>
                 <nav aria-label="Page navigation" class="m-auto">

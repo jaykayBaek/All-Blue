@@ -96,7 +96,7 @@
                                         <tr>
                                             <th>상품상태</th>
                                             <td>
-                                                <input type="checkbox" name="itemStatus" id="DECISION_IN_PROCESS" value="DECISION_IN_PROCESS"> <label for="decision_in_process">심사중</label>
+                                                <input type="checkbox" name="itemStatus" id="DECISION_IN_PROCESS" value="DECISION_IN_PROCESS"> <label for="DECISION_IN_PROCESS">심사중</label>
                                                 <input type="checkbox" name="itemStatus" id="REJECT_APPROVAL" value="REJECT_APPROVAL"> <label for="REJECT_APPROVAL">승인반려</label>
                                                 <input type="checkbox" name="itemStatus" id="BLOCK_SELLING" value="BLOCK_SELLING"> <label for="BLOCK_SELLING">판매중지</label>
                                                 <input type="checkbox" name="itemStatus" id="SHUT_DOWN" value="SHUT_DOWN"> <label for="SHUT_DOWN">판매정지</label>
@@ -107,6 +107,14 @@
                                             <td colspan="2">
                                                 <button type="reset" class="btn btn-light">초기화</button>
                                                 <button type="button" onclick="search()" class="btn btn-primary">검색</button>
+                                                <select name="size" id="size">
+                                                    <option value="5">5</option>
+                                                    <option value="10">10</option>
+                                                    <option value="25">25</option>
+                                                    <option value="50">50</option>
+                                                    <option value="100">100</option>
+                                                    <option value="300">300</option>
+                                                </select>
                                             </td>
                                             <script>
                                                 function search(){
@@ -163,12 +171,10 @@
                                                 </td>
                                                 <td>
                                                     <th:block th:if="${item.itemStatus.getDescription() eq '승인'}">
-                                                        <input type="hidden" id="itemId" th:value="${item.id}">
-                                                        <button type="button" onclick="statusChange()" class="btn btn-primary">판매정지 요청</button>
+                                                        <button type="button" th:onclick="|statusShutDown('${item.id}')|" class="btn btn-primary">판매중지 요청</button>
                                                         <script>
-                                                            function statusChange(){
+                                                            function statusShutDown(itemId){
                                                                 const ans = confirm('정말 판매 중지를 원하시나요?');
-                                                                const itemId = $('#itemId').val();
                                                                 if(!ans){
                                                                     return false;
                                                                 }
@@ -181,9 +187,41 @@
                                                                     },
                                                                     success: function (result){
                                                                         console.log(result);
+                                                                        alert('판매중지 요청이 승인되었습니다.');
+                                                                        location.reload();
                                                                     },
                                                                     error: function (result){
                                                                         console.log(result);
+                                                                        alert(result.getMessage());
+                                                                    }
+                                                                })
+                                                            }
+                                                        </script>
+                                                    </th:block>
+                                                    <th:block th:if="${item.itemStatus.getDescription() eq '판매중지'}">
+                                                        <button type="button" th:onclick="|statusDecision('${item.id}')|" class="btn btn-primary">재판매 요청</button>
+                                                        <script>
+                                                            function statusDecision(itemId){
+                                                                const ans = confirm('재판매 요청하시겠습니까? 재판매 요청 시 상품상태가 심사중으로 변경됩니다.');
+
+                                                                if(!ans){
+                                                                    return false;
+                                                                }
+                                                                $.ajax({
+                                                                    url:"http://localhost:9090/green2209s_08/item/status",
+                                                                    method: "patch",
+                                                                    data : {
+                                                                        itemId: itemId,
+                                                                        itemStatus : "DECISION_IN_PROCESS"
+                                                                    },
+                                                                    success: function (result){
+                                                                        console.log(result);
+                                                                        alert('재판매 요청되었습니다. 관리자의 승인 이후 상품이 노출됩니다.');
+                                                                        location.reload();
+                                                                    },
+                                                                    error: function (result){
+                                                                        console.log(result);
+                                                                        alert(result.getMessage());
                                                                     }
                                                                 })
                                                             }
@@ -197,16 +235,13 @@
                             </div>
                             <nav aria-label="Page navigation" class="m-auto">
                                 <ul class="pagination">
-                                    <li class="page-item">
-                                        <a class="page-link" href="#" aria-label="Previous">
+                                    <li class="page-item" th:classappend="${hasPrev} ? '' : 'disabled'">
+                                        <a class="page-link" th:href="@{/item/list(page = ${prev})}" aria-label="Previous">
                                             <span aria-hidden="true">&laquo;</span>
                                         </a>
                                     </li>
-                                    <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                    <li class="page-item">
-                                        <a class="page-link" href="#" aria-label="Next">
+                                    <li class="page-item" th:classappend="${hasNext} ? '' : 'disabled'">
+                                        <a class="page-link" th:href="@{/item/list(page=${next})}" aria-label="Next">
                                             <span aria-hidden="true">&raquo;</span>
                                         </a>
                                     </li>
