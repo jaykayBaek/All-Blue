@@ -10,5 +10,7 @@ import java.util.List;
 
 public interface ComplexItemSearchRepository {
     Page<ItemDto> findItemsByCond(ItemSearchCond condition, Pageable pageable);
+
+    // test용
     List<ItemDto> findItemsByCond(ItemSearchCond condition);
 }

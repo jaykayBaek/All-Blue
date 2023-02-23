@@ -32,163 +32,170 @@
 
     <!-- Content Wrapper -->
     <div id="content-wrapper" class="d-flex flex-column">
-        <form id="itemList" name="itemList">
+        <div id="content">
+            <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+                <div th:replace="main/vendor/common/vendor-navbar :: vendor-navbar"></div>
+            </nav>
 
-            <div id="content">
-                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
-                    <div th:replace="main/vendor/common/vendor-navbar :: vendor-navbar"></div>
-                </nav>
+            <div class="container-fluid">
 
-                <div class="container-fluid">
+                <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                    <h1 class="h3 mb-0 text-gray-800">등록 상품 목록</h1>
+                </div>
 
-                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">등록 상품 목록</h1>
-                    </div>
+                <div class="row">
+                    <div class="col-12 mb-4">
 
-                    <div class="row">
-                        <div class="col-12 mb-4">
-
-                            <div class="card shadow h-100 py-2">
-                                <div class="card-body">
-                                    <div class="row">
-                                        <div class="col">
-                                            <span>전체</span><br>
-                                            <span class="item__status__font">0</span>건
-                                        </div>
-                                        <div class="col">
-                                            <span>심사중</span><br>
-                                            <span class="item__status__font">0</span>건
-                                        </div>
-                                        <div class="col">
-                                            <span>승인반려</span><br>
-                                            <span class="item__status__font">0</span>건
-                                        </div>
-                                        <div class="col">
-                                            <span>판매중지</span><br>
-                                            <span class="item__status__font">0</span>건
-                                        </div>
-                                        <div class="col">
-                                            <span>판매정지</span><br>
-                                            <span class="item__status__font">0</span>건
-                                        </div>
+                        <div class="card shadow h-100 py-2">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col">
+                                        <span>전체</span><br>
+                                        <span class="item__status__font">0</span>건
+                                    </div>
+                                    <div class="col">
+                                        <span>심사중</span><br>
+                                        <span class="item__status__font">0</span>건
+                                    </div>
+                                    <div class="col">
+                                        <span>승인반려</span><br>
+                                        <span class="item__status__font">0</span>건
+                                    </div>
+                                    <div class="col">
+                                        <span>판매중지</span><br>
+                                        <span class="item__status__font">0</span>건
+                                    </div>
+                                    <div class="col">
+                                        <span>판매정지</span><br>
+                                        <span class="item__status__font">0</span>건
                                     </div>
                                 </div>
                             </div>
-
                         </div>
+
                     </div>
+                </div>
 
-                    <div class="row">
-                        <div class="col-12 mb-4">
+                <div class="row">
+                    <div class="col-12 mb-4">
 
-                            <div class="card shadow h-100 py-2">
-                                <div class="card-body">
-                                    <table class="table w-100">
+                        <div class="card shadow h-100 py-2">
+                            <div class="card-body">
+                                <table class="table w-100">
+                                    <form id="searchForm">
                                         <tr>
                                             <th>검색어</th>
                                             <td>
-                                                <input class="form-control" type="text" name="" placeholder="노출상품명"/>
+                                                <input class="form-control" type="text" name="query" placeholder="노출상품명"/>
                                             </td>
                                         </tr>
                                         <tr>
                                             <th>상품상태</th>
                                             <td>
-                                                <input type="checkbox" id="decision_in_process"> <label for="decision_in_process">심사중</label>
-                                                <input type="checkbox" id="approval"> <label for="approval">승인반려</label>
-                                                <input type="checkbox" id="shut_down"> <label for="shut_down">판매중지</label>
-                                                <input type="checkbox" id="block_selling"> <label for="block_selling">판매정지</label>
+                                                <input type="checkbox" name="itemStatus" id="DECISION_IN_PROCESS" value="DECISION_IN_PROCESS"> <label for="decision_in_process">심사중</label>
+                                                <input type="checkbox" name="itemStatus" id="REJECT_APPROVAL" value="REJECT_APPROVAL"> <label for="REJECT_APPROVAL">승인반려</label>
+                                                <input type="checkbox" name="itemStatus" id="BLOCK_SELLING" value="BLOCK_SELLING"> <label for="BLOCK_SELLING">판매중지</label>
+                                                <input type="checkbox" name="itemStatus" id="SHUT_DOWN" value="BLOCK_SELLING"> <label for="SHUT_DOWN">판매정지</label>
+                                                <input type="checkbox" name="itemStatus" id="APPROVAL" value="APPROVAL"> <label for="APPROVAL">승인</label>
                                             </td>
                                         </tr>
                                         <tr>
                                             <td colspan="2">
-                                                <button class="btn btn-light">초기화</button>
-                                                <button class="btn btn-primary">검색</button>
+                                                <button type="reset" class="btn btn-light">초기화</button>
+                                                <button type="button" onclick="search()" class="btn btn-primary">검색</button>
+                                            </td>
+                                            <script>
+                                                function search(){
+                                                    $('#searchForm').attr("action", "http://localhost:9090/green2209s_08/item/list");
+                                                    $('#searchForm').attr("method", "get");
+                                                    $('#searchForm').submit();
+                                                }
+                                            </script>
+                                        </tr>
+                                    </form>
+                                </table>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-12 mb-4">
+
+                        <div class="card shadow h-100 py-2">
+                            <div class="card-body data_list_wrap">
+                                <table class="table" id="data_list">
+                                    <thead>
+                                        <tr>
+                                            <th>카테고리명</th>
+                                            <th>등록상품ID</th>
+                                            <th>노출상품명</th>
+                                            <th>상품상태</th>
+                                            <th>판매가</th>
+                                            <th>재고수량</th>
+                                            <th>상품게시일</th>
+                                            <th>수정하기</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr th:if="${items.content.size() eq 0}" th:colspan="7">
+                                            <td>
+                                                열람 가능한 데이터가 없습니다.
                                             </td>
                                         </tr>
-                                    </table>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-12 mb-4">
-
-                            <div class="card shadow h-100 py-2">
-                                <div class="card-body data_list_wrap">
-                                    <table class="table" id="data_list">
-                                        <thead>
-                                            <tr>
-                                                <th>카테고리명</th>
-                                                <th>등록상품ID</th>
-                                                <th>노출상품명</th>
-                                                <th>상품상태</th>
-                                                <th>판매가</th>
-                                                <th>재고수량</th>
-                                                <th>상품게시일</th>
-                                                <th>수정하기</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr th:if="${items.content.size() eq 0}" th:colspan="7">
+                                        <th:blcok th:if="${items.content.size() ne 0}"/>
+                                            <tr th:each="item : ${items}">
+                                                <td th:text="${item.categoryName}"></td>
+                                                <td th:text="${item.getId}"></td>
+                                                <td th:text="${item.itemName}"></td>
+                                                <td th:text="${item.itemStatus.getDescription()}"></td>
+                                                <td th:text="${item.price}"></td>
+                                                <td th:text="${item.stockQuantity}"></td>
+                                                <td th:text="${item.uploadDate}"></td>
                                                 <td>
-                                                    열람 가능한 데이터가 없습니다.
+                                                    <a th:href="@{/item/{itemId}/{categoryId}/edit(itemId=${item.id}, categoryId=${item.categoryId})}">수정</a>
                                                 </td>
                                             </tr>
-                                            <th:blcok th:if="${items.content.size() ne 0}"/>
-                                                <tr th:each="item : ${items}">
-                                                    <td th:text="${item.categoryName}"></td>
-                                                    <td th:text="${item.getId()}"></td>
-                                                    <td th:text="${item.itemName}"></td>
-                                                    <td th:text="${item.itemStatus}"></td>
-                                                    <td th:text="${item.price}"></td>
-                                                    <td th:text="${item.stockQuantity}"></td>
-                                                    <td th:text="${item.uploadDate}"></td>
-                                                    <td>
-                                                        <a th:href="@{/item/{itemId}/{categoryId}/edit(itemId=${item.id}, categoryId=${item.categoryId})}">수정</a>
-                                                    </td>
-                                                </tr>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                                <nav aria-label="Page navigation" class="m-auto">
-                                    <ul class="pagination">
-                                        <li class="page-item">
-                                            <a class="page-link" href="#" aria-label="Previous">
-                                                <span aria-hidden="true">&laquo;</span>
-                                            </a>
-                                        </li>
-                                        <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                        <li class="page-item">
-                                            <a class="page-link" href="#" aria-label="Next">
-                                                <span aria-hidden="true">&raquo;</span>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </nav>
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </div>
+                            <nav aria-label="Page navigation" class="m-auto">
+                                <ul class="pagination">
+                                    <li class="page-item">
+                                        <a class="page-link" href="#" aria-label="Previous">
+                                            <span aria-hidden="true">&laquo;</span>
+                                        </a>
+                                    </li>
+                                    <li class="page-item"><a class="page-link" href="#">1</a></li>
+                                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                    <li class="page-item">
+                                        <a class="page-link" href="#" aria-label="Next">
+                                            <span aria-hidden="true">&raquo;</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </nav>
                         </div>
                     </div>
-
-
                 </div>
+
 
             </div>
 
-            <!-- Footer -->
-            <footer class="sticky-footer bg-white">
-                <div class="container my-auto">
-                    <div class="col">
-                        <strong>DEVELOPER Email : </strong>jaykaybaek@gmail.com
-                    </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="sticky-footer bg-white">
+            <div class="container my-auto">
+                <div class="col">
+                    <strong>DEVELOPER Email : </strong>jaykaybaek@gmail.com
                 </div>
-            </footer>
-            <!-- End of Footer -->
-        </form>
+            </div>
+        </footer>
+        <!-- End of Footer -->
 
         <script th:src="@{/js/vendor/vendorJs.js}" src=""></script>
 

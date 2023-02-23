@@ -97,23 +97,14 @@ public class ItemController {
     }
 
     @GetMapping("/list")
-    public String itemUploadList(@PageableDefault(sort = "id", direction = Sort.Direction.DESC) Pageable pageable,
-            HttpServletRequest request, Model model){
+    public String itemUploadList(Pageable pageable, HttpServletRequest request,
+                                 @ModelAttribute UploadItemCond condition, Model model){
         VendorHomeResponse response = getVendorHomeResponse(request);
         Long vendorId = response.getVendorId();
 
-        Page<Item> itemList = itemService.findUploadItemList(vendorId, pageable);
+        log.info("condition={}", condition);
 
-        Page<UploadItem> items = itemList.map(i -> UploadItem.builder()
-                .id(i.getId())
-                .itemName(i.getItemName())
-                .price(i.getPrice() - i.getSalePrice())
-                .stockQuantity(i.getStockQuantity())
-                .itemStatus(i.getItemStatus().getDescription())
-                .uploadDate(i.getUploadDate())
-                .categoryName(i.getCategory().getGrandchildName())
-                .categoryId(i.getCategory().getGrandchildId())
-                .build());
+        Page<VendorUploadItemResponse> items = itemService.findUploadItemList(vendorId, pageable, condition);
 
         model.addAttribute("vendor", response);
         model.addAttribute("items", items);

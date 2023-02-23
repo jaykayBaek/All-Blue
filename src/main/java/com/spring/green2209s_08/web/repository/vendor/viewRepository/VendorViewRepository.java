@@ -9,7 +9,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 public interface VendorViewRepository extends JpaRepository<Vendor, Long> {
-
+    
     @Query("select i from Vendor v join v.items i on i.vendor.id = :vendorId")
     Page<Item> findUploadItemList(@Param("vendorId") Long vendorId, Pageable pageable);
 }

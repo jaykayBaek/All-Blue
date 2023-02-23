@@ -1,5 +1,7 @@
 package com.spring.green2209s_08.web.service;
 
+import com.spring.green2209s_08.web.controller.item.UploadItemCond;
+import com.spring.green2209s_08.web.controller.item.VendorUploadItemResponse;
 import com.spring.green2209s_08.web.controller.item.api.EditFishRequest;
 import com.spring.green2209s_08.web.controller.item.api.EditNumberRequest;
 import com.spring.green2209s_08.web.controller.item.api.EditProductRequest;
@@ -46,8 +48,8 @@ public class ItemService {
         return savedItem;
     }
 
-    public Page<Item> findUploadItemList(Long vendorId, Pageable pageable) {
-        return vendorViewRepository.findUploadItemList(vendorId, pageable);
+    public Page<VendorUploadItemResponse> findUploadItemList(Long vendorId, Pageable pageable, UploadItemCond condition) {
+        return itemRepository.findUploadItemList(vendorId, pageable, condition);
     }
 
     public void validateVendorIdToItem(Long vendorId, Long itemId) {
@@ -109,5 +111,9 @@ public class ItemService {
 
     public ItemCountResponse findUploadItemsCount(Long vendorId) {
         return itemRepository.findUploadItemsCount(vendorId);
+    }
+
+    public void findItemsOnDecisionInProcess() {
+//        itemRepository.findItemsOnDecisionInProcess();
     }
 }

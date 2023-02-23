@@ -11,5 +11,5 @@ public class ItemListResponse {
     private final String CODE;
     private final String MESSAGE;
     private final String SUCCESS;
-    private final List<UploadItem> uploadItem;
+    private final List<VendorUploadItemResponse> vendorUploadItemResponse;
 }
