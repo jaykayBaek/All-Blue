@@ -25,7 +25,7 @@ public class MyHomeRestController {
 
     @PostMapping("/address")
     public ResponseEntity<StatusResponse> addressAdd(@ModelAttribute AddressRequest addressRequest, HttpServletRequest request){
-        HttpSession session = request.getSession();
+        HttpSession session = request.getSession(false);
         Long memberId = (Long) session.getAttribute(SessionConst.MEMBER_ID);
 
         addressService.addAddress(memberId, addressRequest);
@@ -41,7 +41,7 @@ public class MyHomeRestController {
     public ResponseEntity<StatusResponse> addressEdit(@ModelAttribute AddressRequest addressRequest,
                                                       @RequestParam Long addressId,
                                                       HttpServletRequest request){
-        HttpSession session = request.getSession();
+        HttpSession session = request.getSession(false);
         Long memberId = (Long) session.getAttribute(SessionConst.MEMBER_ID);
 
         addressService.updateAddress(memberId, addressId, addressRequest);

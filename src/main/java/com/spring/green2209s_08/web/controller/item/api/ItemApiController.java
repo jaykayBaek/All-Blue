@@ -29,7 +29,7 @@ public class ItemApiController {
     @PatchMapping("/name")
     public ResponseEntity<StatusResponse> changeItemName(@RequestParam Long itemId, @RequestParam String itemName,
                                                          HttpServletRequest request){
-        HttpSession session = request.getSession();
+        HttpSession session = request.getSession(false);
         Long vendorId = (Long) session.getAttribute(SessionConst.VENDOR_ID);
 
         /* --- 수정하고자 하는 상품에 대한 유효성 검사(본인이 게재한 상품이 맞는지, 존재하는 상품인지) --- */
@@ -47,7 +47,7 @@ public class ItemApiController {
     @PatchMapping("/number")
     public ResponseEntity<StatusResponse> changeNumber(@ModelAttribute EditNumberRequest editNumberRequest,
                                                        HttpServletRequest request){
-        HttpSession session = request.getSession();
+        HttpSession session = request.getSession(false);
         Long vendorId = (Long) session.getAttribute(SessionConst.VENDOR_ID);
 
         /* --- 수정하고자 하는 상품에 대한 유효성 검사(본인이 게재한 상품이 맞는지, 존재하는 상품인지) --- */
@@ -66,7 +66,7 @@ public class ItemApiController {
     @PatchMapping("/fish")
     public ResponseEntity<StatusResponse> changeFish(@ModelAttribute EditFishRequest editFishRequest,
                                                      HttpServletRequest request){
-        HttpSession session = request.getSession();
+        HttpSession session = request.getSession(false);
         Long vendorId = (Long) session.getAttribute(SessionConst.VENDOR_ID);
 
         /* --- 수정하고자 하는 상품에 대한 유효성 검사(본인이 게재한 상품이 맞는지, 존재하는 상품인지) --- */
@@ -85,7 +85,7 @@ public class ItemApiController {
     @PatchMapping("/product")
     public ResponseEntity<StatusResponse> changeProduct(@ModelAttribute EditProductRequest editProductRequest,
                                                         HttpServletRequest request){
-        HttpSession session = request.getSession();
+        HttpSession session = request.getSession(false);
         Long vendorId = (Long) session.getAttribute(SessionConst.VENDOR_ID);
 
         /* --- 수정하고자 하는 상품에 대한 유효성 검사(본인이 게재한 상품이 맞는지, 존재하는 상품인지) --- */
@@ -125,14 +125,12 @@ public class ItemApiController {
 
     @PatchMapping("/status")
     public ResponseEntity<StatusResponse> changeStatus(@RequestParam Long itemId, @RequestParam String itemStatus, HttpServletRequest request) {
-            HttpSession session = request.getSession();
-            Long vendorId = (Long) session.getAttribute(SessionConst.VENDOR_ID);
-        log.info("itemID ={}", itemId);
-        log.info("itemstatus ={}", itemStatus);
+        HttpSession session = request.getSession(false);
+        Long vendorId = (Long) session.getAttribute(SessionConst.VENDOR_ID);
 
         ItemStatus status = Enum.valueOf(ItemStatus.class, itemStatus);
-
-        itemService.changeStatus(itemId, vendorId, status);
+        itemService.validateVendorIdToItem(itemId, vendorId);
+        itemService.changeStatus(itemId, status);
 
         StatusResponse statusResponse = new StatusResponse(
                 HttpStatus.OK.toString(), "상품 정보 변경 완료", "TRUE"

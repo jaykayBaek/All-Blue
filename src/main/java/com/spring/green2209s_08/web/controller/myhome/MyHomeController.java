@@ -34,7 +34,7 @@ public class MyHomeController {
 
     @GetMapping("/my-address/list")
     public String myAddressList(HttpServletRequest request, Model model){
-        HttpSession session = request.getSession();
+        HttpSession session = request.getSession(false);
         Long memberId = (Long) session.getAttribute(SessionConst.MEMBER_ID);
         List<AddressResponse> findAddresses = addressService.findAllMyAddress(memberId);
 
@@ -49,7 +49,7 @@ public class MyHomeController {
 
     @GetMapping("/my-address/{addressId}/edit")
     public String myAddressEdit(@PathVariable Long addressId, HttpServletRequest request, Model model){
-        HttpSession session = request.getSession();
+        HttpSession session = request.getSession(false);
         Long memberId = (Long) session.getAttribute(SessionConst.MEMBER_ID);
         AddressResponse address = addressService.findByMemberIdAndId(memberId, addressId);
 

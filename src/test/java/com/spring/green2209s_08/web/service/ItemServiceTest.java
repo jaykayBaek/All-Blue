@@ -183,7 +183,7 @@ class ItemServiceTest {
         em.persist(fish);
 
         //when
-        itemService.changeStatus(fish.getId(), vendor.getId(), ItemStatus.BLOCK_SELLING);
+        itemService.changeStatus(fish.getId(), ItemStatus.BLOCK_SELLING);
 
         //then
         assertThat(fish.getItemStatus()).isEqualTo(ItemStatus.BLOCK_SELLING);
@@ -210,7 +210,7 @@ class ItemServiceTest {
 
         //when
         ItemException e = assertThrows(ItemException.class, () ->
-                itemService.changeStatus(fish.getId(), tester.getId(), ItemStatus.BLOCK_SELLING)
+                itemService.changeStatus(fish.getId(), ItemStatus.BLOCK_SELLING)
         );
 
         //then

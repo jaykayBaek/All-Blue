@@ -14,7 +14,7 @@ import javax.servlet.http.HttpSession;
 public class AdminLoginCheck implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        HttpSession session = request.getSession();
+        HttpSession session = request.getSession(false);
         Long memberId = (Long) session.getAttribute(SessionConst.MEMBER_ID);
         if(memberId == null || memberId != 1){
             throw new MemberInterceptorException(InterceptorErrorResult.UNAUTHORIZED);

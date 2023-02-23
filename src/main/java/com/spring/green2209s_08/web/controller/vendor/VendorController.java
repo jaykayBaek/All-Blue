@@ -87,7 +87,7 @@ public class VendorController {
     }
     @PostMapping("/account/change-info")
     public String changeVendorInfo(@ModelAttribute VendorInfoChangeRequest changeRequest, HttpServletRequest request){
-        HttpSession session = request.getSession();
+        HttpSession session = request.getSession(false);
         Long vendorId = (Long) session.getAttribute(SessionConst.VENDOR_ID);
         vendorService.changeVendorInfo(vendorId, changeRequest);
 
@@ -108,7 +108,7 @@ public class VendorController {
     }
 
     private VendorHomeResponse getVendorHomeResponse(HttpServletRequest request) {
-        HttpSession session = request.getSession();
+        HttpSession session = request.getSession(false);
         Long vendorId = (Long) session.getAttribute(SessionConst.VENDOR_ID);
 
         Optional<Vendor> findVendor = vendorService.findById(vendorId);

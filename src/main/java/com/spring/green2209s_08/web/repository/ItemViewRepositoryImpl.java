@@ -9,6 +9,8 @@ import com.spring.green2209s_08.web.controller.item.ItemConfirmListDto;
 import com.spring.green2209s_08.web.controller.item.ItemListStatusCountResponse;
 import com.spring.green2209s_08.web.controller.item.UploadItemCond;
 import com.spring.green2209s_08.web.controller.item.VendorUploadItemResponse;
+import com.spring.green2209s_08.web.domain.QVendor;
+import com.spring.green2209s_08.web.domain.QVendorLicense;
 import com.spring.green2209s_08.web.domain.enums.ItemStatus;
 import com.spring.green2209s_08.web.service.dto.VendorHomeItemCountResponse;
 import org.springframework.data.domain.Page;
@@ -21,6 +23,8 @@ import java.util.List;
 
 import static com.querydsl.jpa.JPAExpressions.*;
 import static com.spring.green2209s_08.web.domain.QItem.*;
+import static com.spring.green2209s_08.web.domain.QVendor.*;
+import static com.spring.green2209s_08.web.domain.QVendorLicense.*;
 import static org.hibernate.internal.util.StringHelper.isEmpty;
 
 public class ItemViewRepositoryImpl implements ItemViewRepository{
@@ -128,10 +132,14 @@ public class ItemViewRepositoryImpl implements ItemViewRepository{
         List<ItemConfirmListDto> content = queryFactory.
                 select(Projections.fields(ItemConfirmListDto.class,
                                 item.id, item.category, item.itemName, item.salePrice,
-                                item.uploadDate, item.itemStatus
+                                item.uploadDate, item.itemStatus, vendor, vendorLicense
                         )
                 )
                 .from(item)
+                .join(vendor)
+                    .on(vendor.eq(item.vendor)).fetchJoin()
+                .join(vendorLicense)
+                    .on(vendorLicense.vendor.eq(item.vendor)).fetchJoin()
                 .where(
                         queryEq(condition.getQuery()),
                         itemStatusEq(condition.getItemStatus())

@@ -14,7 +14,7 @@ import javax.servlet.http.HttpSession;
 public class MemberLoginCheck implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        HttpSession session = request.getSession();
+        HttpSession session = request.getSession(false);
 
         if(session.getAttribute(SessionConst.MEMBER_ID) == null){
             throw new MemberInterceptorException(InterceptorErrorResult.UNAUTHORIZED);

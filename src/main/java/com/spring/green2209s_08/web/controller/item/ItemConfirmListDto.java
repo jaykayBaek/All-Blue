@@ -1,6 +1,8 @@
 package com.spring.green2209s_08.web.controller.item;
 
 import com.spring.green2209s_08.web.domain.Category;
+import com.spring.green2209s_08.web.domain.Vendor;
+import com.spring.green2209s_08.web.domain.VendorLicense;
 import com.spring.green2209s_08.web.domain.enums.ItemStatus;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -21,4 +23,6 @@ public class ItemConfirmListDto {
     private int salePrice;
     private LocalDate uploadDate;
     private ItemStatus itemStatus;
+    private Vendor vendor;
+    private VendorLicense vendorLicense;
 }

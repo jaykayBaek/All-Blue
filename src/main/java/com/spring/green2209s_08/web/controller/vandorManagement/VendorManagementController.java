@@ -52,7 +52,7 @@ public class VendorManagementController {
 
 
     private VendorHomeResponse getVendorHomeResponse(HttpServletRequest request) {
-        HttpSession session = request.getSession();
+        HttpSession session = request.getSession(false);
         Long vendorId = (Long) session.getAttribute(SessionConst.VENDOR_ID);
 
         Optional<Vendor> findVendor = vendorService.findById(vendorId);

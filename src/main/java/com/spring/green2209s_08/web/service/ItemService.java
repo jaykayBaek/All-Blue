@@ -125,19 +125,10 @@ public class ItemService {
     }
 
     @Transactional
-    public void changeStatus(Long itemId, Long vendorId, ItemStatus itemStatus) {
+    public void changeStatus(Long itemId, ItemStatus itemStatus) {
         Optional<Item> findItem = itemRepository.findItem(itemId);
-
-        if(findItem.isEmpty()){
-            throw new ItemException(ItemErrorResult.ITEM_NOT_FOUND);
-        }
-        if(isVendorNotMatch(vendorId, findItem)){
-            throw new ItemException(ItemErrorResult.ITEM_EDIT_FAIL_VENDOR_NOT_MATCH);
-        }
-
         Item item = findItem.get();
         item.changeStatus(itemStatus);
-
     }
 
     private static boolean isVendorNotMatch(Long vendorId, Optional<Item> findItem) {

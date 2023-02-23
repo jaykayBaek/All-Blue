@@ -14,7 +14,7 @@ import javax.servlet.http.HttpSession;
 public class VendorLoginCheck implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        HttpSession session = request.getSession();
+        HttpSession session = request.getSession(false);
 
         if(session.getAttribute(SessionConst.VENDOR_ID) == null){
             throw new VendorInterceptorException(InterceptorErrorResult.UNAUTHORIZED);
