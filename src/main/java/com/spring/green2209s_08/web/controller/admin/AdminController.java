@@ -16,4 +16,9 @@ public class AdminController {
     public String home(){
         return "main/admin/adminHome";
     }
+
+    @GetMapping("/item/confirm")
+    public String confirmItem(){
+        return "main/admin/confirmItem";
+    }
 }

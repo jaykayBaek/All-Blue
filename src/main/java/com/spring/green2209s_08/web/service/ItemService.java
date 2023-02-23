@@ -14,6 +14,7 @@ import com.spring.green2209s_08.web.exception.errorResult.SearchErrorResult;
 import com.spring.green2209s_08.web.repository.ItemImageRepository;
 import com.spring.green2209s_08.web.repository.ItemRepository;
 import com.spring.green2209s_08.web.repository.vendor.viewRepository.VendorViewRepository;
+import com.spring.green2209s_08.web.service.dto.ItemCountResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -37,7 +38,6 @@ public class ItemService {
     @Transactional
     public Item addItem(Item item) {
         Item savedItem = itemRepository.save(item);
-
         List<ItemImage> itemImages = savedItem.getItemImages();
         for (ItemImage itemImage : itemImages) {
             itemImage.saveItemInfo(savedItem);
@@ -105,5 +105,9 @@ public class ItemService {
             throw new PageNotFoundException(SearchErrorResult.ITEM_NOT_FOUND);
         }
         return findItem.get();
+    }
+
+    public ItemCountResponse findUploadItemsCount(Long vendorId) {
+        return itemRepository.findUploadItemsCount(vendorId);
     }
 }

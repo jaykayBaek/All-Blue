@@ -4,7 +4,9 @@ import com.spring.green2209s_08.web.constants.SessionConst;
 import com.spring.green2209s_08.web.controller.vendor.dto.VendorHomeResponse;
 import com.spring.green2209s_08.web.controller.vendor.dto.VendorInfoChangeRequest;
 import com.spring.green2209s_08.web.domain.Vendor;
+import com.spring.green2209s_08.web.service.ItemService;
 import com.spring.green2209s_08.web.service.VendorService;
+import com.spring.green2209s_08.web.service.dto.ItemCountResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -26,7 +28,7 @@ import java.util.Optional;
 public class VendorController {
 
     private final VendorService vendorService;
-    private final PasswordEncoder passwordEncoder;
+    private final ItemService itemService;
 
     @GetMapping("/join")
     public String vendorRegister(){
@@ -53,7 +55,11 @@ public class VendorController {
     @GetMapping("/home")
     public String home(Model model, HttpServletRequest request){
         VendorHomeResponse response = getVendorHomeResponse(request);
+        Long vendorId = response.getVendorId();
+        ItemCountResponse uploadItemsCount = itemService.findUploadItemsCount(vendorId);
+
         model.addAttribute("vendor", response);
+        model.addAttribute("uploadItemsCount", uploadItemsCount);
 
         return "main/vendor/vendorHome";
     }
@@ -92,6 +98,12 @@ public class VendorController {
         VendorHomeResponse response = getVendorHomeResponse(request);
         model.addAttribute("vendor", response);
         return "main/vendorAccount/changePassword";
+    }
+    @GetMapping("/account/confirm/license")
+    public String confirmLicenseForm(Model model, HttpServletRequest request){
+        VendorHomeResponse response = getVendorHomeResponse(request);
+        model.addAttribute("vendor", response);
+        return "main/vendorAccount/confirmLicense";
     }
 
     private VendorHomeResponse getVendorHomeResponse(HttpServletRequest request) {

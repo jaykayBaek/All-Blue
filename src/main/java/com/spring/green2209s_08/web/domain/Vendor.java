@@ -29,6 +29,9 @@ public class Vendor {
     @OneToMany(mappedBy = "vendor")
     private List<Item> items = new ArrayList<>();
 
+    @OneToOne(mappedBy = "vendor", fetch = FetchType.LAZY)
+    private VendorLicense vendorLicense;
+
     public void changeInfo(String vendorName, String vendorEmail, String vendorPhoneNo) {
         this.vendorName = vendorName;
         this.vendorEmail = vendorEmail;

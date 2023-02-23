@@ -1,10 +1,14 @@
 package com.spring.green2209s_08.web.service;
 
+import com.spring.green2209s_08.web.controller.vendor.api.LicenseRequest;
 import com.spring.green2209s_08.web.controller.vendor.dto.ChangePasswordRequest;
 import com.spring.green2209s_08.web.controller.vendor.dto.VendorInfoChangeRequest;
+import com.spring.green2209s_08.web.domain.StoreAddress;
 import com.spring.green2209s_08.web.domain.Vendor;
+import com.spring.green2209s_08.web.domain.VendorLicense;
 import com.spring.green2209s_08.web.exception.errorResult.VendorErrorResult;
 import com.spring.green2209s_08.web.exception.VendorException;
+import com.spring.green2209s_08.web.repository.LicenseRepository;
 import com.spring.green2209s_08.web.repository.VendorRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -22,6 +26,7 @@ public class VendorService {
 
     private final VendorRepository vendorRepository;
     private final PasswordEncoder passwordEncoder;
+    private final LicenseRepository licenseRepository;
 
     public void validateLoginId(String loginId){
         Optional<Vendor> findVendor = vendorRepository.findByVendorLoginId(loginId);
@@ -83,5 +88,22 @@ public class VendorService {
         }
 
         vendor.changePassword(passwordEncoder.encode(passwordRequest.getRepeatNewPassword()));
+    }
+
+    public Long addLicense(Long vendorId, LicenseRequest request) {
+        Vendor vendor = vendorRepository.findById(vendorId).get();
+        StoreAddress address = StoreAddress.builder()
+                .zipcode(request.getZipcode())
+                .address(request.getAddress())
+                .detail(request.getDetail())
+                .build();
+        VendorLicense license = VendorLicense.builder()
+                .storeName(request.getStoreName())
+                .licenseNo(request.getLicenseNo())
+                .storeAddress(address)
+                .vendor(vendor)
+                .build();
+
+        return licenseRepository.save(license).getId();
     }
 }

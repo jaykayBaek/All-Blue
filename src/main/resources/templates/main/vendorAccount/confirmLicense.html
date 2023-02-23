@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>올! 블루, 벤더</title>
+
+    <link th:href="@{/vendor/fontawesome-free/css/all.min.css}" href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link th:href="@{/css/vendor/vendor-admin-2.css}" href="css/sb-admin-2.min.css" rel="stylesheet">
+    <link th:href="@{/css/vendor/vendor-css.css}" href="css/sb-admin-2.min.css" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/8b6103ad59.js" crossorigin="anonymous"></script>
+    <script th:src="@{/js/jquery-3.3.1.min.js}" src="/js/jquery-3.3.1.min.js"></script>
+
+    <!-- 다음 배송 api -->
+    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+
+    <style>
+
+        .address__input__wrap:focus-within{
+            border: 1px solid var(--maincolor);
+        }
+        .address__input__wrap label{
+            font-size: 12px;
+        }
+        .address__input__wrap #addressInput:hover{
+            cursor: pointer;
+        }
+        .address__input__wrap{
+            width: 100%;
+            padding: 0.375rem 0.75rem;
+            font-size: 1rem;
+            font-weight: 400;
+            background-color: #fff;
+            border: 1px solid var(--backgroundgrey);
+        }
+
+        .address__input__wrap input{
+            width: 100%;
+            border: 0px;
+        }
+
+        .address__input__wrap input:read-only{
+            background-color: #fff;
+        }
+
+        .address__input__wrap input::placeholder{
+            font-size: 18px;
+        }
+    </style>
+</head>
+
+<body id="page-top">
+
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+
+        <!-- Sidebar -->
+        <div th:replace="main/vendor/common/vendor-sidebar :: vendor-sidebar"></div>
+
+        <!-- End of Sidebar -->
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+            <div id="content">
+                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+                    <div th:replace="main/vendor/common/vendor-navbar :: vendor-navbar"></div>
+                </nav>
+                <div class="container-fluid">
+                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                        <h1 class="h3 mb-0 text-gray-800">상세정보 등록</h1>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 mb-4">
+                            <div class="card shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="form-group">
+                                        <form id="licenseForm">
+                                            <div class="mb-3 font-weight-lighter text-gray-800">
+                                                <span class="font-weight-bold h5">
+                                                    스토어 이름 등록(법인명으로 작성해주세요. 상품 등록 시 노출되는 이름입니다.)
+                                                </span>
+                                            </div>
+                                            <div class="mb-3 font-weight-lighter text-gray-800">
+                                                <input class="form-control" type="text" name="storeName" id="storeName" placeholder="스토어 이름"/>
+                                            </div>
+
+                                            <div class="mb-3 font-weight-lighter text-gray-800">
+                                                <span class="font-weight-bold h5">
+                                                    사업자 등록 번호 입력
+                                                </span>
+                                            </div>
+                                            <div class="mb-3 font-weight-lighter text-gray-800">
+                                                <input class="form-control" type="text" name="licenseNo" id="licenseNo" placeholder="사업자 등록번호 예(111-11-11111)"/>
+                                            </div>
+                                            <div class="mb-3 font-weight-lighter text-gray-800">
+                                                <span class="font-weight-bold h5">
+                                                    사업장 주소
+                                                </span>
+                                            </div>
+                                            <div class="address__input__wrap">
+                                                <label for="addressInput">
+                                                    주소찾기
+                                                </label>
+                                                <input type="text" name="zipcode" id="zipcode" readonly>
+                                                <input onclick="" type="text" name="address" id="addressInput" readonly placeholder="우편번호 찾기" >
+                                                <hr/>
+                                                <input type="text" name="address_detail" id="detailInput" placeholder="상세주소">
+                                            </div>
+                                            <div class="button__wrap mt-3">
+                                                <button type="button" onclick="confirmLicense()" class="btn btn-primary" id="confirm__license">
+                                                    상세정보 등록하기
+                                                </button>
+                                            </div>
+                                        </form>
+                                        <script>
+                                            window.onload = function(){
+                                                document.getElementById("addressInput").addEventListener("click", function(){ //주소입력칸을 클릭하면
+                                                    new daum.Postcode({
+                                                        oncomplete: function(data) {
+                                                            document.getElementById("addressInput").value = data.address; // 주소 넣기
+                                                            document.getElementById("zipcode").value = data.zonecode; // 주소 넣기
+
+                                                            document.querySelector("input[name=address_detail]").focus(); //상세입력 포커싱
+                                                        }
+                                                    }).open();
+                                                });
+                                            }
+                                            function confirmLicense(){
+                                                const storeName = $('#storeName').val();
+                                                const licenseNo = $('#licenseNo').val();
+                                                const zipcode = $('#zipcode').val();
+                                                const address = $('#addressInput').val();
+                                                const detail = $('#detailInput').val();
+
+                                                if(storeName.trim() == '' || licenseNo.trim() == '' ||
+                                                    zipcode.trim() == '' || address.trim() == '' || detail.trim() == ''){
+                                                    alert('양식을 다시 확인해주세요.');
+                                                    return false;
+                                                }
+
+                                                $.ajax({
+                                                    url:"http://localhost:9090/green2209s_08/vendor/account/confirm/license",
+                                                    method:"post",
+                                                    data:{
+                                                        storeName : storeName,
+                                                        licenseNo : licenseNo,
+                                                        zipcode : zipcode,
+                                                        address : address,
+                                                        detail : detail
+                                                    },
+                                                    success: function (result){
+                                                        console.log(result);
+                                                    },
+                                                    error: function (result){
+                                                        console.log(result);
+                                                    }
+                                                })
+
+                                            }
+                                        </script>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <script th:src="@{/js/vendor/vendorJs.js}" src=""></script>
+
+        </div>
+        <!-- End of Content Wrapper -->
+
+
+    </div>
+    <!-- End of Page Wrapper -->
+
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+
+    <!-- Bootstrap core JavaScript-->
+
+    <script th:src="@{/vendor/jquery/jquery.min.js}" src="vendor/jquery/jquery.min.js"></script>
+    <script th:src="@{/vendor/bootstrap/js/bootstrap.bundle.min.js}" src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script th:src="@{/vendor/jquery-easing/jquery.easing.min.js}" src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script th:src="@{/js/vendor/sb-admin-2.min.js}" src="js/sb-admin-2.min.js"></script>
+
+</body>
+
+</html>

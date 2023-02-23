@@ -1,8 +1,10 @@
 package com.spring.green2209s_08.web.service;
 
+import com.spring.green2209s_08.web.controller.vendor.api.LicenseRequest;
 import com.spring.green2209s_08.web.domain.Vendor;
 import com.spring.green2209s_08.web.exception.errorResult.VendorErrorResult;
 import com.spring.green2209s_08.web.exception.VendorException;
+import com.spring.green2209s_08.web.repository.LicenseRepository;
 import com.spring.green2209s_08.web.repository.VendorRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,12 +20,15 @@ import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest
 @Transactional
 class VendorServiceTest {
-    
+
     @Autowired
     private VendorService vendorService;
-    private VendorRepository vendorRepository;
+
     @Autowired
     private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private LicenseRepository licenseRepository;
 
     @Test
     void 회원가입() {
@@ -44,12 +49,12 @@ class VendorServiceTest {
         Vendor vendor = Vendor.builder()
                 .vendorLoginId("test").build();
         vendorService.register(vendor);
-        
+
         Vendor target = Vendor.builder()
                 .vendorLoginId("test")
                 .vendorName("홍길동")
                 .build();
-        
+
         //when
         VendorException e = assertThrows(VendorException.class, () ->
                 vendorService.validateLoginId(target.getVendorLoginId())
@@ -76,7 +81,27 @@ class VendorServiceTest {
 
         //then
         assertThat(e.getErrorResult().getMessage()).isEqualTo(VendorErrorResult.PASSWORD_NOT_MATCH.getMessage());
+    }
 
+    @Test
+    void 상세정보등록() {
+        //given
+        Vendor tester = Vendor.builder()
+                .vendorName("tester")
+                .build();
+        vendorService.register(tester);
+        LicenseRequest request = LicenseRequest.builder()
+                .address("test")
+                .zipcode("1")
+                .licenseNo("1")
+                .storeName("1")
+                .detail("1")
+                .build();
+        //when
+        Long saveDetails = vendorService.addLicense(tester.getId(), request);
+
+        //then
+        assertThat(saveDetails).isEqualTo(1L);
     }
 
 }
