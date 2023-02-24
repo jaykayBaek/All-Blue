@@ -7,6 +7,8 @@ import com.spring.green2209s_08.web.controller.item.VendorUploadItemResponse;
 import com.spring.green2209s_08.web.controller.item.api.EditFishRequest;
 import com.spring.green2209s_08.web.controller.item.api.EditNumberRequest;
 import com.spring.green2209s_08.web.controller.item.api.EditProductRequest;
+import com.spring.green2209s_08.web.controller.wishlist.WishlistCond;
+import com.spring.green2209s_08.web.controller.wishlist.WishlistViewDto;
 import com.spring.green2209s_08.web.domain.Fish;
 import com.spring.green2209s_08.web.domain.Item;
 import com.spring.green2209s_08.web.domain.ItemImage;
@@ -28,6 +30,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -133,5 +136,16 @@ public class ItemService {
 
     private static boolean isVendorNotMatch(Long vendorId, Optional<Item> findItem) {
         return !findItem.get().getVendor().getId().equals(vendorId);
+    }
+
+    public List<WishlistViewDto> findWishlist(WishlistCond condition, Map<Long, Integer> cookieWishlist) {
+        List<WishlistViewDto> wishlist = itemRepository.findWishlist(condition);
+
+        for (WishlistViewDto dto : wishlist) {
+            Long dtoItemId = dto.getItemId();
+            Integer quantity = cookieWishlist.get(dtoItemId);
+            dto.assignCount(quantity);
+        }
+        return wishlist;
     }
 }

@@ -58,6 +58,9 @@ public abstract class Item {
     @OneToMany(mappedBy = "item")
     private List<ItemQuery> itemQueries = new ArrayList<>();
 
+    @OneToMany(fetch = FetchType.LAZY)
+    private List<Wishlist> wishlists = new ArrayList<>();
+
     /**
      * 생성
      */

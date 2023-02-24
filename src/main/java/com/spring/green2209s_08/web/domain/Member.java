@@ -44,11 +44,14 @@ public class Member {
     @OneToMany(mappedBy = "member")
     private List<Address> addresses = new ArrayList<>();
 
-    @OneToMany(mappedBy = "member", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "member")
     private List<Review> review = new ArrayList<>();
 
-    @OneToMany(mappedBy = "member", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "member")
     private List<ItemQuery> itemQueries = new ArrayList<>();
+
+    @OneToOne(mappedBy = "member", fetch = FetchType.LAZY)
+    private Wishlist wishlist;
 
     private LocalDateTime createdTime;
     private LocalDateTime lastVisitedTime;

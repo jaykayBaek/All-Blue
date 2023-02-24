@@ -63,18 +63,19 @@
         </div>
         <hr/>
         <div class="detail__amount">
-          <span th:text="${#numbers.formatInteger(item.price, 3, 'COMMA')}">
+
+          <span th:text="${#numbers.formatDecimal(item.price, 0, 'COMMA', 0, 'POINT')}">
             36,000원
           </span>
-          <b th:text="${#numbers.formatInteger(item.salePrice, 3, 'COMMA')}">23,900원</b>
+          <b th:text="${#numbers.formatDecimal(item.salePrice, 0, 'COMMA', 0, 'POINT')}">23,900원</b>
         </div>
         <div class="delivery__content">
           <span>배송비 추가</span>
-          <b th:text="${#numbers.formatInteger(item.deliveryPrice, 3, 'COMMA')}">15,000원</b>
+          <b th:text="${#numbers.formatDecimal(item.deliveryPrice, 0, 'COMMA', 0, 'POINT')}">15,000원</b>
           <sub>배송비는 추가적인 비용입니다.</sub>
         </div>
         <div class="detail__total__amount">
-          주문 총 금액은 <strong th:text="${#numbers.formatInteger(item.totalPrice, 3, 'COMMA')}">35000</strong>원 입니다
+          주문 총 금액은 <strong th:text="${#numbers.formatDecimal(item.totalPrice, 3, 'COMMA', 0, 'POINT')}">35000</strong>원 입니다
         </div>
 
         <hr/>
@@ -170,6 +171,7 @@
                 },
                 success : function (result){
                   console.log(result);
+                  alert('장바구니에 추가되었습니다.');
                 },
                 error: function (result){
                   console.log(result);
