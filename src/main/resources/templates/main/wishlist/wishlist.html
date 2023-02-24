@@ -57,8 +57,8 @@
                                        <span th:text="${item.salePrice}">5500</span>원
                                        <input type="hidden" name="salePrice" id="salePrice" th:value="${item.salePrice}">
                                    <td class="">
-                                       <span th:text="${item.selectCount}">1</span> 개
-                                       <input type="hidden" name="selectCount" id="selectCount" th:value="${item.selectCount}">
+                                       <span th:text="${item.selectedQuantity}">1</span> 개
+                                       <input type="hidden" name="selectedQuantity" id="selectedQuantity" th:value="${item.selectedQuantity}">
                                    </td>
                                    </td>
                                    <td class="">
@@ -129,17 +129,17 @@
                                 function calculateTotal(){
                                     let totalPrice = 0;
                                     let salePrice = 0;
-                                    let selectCount = 0;
+                                    let selectedQuantity = 0;
                                     let deliveryPrice = 0;
 
                                     $(".shopping__checkbox:checked").each(function() {
 
                                         const tr = $(this).closest("tr");
                                         salePrice = parseFloat(tr.find("input[name='salePrice']").val());
-                                        selectCount = parseFloat(tr.find("input[name='selectCount']").val());
+                                        selectedQuantity = parseFloat(tr.find("input[name='selectedQuantity']").val());
                                         deliveryPrice = parseFloat(tr.find("input[name='deliveryPrice']").val());
 
-                                        totalPrice += (salePrice * selectCount) + deliveryPrice
+                                        totalPrice += (salePrice * selectedQuantity) + deliveryPrice
                                         salePrice += salePrice;
                                         deliveryPrice += deliveryPrice;
 
@@ -154,7 +154,8 @@
                     </div>
                 </div>
             </div>
-            <div class="row" th:if="${isLogin}">
+
+            <div class="row" th:if="${items.size() ne 0}">
                 <div class="col-lg-12">
                     <div class="shoping__checkout">
                         <div class="emphasis__amount">
@@ -174,6 +175,21 @@
                     </div>
                 </div>
             </div>
+
+            <div class="row" th:if="${isLogin && items.size() eq 0}">
+                <div class="col-lg-12">
+                    <div class="shoping__checkout" style="height: 70vh">
+                        <div class="emphasis__content text-center">
+                            <h2 style="font-size: 18px; font-weight: 700">장바구니에 담은 상품이 없습니다.</h2>
+                            <span style="font-size: 14px">즐거운 물생활을 올 블루와 함께하세요</span>
+                        </div>
+                        <div class="shopping__btn__wrap">
+                            <a class="shopping__btn" id="home" th:href="@{/}">홈화면</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <div class="row" th:if="${not isLogin && items.size() eq 0}">
                 <div class="col-lg-12">
                     <div class="shoping__checkout" style="height: 70vh">

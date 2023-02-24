@@ -19,10 +19,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.Base64;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Slf4j
 @Controller
@@ -34,13 +31,14 @@ public class WishlistController {
 
     @GetMapping
     public String wishList(@CookieValue(name = SessionConst.WISHLIST) Cookie cookie,
+                           @SessionAttribute(name = SessionConst.MEMBER_ID, required = false) Long memberId,
                            Model model, HttpServletRequest request) throws JsonProcessingException {
-        List<Long> itemIdList = new ArrayList<>();
+
+        Optional<Long> optMemberId = Optional.ofNullable(memberId);
+
         boolean isLogin = false;
 
-        HttpSession session = request.getSession();
-        Long memberId = (Long) session.getAttribute(SessionConst.VENDOR_ID);
-
+        List<Long> itemIdList = new ArrayList<>();
         if(isHadItemCookieInWishlist(cookie)){
             addItemIdToList(cookie, itemIdList);
         }
@@ -49,14 +47,15 @@ public class WishlistController {
 
         List<WishlistViewDto> items = new ArrayList<>();
 
-        if(isNotLoginMember(memberId)){
+        if(isNotLoginMember(optMemberId)){
             Map<Long, Integer> cookieWishlist = getCookieWishlist(cookie);
             if(cookieWishlist.size() != 0){
                 items = itemService.findWishlist(condition, cookieWishlist);
             }
-
         } else{
+            log.info("condition?={}, {}", condition.getItemIdList(), condition.getMemberId());
             items = wishlistService.findWishlist(condition);
+
             isLogin = true;
         }
 
@@ -65,6 +64,10 @@ public class WishlistController {
 
 
         return "main/wishlist/wishlist";
+    }
+
+    private static boolean isNotLoginMember(Optional<Long> optMemberId) {
+        return optMemberId.isEmpty();
     }
 
 
@@ -92,8 +95,5 @@ public class WishlistController {
         return cookie != null;
     }
 
-    private static boolean isNotLoginMember(Long memberId) {
-        return memberId == null;
-    }
 
 }

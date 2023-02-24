@@ -38,6 +38,8 @@ public class WishlistApiController {
         if(isNotLoginMember(optMemberId)){
             Cookie cookie = wishlistService.addWishlist(itemId, quantity, request);
             response.addCookie(cookie);
+        } else{
+            wishlistService.addWishlist(itemId, quantity, memberId);
         }
 
         StatusResponse statusResponse = new StatusResponse(

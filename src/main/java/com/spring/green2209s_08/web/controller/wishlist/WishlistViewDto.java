@@ -14,11 +14,11 @@ public class WishlistViewDto {
     private int salePrice;
     private int deliveryPrice;
     private int stockQuantity;
-    private int selectCount;
+    private int selectedQuantity;
     private Long vendorLicenseId;
     private String storeName;
 
-    public void assignCount(Integer selectCount){
-        this.selectCount = selectCount;
+    public void assignCount(Integer selectedQuantity){
+        this.selectedQuantity = selectedQuantity;
     }
 }

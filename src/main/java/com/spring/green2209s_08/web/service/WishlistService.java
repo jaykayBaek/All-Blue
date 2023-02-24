@@ -6,6 +6,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.spring.green2209s_08.web.constants.SessionConst;
 import com.spring.green2209s_08.web.controller.wishlist.WishlistCond;
 import com.spring.green2209s_08.web.controller.wishlist.WishlistViewDto;
+import com.spring.green2209s_08.web.domain.Item;
+import com.spring.green2209s_08.web.domain.Member;
+import com.spring.green2209s_08.web.domain.Wishlist;
+import com.spring.green2209s_08.web.repository.ItemRepository;
+import com.spring.green2209s_08.web.repository.MemberRepository;
 import com.spring.green2209s_08.web.repository.WishlistRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -27,6 +32,8 @@ import java.util.Map;
 public class WishlistService {
 
     private final WishlistRepository wishlistRepository;
+    private final MemberRepository memberRepository;
+    private final ItemRepository itemRepository;
 
     public Cookie addWishlist(Long itemId, Integer quantity, HttpServletRequest request) throws JsonProcessingException {
         Map<Long, Integer> newWishlist = new HashMap<>();
@@ -53,6 +60,7 @@ public class WishlistService {
         cookie.setPath(SessionConst.COOKIE_PATH);
         return cookie;
     }
+
     private Map<Long, Integer> addCookieItemIdInWishlist(Cookie cookie, Map<Long, Integer> newWishlist) throws JsonProcessingException {
         String jsonCookie = cookie.getValue();
 
@@ -74,5 +82,17 @@ public class WishlistService {
 
     public List<WishlistViewDto> findWishlist(WishlistCond condition) {
         return wishlistRepository.findWishlist(condition);
+    }
+
+    @Transactional
+    public void addWishlist(Long itemId, Integer quantity, Long memberId) {
+        Item findItem = itemRepository.findById(itemId).get();
+        Member findMember = memberRepository.findById(memberId).get();
+        Wishlist wishlist = Wishlist.builder()
+                .item(findItem)
+                .member(findMember)
+                .selectedQuantity(quantity)
+                .build();
+        wishlistRepository.save(wishlist);
     }
 }
