@@ -40,6 +40,7 @@ public class SearchController {
                     item.getDeliveryPrice(), item.getContent(), item.getItemImages(), item.getVendor(), item.getUploadDate(),
                     item.getReviews(), ((Fish) item).getBreederName(), ((Fish) item).getSex(), ((Fish) item).getSize()
             );
+            request.assignType("fish");
             model.addAttribute("item", request);
         }else if(item instanceof Product){
             ProductRequestDto request = new ProductRequestDto(
@@ -47,6 +48,7 @@ public class SearchController {
                     item.getDeliveryPrice(), item.getContent(), item.getItemImages(), item.getVendor(), item.getUploadDate(),
                     item.getReviews(), ((Product) item).getBrandName()
             );
+            request.assignType("product");
             model.addAttribute("item", request);
         }
 

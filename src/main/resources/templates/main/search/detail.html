@@ -82,6 +82,28 @@
           판매자 : 라라아쿠아<br/>
         </div>
         <hr/>
+        <table class="table table-striped">
+          <tbody th:if="${item.type == 'fish' }">
+            <tr>
+              <th>브리더 이름</th>
+              <td th:text="${item.breederName}"></td>
+            </tr>
+            <tr>
+              <th>물고기 성별</th>
+              <td th:text="${item.fishSex}"></td>
+            </tr>
+            <tr>
+              <th>사이즈</th>
+              <td th:text="${item.size}"></td>
+            </tr>
+          </tbody>
+          <tbody th:if="${item.type == 'product' }">
+          <tr>
+            <th>브리더 이름</th>
+            <td th:text="${item.brandName}"></td>
+          </tr>
+          </tbody>
+        </table>
 
         <div class="detail__selling__list">
           <div class="product__details__quantity">
@@ -90,6 +112,48 @@
                 <input type="text" id="quantity" name="quantity" value="1">
               </div>
             </div>
+            <script>
+              $('#quantity').on("change", function (){
+                const quantity = [[${item.stockQuantity}]];
+                const value = $('#quantity').val().replace(/[^0-9]/g, '');
+                $('#quantity').val(value);
+
+                if(value<0){
+                  $('#quantity').val(1);
+                  return false;
+                }
+                if(value>quantity){
+                  alert('주문 가능한 수량을 초과했습니다. 정수가 아닌 실수를 적으신 경우 자동으로 점(.)이 제거됩니다.');
+                  $('#quantity').val(quantity);
+                  return false;
+                }
+              })
+              const proQty = $('.pro-qty');
+              proQty.prepend('<span class="dec qtybtn">-</span>');
+              proQty.append('<span class="inc qtybtn">+</span>');
+
+              proQty.on('click', '.qtybtn', function () {
+                const $button = $(this);
+                const quantity = [[${item.stockQuantity}]];
+                const oldValue = parseFloat($('#quantity').val());
+
+                let newVal;
+
+                if ($button.hasClass('inc')) {
+                  newVal = oldValue + 1;
+                } else {
+                  newVal = oldValue > 1 ? oldValue - 1 : 1;
+                }
+
+                if(newVal>quantity){
+                  alert('주문 가능한 수량을 초과했습니다. 정수가 아닌 실수를 적으신 경우 자동으로 점(.)이 제거됩니다.');
+                  newVal = quantity;
+                }
+
+                $('#quantity').val(newVal);
+              });
+
+            </script>
           </div>
           <button class="detail__btn" id="btn__wishlist">장바구니</button>
           <button class="detail__btn" id="btn__selling">바로구매</button>

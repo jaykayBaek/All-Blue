@@ -27,6 +27,8 @@ public class ItemRequestDto {
     private LocalDate uploadDate;
     private List<Review> reviews = new ArrayList<>();
 
+    private String type;
+
 
 
     public ItemRequestDto(Long id, String itemName, Category category, int price, int salePrice, int stockQuantity, int deliveryPrice, String content, List<ItemImage> itemImages, Vendor vendor, LocalDate uploadDate, List<Review> reviews) {
@@ -44,5 +46,9 @@ public class ItemRequestDto {
         this.reviews = reviews;
 
         this.totalPrice = salePrice + deliveryPrice;
+    }
+
+    public void assignType(String type){
+        this.type = type;
     }
 }

@@ -258,7 +258,6 @@ ol {
 .detail__amount b{
 	font-size: 1.2rem;
 	font-family: Tahoma;
-	/*color: var(--red);*/
 	font-weight: 700;
 }
 .detail__amount span{
