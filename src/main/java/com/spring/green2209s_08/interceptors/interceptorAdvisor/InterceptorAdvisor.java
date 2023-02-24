@@ -18,6 +18,7 @@ import java.io.PrintWriter;
 @Slf4j
 @RestControllerAdvice
 public class InterceptorAdvisor {
+
     @ExceptionHandler(VendorInterceptorException.class)
     public ResponseEntity<StatusResponse> vendorExceptionHandler(VendorInterceptorException e,
                                                                       HttpServletRequest request, HttpServletResponse response) throws IOException {

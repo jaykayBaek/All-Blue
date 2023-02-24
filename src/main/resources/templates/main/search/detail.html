@@ -155,8 +155,28 @@
 
             </script>
           </div>
-          <button class="detail__btn" id="btn__wishlist">장바구니</button>
-          <button class="detail__btn" id="btn__selling">바로구매</button>
+          <button class="detail__btn" id="btn__wishlist" onclick="addWishlist()">장바구니</button>
+          <button class="detail__btn" id="btn__selling" onclick="order()">바로구매</button>
+          <script>
+            function addWishlist(){
+              const itemId = $('#itemId').val();
+              const quantity = $('#quantity').val();
+              $.ajax({
+                url:"http://localhost:9090/green2209s_08/wishlist/add",
+                method:"post",
+                data: {
+                  itemId : itemId,
+                  quantity : quantity
+                },
+                success : function (result){
+                  console.log(result);
+                },
+                error: function (result){
+                  console.log(result);
+                }
+              })
+            }
+          </script>
         </div>
       </div>
     </div>

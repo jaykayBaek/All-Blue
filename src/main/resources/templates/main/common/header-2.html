@@ -30,9 +30,6 @@
               </span>
             </a>
           </li>
-<!--          <li>-->
-<!--            <a href="./contact.html" th:text="#{nav.blog}">blog</a>-->
-<!--          </li>-->
           <li>
             <a th:href="@{/vendor/join/welcome}" href="http://localhost:9090" th:text="#{nav.entry}">Contact</a>
           </li>
@@ -53,10 +50,11 @@
           <li th:if="${session.vendorId eq null}">
             <a th:href="@{/wishlist}" href="http://localhoost:9090/green2209s_08/wishlist" class="nav__list">
               <i class="fa-solid fa-cart-shopping"></i>
-              <span>3</span>
+              <span id="wishlist__count"></span>
               <div th:text="#{nav.wishlist}">
                 wishlist
               </div>
+              <script th:src="@{/js/wishlistCount.js}"></script>
             </a>
           </li>
           <li th:if="${session.vendorId ne null}">

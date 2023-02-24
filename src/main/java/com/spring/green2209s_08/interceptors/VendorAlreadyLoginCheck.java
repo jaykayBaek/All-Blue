@@ -15,7 +15,7 @@ public class VendorAlreadyLoginCheck implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        HttpSession session = request.getSession(false);
+        HttpSession session = request.getSession();
 
         if(session.getAttribute(SessionConst.VENDOR_ID) != null){
             throw new VendorAlreadyLoginException(InterceptorErrorResult.ALREADY_LOGIN);
