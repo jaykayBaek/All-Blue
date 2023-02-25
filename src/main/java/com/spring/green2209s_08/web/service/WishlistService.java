@@ -9,6 +9,10 @@ import com.spring.green2209s_08.web.controller.wishlist.WishlistViewDto;
 import com.spring.green2209s_08.web.domain.Item;
 import com.spring.green2209s_08.web.domain.Member;
 import com.spring.green2209s_08.web.domain.Wishlist;
+import com.spring.green2209s_08.web.exception.ItemException;
+import com.spring.green2209s_08.web.exception.MemberException;
+import com.spring.green2209s_08.web.exception.errorResult.ItemErrorResult;
+import com.spring.green2209s_08.web.exception.errorResult.MemberErrorResult;
 import com.spring.green2209s_08.web.repository.ItemRepository;
 import com.spring.green2209s_08.web.repository.MemberRepository;
 import com.spring.green2209s_08.web.repository.WishlistRepository;
@@ -20,10 +24,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import java.nio.charset.StandardCharsets;
-import java.util.Base64;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 @Slf4j
@@ -94,5 +95,33 @@ public class WishlistService {
                 .selectedQuantity(quantity)
                 .build();
         wishlistRepository.save(wishlist);
+    }
+
+    @Transactional
+    public void removeItemInWishlist(Long itemId, Long memberId) {
+        Optional<Item> findItem = itemRepository.findById(itemId);
+        log.info("remove={}", findItem.isEmpty());
+        log.info("remove={}", findItem.get().getId());
+        log.info("------------------------");
+
+        Optional<Member> findMember = memberRepository.findById(memberId);
+        log.info("remove={}", findMember.isEmpty());
+        log.info("remove={}", findMember.get().getId());
+        log.info("------------------------");
+
+
+        if(findItem.isEmpty()){
+            throw new ItemException(ItemErrorResult.ITEM_NOT_FOUND);
+        }
+        if(findMember.isEmpty()){
+            throw new MemberException(MemberErrorResult.MEMBER_NOT_FOUND);
+        }
+        log.info("------------------------");
+
+        Wishlist findWishlist = wishlistRepository.findByItemIdAndMemberId(itemId, memberId);
+        log.info("findWishlist = {}", findWishlist.getId());
+        wishlistRepository.delete(findWishlist);
+
+        log.info("------------------------");
     }
 }

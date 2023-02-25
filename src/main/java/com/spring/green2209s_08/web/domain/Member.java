@@ -11,8 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Getter
-@Builder
+@Getter @Builder
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Member {
@@ -50,8 +49,8 @@ public class Member {
     @OneToMany(mappedBy = "member")
     private List<ItemQuery> itemQueries = new ArrayList<>();
 
-    @OneToOne(mappedBy = "member", fetch = FetchType.LAZY)
-    private Wishlist wishlist;
+    @OneToMany(mappedBy = "member")
+    private List<Wishlist> wishlist = new ArrayList<>();
 
     private LocalDateTime createdTime;
     private LocalDateTime lastVisitedTime;

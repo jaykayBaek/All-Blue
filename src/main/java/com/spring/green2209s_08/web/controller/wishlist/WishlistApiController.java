@@ -4,6 +4,10 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.spring.green2209s_08.web.constants.SessionConst;
 import com.spring.green2209s_08.web.controller.StatusResponse;
+import com.spring.green2209s_08.web.exception.ItemException;
+import com.spring.green2209s_08.web.exception.MemberException;
+import com.spring.green2209s_08.web.exception.errorResult.ItemErrorResult;
+import com.spring.green2209s_08.web.exception.errorResult.MemberErrorResult;
 import com.spring.green2209s_08.web.service.WishlistService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -47,6 +51,27 @@ public class WishlistApiController {
         );
 
         return ResponseEntity.status(HttpStatus.CREATED)
+                .body(statusResponse);
+    }
+
+    @DeleteMapping("/{itemId}")
+    ResponseEntity<StatusResponse> removeItemInWishlist(@PathVariable Long itemId, @SessionAttribute(name = SessionConst.MEMBER_ID, required = false) Long memberId){
+        Optional<Long> optMemberId = Optional.ofNullable(memberId);
+        Optional<Long> optItemId = Optional.ofNullable(itemId);
+
+        if(isNotLoginMember(optMemberId)){
+            throw new MemberException(MemberErrorResult.UNAUTHORIZED);
+        }
+        if(optItemId.isEmpty()){
+            throw new ItemException(ItemErrorResult.ITEM_NOT_FOUND);
+        }
+
+        wishlistService.removeItemInWishlist(itemId, memberId);
+
+        StatusResponse statusResponse = new StatusResponse(
+                HttpStatus.OK.toString(), "장바구니 상품 제거 완료", "TRUE"
+        );
+        return ResponseEntity.status(HttpStatus.OK)
                 .body(statusResponse);
     }
 

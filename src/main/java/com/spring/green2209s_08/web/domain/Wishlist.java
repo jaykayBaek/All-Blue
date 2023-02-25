@@ -7,14 +7,15 @@ import javax.persistence.*;
 @Entity
 @Getter
 @Builder
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Wishlist {
+
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "wishlist_id")
     private Long id;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     private Member member;
 
@@ -23,5 +24,4 @@ public class Wishlist {
     private Item item;
 
     private int selectedQuantity;
-
 }

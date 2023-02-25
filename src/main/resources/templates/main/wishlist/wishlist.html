@@ -81,8 +81,23 @@
 
                                                    const encodedMap = btoa(JSON.stringify(map));
                                                    document.cookie = "wishlist="+encodedMap+"; path=/";
-                                                   $('#shoping-cart').load(location.href+' #shoping-cart');
                                                }
+
+                                               $.ajax({
+                                                   url: "http://localhost:9090/green2209s_08/wishlist/"+itemId,
+                                                   method:"delete",
+                                                   data:{
+                                                       itemId : itemId
+                                                   },
+                                                   success : function (result){
+                                                       console.log(result);
+                                                       location.reload();
+                                                   },
+                                                   error: function (result){
+                                                       console.log(result);
+                                                   }
+                                               })
+                                               $('#shoping-cart').load(location.href+' #shoping-cart');
                                            }
                                        </script>
                                    </td>
