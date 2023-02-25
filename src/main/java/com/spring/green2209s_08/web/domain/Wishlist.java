@@ -24,4 +24,8 @@ public class Wishlist {
     private Item item;
 
     private int selectedQuantity;
+
+    public void changeSelectedQuantity(int selectedQuantity){
+        this.selectedQuantity = selectedQuantity;
+    }
 }

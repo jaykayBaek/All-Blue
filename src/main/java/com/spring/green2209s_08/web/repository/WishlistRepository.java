@@ -5,9 +5,11 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.util.Optional;
+
 public interface WishlistRepository extends JpaRepository<Wishlist, Long>, ComplexWishlistRepository {
     @Query("select w from Wishlist w where w.item.id = :itemId and w.member.id = :memberId")
-    Wishlist findByItemIdAndMemberId(Long itemId, Long memberId);
+    Optional<Wishlist> findByItemIdAndMemberId(Long itemId, Long memberId);
 
     @Query("select count(w) " +
             "from Wishlist w " +

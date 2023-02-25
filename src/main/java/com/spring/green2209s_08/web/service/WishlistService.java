@@ -87,13 +87,27 @@ public class WishlistService {
 
     @Transactional
     public void addItemToWishlist(Long itemId, Integer quantity, Long memberId) {
-        Item findItem = itemRepository.findById(itemId).get();
-        Member findMember = memberRepository.findById(memberId).get();
+        Item findItem = itemRepository.findById(itemId)
+                .orElseThrow(() -> new ItemException(ItemErrorResult.ITEM_NOT_FOUND));
+        Member findMember = memberRepository.findById(memberId)
+                .orElseThrow(() -> new MemberException(MemberErrorResult.MEMBER_NOT_FOUND));
+
+        /*--- 장바구니 추가 시 기존에 장바구니에 담겨있으면 merge 하고자 한다 ---*/
+
         Wishlist wishlist = Wishlist.builder()
                 .item(findItem)
                 .member(findMember)
                 .selectedQuantity(quantity)
                 .build();
+
+        Optional<Wishlist> findWishlist = wishlistRepository
+                .findByItemIdAndMemberId(findItem.getId(), findMember.getId());
+
+        if(findWishlist.isPresent()){
+            wishlist = findWishlist.get();
+            wishlist.changeSelectedQuantity(quantity);
+        }
+
         wishlistRepository.save(wishlist);
     }
 
@@ -110,9 +124,10 @@ public class WishlistService {
             throw new MemberException(MemberErrorResult.MEMBER_NOT_FOUND);
         }
 
-        Wishlist findWishlist = wishlistRepository.findByItemIdAndMemberId(itemId, memberId);
-        wishlistRepository.delete(findWishlist);
+        Wishlist findWishlist = wishlistRepository.findByItemIdAndMemberId(itemId, memberId)
+                .orElseThrow(() -> new ItemException(ItemErrorResult.ITEM_NOT_FOUND));
 
+        wishlistRepository.delete(findWishlist);
     }
 
     public Long countWishlist(Long memberId) {
