@@ -9,252 +9,280 @@
 </head>
 
 <body>
-    <header th:replace="main/common/header :: header"></header>
+<header th:replace="main/common/header :: header"></header>
 
-    <!-- Shoping Cart Section Begin -->
-    <section class="shoping-cart spad" id="shoping-cart">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="shoping__cart__table">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th class="checkbox">
-                                        <input type="checkbox" class="all__checkbox" id="all__checkbox">
-                                        <label class="selectAll" for="all__checkbox">
-                                            전체선택
-                                        </label>
-                                    </th>
-                                    <th colspan="2">
-                                        상품정보
-                                    </th>
-                                    <th colspan="3">
-                                        상품금액
-                                    </th>
-                                    <th>
-                                        배송비
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                               <tr th:each="item : ${items}">
-                                   <td class="checkbox">
-                                       <th:block th:if="${item.stockQuantity eq 0}">
-                                           <input type="checkbox" class="shopping__checkbox__disabled" disabled>
-                                       </th:block>
-                                       <th:block th:if="${item.stockQuantity > 0}">
-                                           <input type="checkbox" class="shopping__checkbox">
-                                       </th:block>
-                                   </td>
-                                   <td class="item__info__img__wrap">
-                                       <a th:href="@{/search/detail/{itemId}(itemId=${item.itemId})}">
-                                           <div class="item__info__img">
-                                               <img th:src="@{/images/thumbnail/{savedName}(savedName=${item.savedImageName})}" src="img/cart/cart-1.jpg" alt="">
-                                           </div>
-                                       </a>
-                                   </td>
-                                   <td class="item__info__content">
-                                       <h5 th:text="${item.itemName}">Vegetable’s Package</h5>
-                                       <input type="hidden" name="itemId" id="itemId" th:value="${item.itemId}"/>
-                                   </td>
-                                   <td class="">
-                                       <span th:text="${item.salePrice}">5500</span>원
-                                       <input type="hidden" name="salePrice" id="salePrice" th:value="${item.salePrice}">
-                                   <td class="">
-                                        <th:block th:if="${item.stockQuantity > 0}">
-                                            <span th:text="${item.selectedQuantity}">1</span> 개 <br/>
-                                            <input type="hidden" name="selectedQuantity" id="selectedQuantity" th:value="${item.selectedQuantity}">
-                                        </th:block>
-                                   <span style="font-size: 12px;" class="text-danger" th:if="${item.stockQuantity eq 0}">일시 품절된 상품입니다.</span>
-                                   </td>
-                                   </td>
-                                   <td class="">
-                                       <button class="remove__btn" onclick="removeWishlist(this)">
-                                           <i class="fa-solid fa-rectangle-xmark"></i>
-                                       </button>
-                                       <script>
-                                           function removeWishlist(button){
-                                               const tr = $(button).closest("tr");
-                                               let itemId = parseFloat(tr.find("input[name='itemId']").val());
+<!-- Shoping Cart Section Begin -->
+<section class="shoping-cart spad" id="shoping-cart">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="shoping__cart__table">
+                    <table>
+                        <thead>
+                        <tr>
+                            <th class="checkbox">
+                                <input type="checkbox" class="all__checkbox" id="all__checkbox">
+                                <label class="selectAll" for="all__checkbox">
+                                    전체선택
+                                </label>
+                            </th>
+                            <th colspan="2">
+                                상품정보
+                            </th>
+                            <th colspan="3">
+                                상품금액
+                            </th>
+                            <th>
+                                배송비
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="item : ${items}">
+                                <td class="checkbox">
+                                    <th:block th:if="${item.stockQuantity eq 0}">
+                                        <input type="checkbox" class="shopping__checkbox__disabled" disabled>
+                                    </th:block>
+                                    <th:block th:if="${item.stockQuantity > 0}">
+                                        <input type="checkbox" class="shopping__checkbox"
+                                        th:data-itemId="${item.itemId}">
+                                    </th:block>
+                                </td>
+                                <td class="item__info__img__wrap">
+                                    <a th:href="@{/search/detail/{itemId}(itemId=${item.itemId})}">
+                                        <div class="item__info__img">
+                                            <img th:src="@{/images/thumbnail/{savedName}(savedName=${item.savedImageName})}" src="img/cart/cart-1.jpg" alt="">
+                                        </div>
+                                    </a>
+                                </td>
+                                <td class="item__info__content">
+                                    <h5 th:text="${item.itemName}">Vegetable’s Package</h5>
+                                    <input type="hidden" name="itemId" id="itemId" th:value="${item.itemId}"/>
+                                </td>
+                                <td class="">
+                                    <span th:text="${item.salePrice}">5500</span>원
+                                    <input type="hidden" name="salePrice" id="salePrice" th:value="${item.salePrice}">
+                                <td class="">
+                                    <th:block th:if="${item.stockQuantity > 0}">
+                                        <span th:text="${item.selectedQuantity}">1</span> 개 <br/>
+                                        <input type="hidden" name="selectedQuantity" id="selectedQuantity" th:value="${item.selectedQuantity}">
+                                    </th:block>
+                                    <span style="font-size: 12px;" class="text-danger" th:if="${item.stockQuantity eq 0}">일시 품절된 상품입니다.</span>
+                                </td>
+                                </td>
+                                <td class="">
+                                    <button class="remove__btn" onclick="removeWishlist(this)">
+                                        <i class="fa-solid fa-rectangle-xmark"></i>
+                                    </button>
+                                    <script>
+                                        function removeWishlist(button){
+                                            const tr = $(button).closest("tr");
+                                            let itemId = parseFloat(tr.find("input[name='itemId']").val());
 
-                                               const base64EncodedMap = document.cookie.replace(/(?:(?:^|.*;\s*)wishlist\s*\=\s*([^;]*).*$)|^.*$/, "$1");
+                                            const base64EncodedMap = document.cookie.replace(/(?:(?:^|.*;\s*)wishlist\s*\=\s*([^;]*).*$)|^.*$/, "$1");
 
-                                               if(base64EncodedMap != ''){
-                                                   const decodedMap = atob(base64EncodedMap);
-                                                   const map = JSON.parse(decodedMap);
-                                                   console.log(map);
+                                            if(base64EncodedMap != ''){
+                                                const decodedMap = atob(base64EncodedMap);
+                                                const map = JSON.parse(decodedMap);
+                                                console.log(map);
 
-                                                   delete map[itemId];
+                                                delete map[itemId];
 
-                                                   const encodedMap = btoa(JSON.stringify(map));
-                                                   document.cookie = "wishlist="+encodedMap+"; path=/";
-                                               } else{
-                                                   $.ajax({
-                                                       url: "http://localhost:9090/green2209s_08/wishlist/"+itemId,
-                                                       method:"delete",
-                                                       data:{
-                                                           itemId : itemId
-                                                       },
-                                                       success : function (result){
-                                                           console.log(result);
-                                                           location.reload();
-                                                       },
-                                                       error: function (result){
-                                                           console.log(result);
-                                                       }
-                                                   })
-                                               }
+                                                const encodedMap = btoa(JSON.stringify(map));
+                                                document.cookie = "wishlist="+encodedMap+"; path=/";
+                                            } else{
+                                                $.ajax({
+                                                    url: "http://localhost:9090/green2209s_08/wishlist/"+itemId,
+                                                    method:"delete",
+                                                    data:{
+                                                        itemId : itemId
+                                                    },
+                                                    success : function (result){
+                                                        console.log(result);
+                                                        location.reload();
+                                                    },
+                                                    error: function (result){
+                                                        console.log(result);
+                                                    }
+                                                })
+                                            }
 
-                                               $('#shoping-cart').load(location.href+' #shoping-cart');
-                                           }
-                                       </script>
-                                   </td>
-                                   <td>
-                                       <strong th:text="${item.storeName}"></strong> <br/>
-                                       배송비<br/>
-                                       <span th:text="${item.deliveryPrice}">5500</span>원
-                                       <input type="hidden" name="deliveryPrice" id="deliveryPrice" th:value="${item.deliveryPrice}">
-                                       <input type="hidden" name="licenseId" id="licenseId" th:value="${item.vendorLicenseId}">
-                                   </td>
-                               </tr>
-
-                            </tbody>
-                            <script>
-                                $(function(){
-                                    const $allCheckbox = $('.all__checkbox');
-                                    const $shoppingCheckbox = $(".shopping__checkbox");
-
-                                    $allCheckbox.on("click", function (){
-                                        $('.totalPrice').html(0);
-                                        $('.totalDeliveryPrice').html(0);
-                                        $('.total__amount').html(0);
-
-                                        const isChecked = $(this).prop("checked");
-                                        $shoppingCheckbox.prop("checked", isChecked);
-
-                                        const isAllChecked = $shoppingCheckbox.length === $shoppingCheckbox.filter(":checked").length;
-                                        $allCheckbox.prop("checked", isAllChecked);
-
-                                        calculateTotal();
-                                    });
-
-                                    $shoppingCheckbox.on("click", function (){
-                                        $('.totalPrice').html(0);
-                                        $('.totalDeliveryPrice').html(0);
-                                        $('.total__amount').html(0);
-
-                                        const isAllChecked = $shoppingCheckbox.length === $shoppingCheckbox.filter(":checked").length;
-                                        $allCheckbox.prop("checked", isAllChecked);
-                                        calculateTotal();
-                                    });
-
-                                })
-
-                                function calculateTotal(){
-                                    let totalPrice = 0;
-                                    let salePrice = 0;
-                                    let selectedQuantity = 0;
-                                    let deliveryPrice = 0;
-                                    let deliveryCheckMap= {};
-
-                                    $(".shopping__checkbox:checked").each(function() {
-
-                                        const tr = $(this).closest("tr");
-                                        const licenceId = tr.find("input[name='licenceId']").val();
-                                        const getSalePrice = parseFloat(tr.find("input[name='salePrice']").val());
-                                        selectedQuantity = parseFloat(tr.find("input[name='selectedQuantity']").val());
-                                        deliveryPrice = parseFloat(tr.find("input[name='deliveryPrice']").val());
-
-                                        if(!deliveryCheckMap[licenceId]){
-                                            totalPrice += deliveryPrice;
-                                            deliveryPrice += deliveryPrice;
-                                            deliveryCheckMap[licenceId] = true;
+                                            $('#shoping-cart').load(location.href+' #shoping-cart');
                                         }
+                                    </script>
+                                </td>
+                                <td>
+                                    <strong th:text="${item.storeName}"></strong> <br/>
+                                    배송비<br/>
+                                    <span th:text="${item.deliveryPrice}">5500</span>원
+                                    <input type="hidden" name="deliveryPrice" id="deliveryPrice" th:value="${item.deliveryPrice}">
+                                    <input type="hidden" name="licenseId" id="licenseId" th:value="${item.vendorLicenseId}">
+                                </td>
+                            </tr>
 
-                                        totalPrice += salePrice * selectedQuantity;
-                                        if(salePrice == 0){
-                                            salePrice = getSalePrice;
-                                        }
-                                        else{
-                                            salePrice += getSalePrice;
-                                        }
-                                    });
-
-                                    $('.totalPrice').text(salePrice);
-                                    $('.totalDeliveryPrice').text(deliveryPrice);
-                                    $('.total__amount').text(totalPrice);
-                                }
-                            </script>
-
-                        </table>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row" th:if="${items.size() ne 0}">
-                <div class="col-lg-12">
-                    <div class="shoping__checkout">
-                        <div class="text-center font-weight-bold">
-                            동일한 매장인 경우 배송비는 한 번 계산됩니다.
-                        </div>
-                        <div class="emphasis__amount">
-                            <span>총 상품가격 </span>
-                            <em class="totalPrice">0</em>원
-                            <i class="fa-solid fa-circle-plus"></i>
-                            <span>총 배송비 </span>
-                            <em class="totalDeliveryPrice">0</em>원
-                            <i class="fa-solid fa-equals"></i>
-                            <span>총 주문금액 </span>
-                            <em class="total__amount">0</em>원
-                        </div>
-                    </div>
-                    <div class="shopping__btn__wrap">
-                        <a class="shopping__btn" id="home" th:href="@{/}">홈화면</a>
-                        <button class="shopping__btn" id="order" onclick="order()">주문하기</button>
+                        </tbody>
                         <script>
-                            function order(){
+                            $(function(){
+                                const $allCheckbox = $('.all__checkbox');
+                                const $shoppingCheckbox = $(".shopping__checkbox");
+
+                                $allCheckbox.on("click", function (){
+                                    $('.totalPrice').html(0);
+                                    $('.totalDeliveryPrice').html(0);
+                                    $('.total__amount').html(0);
+
+                                    const isChecked = $(this).prop("checked");
+                                    $shoppingCheckbox.prop("checked", isChecked);
+
+                                    const isAllChecked = $shoppingCheckbox.length === $shoppingCheckbox.filter(":checked").length;
+                                    $allCheckbox.prop("checked", isAllChecked);
+
+                                    calculateTotal();
+                                });
+
+                                $shoppingCheckbox.on("click", function (){
+                                    $('.totalPrice').html(0);
+                                    $('.totalDeliveryPrice').html(0);
+                                    $('.total__amount').html(0);
+
+                                    const isAllChecked = $shoppingCheckbox.length === $shoppingCheckbox.filter(":checked").length;
+                                    $allCheckbox.prop("checked", isAllChecked);
+                                    calculateTotal();
+                                });
+
+                            })
+
+                            function calculateTotal(){
+                                let totalPrice = 0;
+                                let salePrice = 0;
+                                let selectedQuantity = 0;
+                                let deliveryPrice = 0;
+                                let deliveryCheckMap= {};
+
+                                $(".shopping__checkbox:checked").each(function() {
+
+                                    const tr = $(this).closest("tr");
+                                    const licenceId = tr.find("input[name='licenceId']").val();
+                                    const getSalePrice = parseFloat(tr.find("input[name='salePrice']").val());
+                                    selectedQuantity = parseFloat(tr.find("input[name='selectedQuantity']").val());
+                                    deliveryPrice = parseFloat(tr.find("input[name='deliveryPrice']").val());
+
+
+                                    if(!deliveryCheckMap[licenceId]){
+                                        totalPrice += deliveryPrice;
+                                        deliveryPrice += deliveryPrice;
+                                        deliveryCheckMap[licenceId] = true;
+                                    }
+
+                                    if(salePrice == 0){
+                                        salePrice = getSalePrice * selectedQuantity;
+                                    } else{
+                                        salePrice += getSalePrice * selectedQuantity;
+                                    }
+
+                                    totalPrice = salePrice;
+
+                                    $('.totalPrice').html(salePrice);
+                                    $('.totalDeliveryPrice').html(deliveryPrice);
+                                    $('.total__amount').html(totalPrice);
+                                });
 
                             }
                         </script>
-                    </div>
+
+                    </table>
                 </div>
             </div>
+        </div>
 
-            <div class="row" th:if="${isLogin && items.size() eq 0}">
-                <div class="col-lg-12">
-                    <div class="shoping__checkout" style="height: 70vh">
-                        <div class="emphasis__content text-center">
-                            <h2 style="font-size: 18px; font-weight: 700">장바구니에 담은 상품이 없습니다.</h2>
-                            <span style="font-size: 14px">즐거운 물생활을 올 블루와 함께하세요</span>
-                        </div>
-                        <div class="shopping__btn__wrap">
-                            <a class="shopping__btn" id="home" th:href="@{/}">홈화면</a>
-                        </div>
+        <div class="row" th:if="${items.size() ne 0}">
+            <div class="col-lg-12">
+                <div class="shoping__checkout">
+                    <div class="text-center font-weight-bold">
+                        동일한 매장인 경우 배송비는 한 번 계산됩니다.
+                    </div>
+                    <div class="emphasis__amount">
+                        <span>총 상품가격 </span>
+                        <em class="totalPrice">0</em>원
+                        <i class="fa-solid fa-circle-plus"></i>
+                        <span>총 배송비 </span>
+                        <em class="totalDeliveryPrice">0</em>원
+                        <i class="fa-solid fa-equals"></i>
+                        <span>총 주문금액 </span>
+                        <em class="total__amount">0</em>원
                     </div>
                 </div>
-            </div>
+                <div class="shopping__btn__wrap">
+                    <a class="shopping__btn" id="home" th:href="@{/}">홈화면</a>
+                    <button class="shopping__btn" id="order" onclick="order()">주문하기</button>
+                    <script>
+                        function order(){
+                            const itemIdList = new Array();
+                            $('.shopping__checkbox:checked').each(function() {
+                                const itemId = $(this).data('itemid');
+                                itemIdList.push(itemId);
+                            });
 
-            <div class="row" th:if="${not isLogin && items.size() eq 0}">
-                <div class="col-lg-12">
-                    <div class="shoping__checkout" style="height: 70vh">
-                        <div class="emphasis__content text-center">
-                            <h2 style="font-size: 18px; font-weight: 700">장바구니에 담은 상품이 없습니다.</h2>
-                            <span style="font-size: 14px">아직 로그인하시지 않으셨습니다. 로그인을 하시면, 장바구니에 보관된 상품을 확인할 수 있습니다.</span>
-                        </div>
-                        <div class="shopping__btn__wrap">
-                            <a class="shopping__btn" id="home" th:href="@{/}">홈화면</a>
-                        </div>
+                            if(itemIdList == ''){
+                                alert('주문하실 상품이나 생물을 선택해주세요.');
+                                return false;
+                            }
+
+                            const form = document.createElement("form");
+                            form.setAttribute("method", "get");
+                            form.setAttribute("action", "http://localhost:9090/green2209s_08/checkout");
+
+                            $('.shopping__checkbox:checked').each(function() {
+                                const itemId = $(this).data('itemid');
+                                const itemList = document.createElement('input');
+                                itemList.setAttribute("type", "hidden");
+                                itemList.setAttribute("name", "itemIdList[]");
+                                itemList.setAttribute("value", itemId);
+                                form.appendChild(itemList);
+                            });
+
+                            document.body.appendChild(form);
+                            form.submit();
+                        }
+                    </script>
+                </div>
+            </div>
+        </div>
+
+        <div class="row" th:if="${isLogin && items.size() eq 0}">
+            <div class="col-lg-12">
+                <div class="shoping__checkout" style="height: 70vh">
+                    <div class="emphasis__content text-center">
+                        <h2 style="font-size: 18px; font-weight: 700">장바구니에 담은 상품이 없습니다.</h2>
+                        <span style="font-size: 14px">즐거운 물생활을 올 블루와 함께하세요</span>
+                    </div>
+                    <div class="shopping__btn__wrap">
+                        <a class="shopping__btn" id="home" th:href="@{/}">홈화면</a>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
-    <!-- Shoping Cart Section End -->
 
-    <footer th:replace="main/common/footer :: footer"></footer>
+        <div class="row" th:if="${not isLogin && items.size() eq 0}">
+            <div class="col-lg-12">
+                <div class="shoping__checkout" style="height: 70vh">
+                    <div class="emphasis__content text-center">
+                        <h2 style="font-size: 18px; font-weight: 700">장바구니에 담은 상품이 없습니다.</h2>
+                        <span style="font-size: 14px">아직 로그인하시지 않으셨습니다. 로그인을 하시면, 장바구니에 보관된 상품을 확인할 수 있습니다.</span>
+                    </div>
+                    <div class="shopping__btn__wrap">
+                        <a class="shopping__btn" id="home" th:href="@{/}">홈화면</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Shoping Cart Section End -->
 
-    <th:block th:replace="main/common/common-js :: common_js"></th:block>
+<footer th:replace="main/common/footer :: footer"></footer>
+
+<th:block th:replace="main/common/common-js :: common_js"></th:block>
 
 
 </body>

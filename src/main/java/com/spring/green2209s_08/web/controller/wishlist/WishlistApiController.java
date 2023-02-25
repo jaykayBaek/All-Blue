@@ -75,6 +75,20 @@ public class WishlistApiController {
         return wishlistService.countWishlist(memberId);
     }
 
+    @PatchMapping
+    public ResponseEntity<StatusResponse> updateQuantity(
+            @SessionAttribute(name = SessionConst.MEMBER_ID) Long memberId,
+            @RequestParam Long itemId, @RequestParam Integer quantity){
+        wishlistService.updateQuantity(memberId, itemId, quantity);
+
+        StatusResponse statusResponse = new StatusResponse(
+                HttpStatus.OK.toString(), "장바구니 수량 수정 완료", "TRUE"
+        );
+
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(statusResponse);
+    }
+
     private static boolean isNotLoginMember(Optional<Long> optMemberId) {
         return optMemberId.isEmpty();
     }

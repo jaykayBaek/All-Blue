@@ -157,4 +157,12 @@ public class WishlistService {
         }
         wishlistRepository.saveAll(wishlists);
     }
+
+    @Transactional
+    public void updateQuantity(Long memberId, Long itemId, Integer quantity) {
+        Wishlist wishlist = wishlistRepository.findByItemIdAndMemberId(itemId, memberId)
+                .orElseThrow(() -> new ItemException(ItemErrorResult.ITEM_NOT_FOUND));
+
+        wishlist.updateQuantity(quantity);
+    }
 }

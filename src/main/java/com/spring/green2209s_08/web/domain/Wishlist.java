@@ -28,4 +28,8 @@ public class Wishlist {
     public void changeSelectedQuantity(int selectedQuantity){
         this.selectedQuantity = selectedQuantity;
     }
+
+    public void updateQuantity(Integer quantity) {
+        this.selectedQuantity = quantity;
+    }
 }
