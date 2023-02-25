@@ -102,13 +102,8 @@ public class WishlistService {
         Optional<Item> findItem = itemRepository.findById(itemId);
         log.info("remove={}", findItem.isEmpty());
         log.info("remove={}", findItem.get().getId());
-        log.info("------------------------");
 
         Optional<Member> findMember = memberRepository.findById(memberId);
-        log.info("remove={}", findMember.isEmpty());
-        log.info("remove={}", findMember.get().getId());
-        log.info("------------------------");
-
 
         if(findItem.isEmpty()){
             throw new ItemException(ItemErrorResult.ITEM_NOT_FOUND);
@@ -116,12 +111,13 @@ public class WishlistService {
         if(findMember.isEmpty()){
             throw new MemberException(MemberErrorResult.MEMBER_NOT_FOUND);
         }
-        log.info("------------------------");
 
         Wishlist findWishlist = wishlistRepository.findByItemIdAndMemberId(itemId, memberId);
-        log.info("findWishlist = {}", findWishlist.getId());
         wishlistRepository.delete(findWishlist);
 
-        log.info("------------------------");
+    }
+
+    public Long countWishlist(Long memberId) {
+        return wishlistRepository.countWishlist(memberId);
     }
 }

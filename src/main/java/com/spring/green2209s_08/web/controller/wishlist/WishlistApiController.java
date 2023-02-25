@@ -75,6 +75,11 @@ public class WishlistApiController {
                 .body(statusResponse);
     }
 
+    @PostMapping("/count")
+    public Long wishlistCountForView(@SessionAttribute(name = SessionConst.MEMBER_ID) Long memberId){
+        return wishlistService.countWishlist(memberId);
+    }
+
     private static boolean isNotLoginMember(Optional<Long> optMemberId) {
         return optMemberId.isEmpty();
     }
