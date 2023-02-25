@@ -1597,6 +1597,35 @@ ol {
   Breadcrumb
 -----------------------*/
 
+.checkout__breadcrumb__section{
+	background-image: url("../img/checkoutbg.png");
+	height: 20%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.checkout__breadcrumb__wrap .breadcrumb__text h2{
+	font-size: 46px;
+	color: #000;
+	font-weight: 700;
+}
+
+.checkout__breadcrumb__wrap .breadcrumb__text .breadcrumb__option{
+	display: inline-block;
+	font-size: 16px;
+	color: #fff;
+	font-weight: 700;
+	margin-right: 20px;
+	position: relative;
+}
+.checkout__breadcrumb__wrap .breadcrumb__text .breadcrumb__option a{
+	color: #fff;
+}
+
+.checkout__breadcrumb__wrap .breadcrumb__text .breadcrumb__option a:hover{
+	color: var(--maincolor);
+}
 /*.breadcrumb-section {*/
 /*	display: flex;*/
 /*	align-items: center;*/
@@ -2706,6 +2735,77 @@ ol {
 	margin-bottom: 25px;
 }
 
+.checkout__form h5.info__h5{
+	font-weight: 700;
+	margin-top: 16px;
+}
+
+.buyer__info__table{
+	width: 100%;
+	margin-top: 16px;
+	border-top: 3px solid #e1e1e1;
+	border-bottom: 1px solid #e1e1e1;
+	border-left: 1px solid #e1e1e1;
+	border-right: 1px solid #e1e1e1;
+}
+
+.buyer__info__table th{
+	font-size: 12px;
+	background-color: var(--backgroundgrey);
+	width: 140px;
+	text-align: right;
+	border-bottom: 1px solid #e1e1e1;
+	padding-top: 8px;
+	padding-bottom: 12px;
+	font-weight: 600;
+	padding-right: 16px;
+}
+.buyer__info__table td{
+	font-size: 12px;
+	padding-left: 16px;
+	padding-top: 8px;
+	padding-bottom: 12px;
+	border-bottom: 1px solid #e1e1e1;
+}
+
+.order__info__table{
+	width: 100%;
+	margin-top: 16px;
+	border-top: 3px solid #e1e1e1;
+	border-bottom: 1px solid #e1e1e1;
+	border-left: 1px solid #e1e1e1;
+	border-right: 1px solid #e1e1e1;
+}
+
+.order__info__table thead{
+	font-size: 17px;
+	background-color: var(--backgroundgrey);
+	border-bottom: 1px solid #e1e1e1;
+	padding: 8px 12px;
+	font-weight: 600;
+}
+
+.order__info__table thead tr td{
+	font-size: 16px;
+	background-color: var(--backgroundgrey);
+	border-bottom: 1px solid #e1e1e1;
+	padding: 8px 12px;
+	font-weight: 600;
+}
+
+.order__info__table tbody tr{
+	border-bottom: 1px solid #e1e1e1;
+}
+
+.order__info__table tbody tr td{
+	padding: 8px 12px;
+}
+
+.order__info__table tbody tr td:nth-child(2){
+	width: 40%;
+}
+
+
 .checkout__form p {
 	column-rule: #b2b2b2;
 }
@@ -2834,17 +2934,6 @@ ol {
 	float: right;
 }
 
-.checkout__order .checkout__order__subtotal {
-	font-size: 18px;
-	color: #1c1c1c;
-	font-weight: 700;
-	border-bottom: 1px solid #e1e1e1;
-	border-top: 1px solid #e1e1e1;
-	padding-bottom: 15px;
-	margin-bottom: 15px;
-	padding-top: 15px;
-}
-
 .checkout__order .checkout__order__subtotal span {
 	float: right;
 }
@@ -2866,6 +2955,8 @@ ol {
 	float: right;
 	color: #dd2222;
 }
+
+
 
 .checkout__order button {
 	font-size: 18px;

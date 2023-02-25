@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>올! 블루</title>
+    <th:block th:replace="~{main/common/common-css :: common_css}"></th:block>
+</head>
+<body>
+    <header th:replace="main/common/header :: header"></header>
+
+    <!-- Breadcrumb Section Begin -->
+    <section class="checkout__breadcrumb__section">
+        <div class="container">
+            <div class="row checkout__breadcrumb__wrap">
+                <div class="col-lg-12 text-center">
+                    <div class="breadcrumb__text">
+                        <h2>주문/결제</h2>
+                        <div class="breadcrumb__option">
+                            <a th:href="@{/}" href="./index.html">홈으로</a>
+                            <span>주문하기</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Breadcrumb Section End -->
+
+    <!-- Checkout Section Begin -->
+    <section class="checkout spad">
+        <div class="container">
+            <div class="checkout__form">
+                <h4>주문/결제</h4>
+                <div class="row">
+                    <div class="col-lg-8 col-md-6">
+                        <h5 class="info__h5">구매자 정보</h5>
+                        <table class="buyer__info__table">
+                            <tbody>
+                                <tr>
+                                    <th>이름</th>
+                                    <td>홍길동</td>
+                                </tr>
+                                <tr>
+                                    <th>이메일</th>
+                                    <td>홍길동</td>
+                                </tr>
+                                <tr>
+                                    <th>휴대폰 번호</th>
+                                    <td>홍길동</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <div class="mt-4">
+                            <h5 class="info__h5 d-inline">수령인 정보</h5>
+                            <button type="button" class="btn btn-primary btn-sm addressModal"
+                                    data-toggle="modal" data-target="#addressSelect">
+                                배송지선택
+                            </button>
+                        </div>
+
+                        <div class="modal" id="addressSelect" tabindex="-1">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-body">
+                                        <p>주소지를 선택해주세요</p>
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">나가기</button>
+                                        <button type="button" class="btn btn-primary">선택하기</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <table class="buyer__info__table">
+                            <tbody>
+                            <tr>
+                                <th>이름</th>
+                                <td>홍길동</td>
+                            </tr>
+                            <tr>
+                                <th>주소</th>
+                                <td>충청북도 청주시 봉명동 봉명아파트</td>
+                            </tr>
+                            <tr>
+                                <th>휴대폰 번호</th>
+                                <td>홍길동</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <table class="order__info__table">
+                            <thead>
+                                <tr>
+                                    <td colspan="2">주문/결제서</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>리팩터링:코드 구조를 체계적으로 개선하여 효율적인 리팩터링 구현하기, 한빛미디어</td>
+                                    <td>수량 1개</td>
+                                </tr>
+                                <tr>
+                                    <td>리팩터링:코드 구조를 체계적으로 개선하여 효율적인 리팩터링 구현하기, 한빛미디어</td>
+                                    <td>수량 1개</td>
+                                </tr>
+                                <tr>
+                                    <td>리팩터링:코드 구조를 체계적으로 개선하여 효율적인 리팩터링 구현하기, 한빛미디어</td>
+                                    <td>수량 1개</td>
+                                </tr>
+                                <tr>
+                                    <td>리팩터링:코드 구조를 체계적으로 개선하여 효율적인 리팩터링 구현하기, 한빛미디어</td>
+                                    <td>수량 1개</td>
+                                </tr>
+                                <tr>
+                                    <td>리팩터링:코드 구조를 체계적으로 개선하여 효율적인 리팩터링 구현하기, 한빛미디어</td>
+                                    <td>수량 1개</td>
+                                </tr>
+                                <tr>
+                                    <td>리팩터링:코드 구조를 체계적으로 개선하여 효율적인 리팩터링 구현하기, 한빛미디어</td>
+                                    <td>수량 1개</td>
+                                </tr>
+                                <tr>
+                                    <td>리팩터링:코드 구조를 체계적으로 개선하여 효율적인 리팩터링 구현하기, 한빛미디어</td>
+                                    <td>수량 1개</td>
+                                </tr>
+                                <tr>
+                                    <td>리팩터링:코드 구조를 체계적으로 개선하여 효율적인 리팩터링 구현하기, 한빛미디어</td>
+                                    <td>수량 1개</td>
+                                </tr>
+                                <tr>
+                                    <td>리팩터링:코드 구조를 체계적으로 개선하여 효율적인 리팩터링 구현하기, 한빛미디어</td>
+                                    <td>수량 1개</td>
+                                </tr>
+                                <tr>
+                                    <td>리팩터링:코드 구조를 체계적으로 개선하여 효율적인 리팩터링 구현하기, 한빛미디어</td>
+                                    <td>수량 1개</td>
+                                </tr>
+                                <tr>
+                                    <td>리팩터링:코드 구조를 체계적으로 개선하여 효율적인 리팩터링 구현하기, 한빛미디어</td>
+                                    <td>수량 1개</td>
+                                </tr>
+                                <tr>
+                                    <td>리팩터링:코드 구조를 체계적으로 개선하여 효율적인 리팩터링 구현하기, 한빛미디어</td>
+                                    <td>수량 1개</td>
+                                </tr>
+                                <tr>
+                                    <td>리팩터링:코드 구조를 체계적으로 개선하여 효율적인 리팩터링 구현하기, 한빛미디어</td>
+                                    <td>수량 1개</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-lg-4 col-md-6">
+                        <div class="checkout__order sticky-top">
+                            <h4>당신의 주문</h4>
+                            <div class="checkout__order__total">총 상품가격 <span>$750.99</span></div>
+                            <div class="checkout__order__total">총 배송비 <span>$750.99</span></div>
+                            <div class="checkout__order__total">총 주문금액 <span>$750.99</span></div>
+                            <button type="submit" class="site-btn">주문하기</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Checkout Section End -->
+
+    <footer class="spad" th:replace="main/common/footer :: footer"></footer>
+
+    <th:block th:replace="main/common/common-js :: common_js"></th:block>
+
+</body>
+</html>

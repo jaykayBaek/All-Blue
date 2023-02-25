@@ -40,7 +40,12 @@
                             <tbody>
                                <tr th:each="item : ${items}">
                                    <td class="checkbox">
-                                       <input type="checkbox" class="shopping__checkbox">
+                                       <th:block th:if="${item.stockQuantity eq 0}">
+                                           <input type="checkbox" class="shopping__checkbox__disabled" disabled>
+                                       </th:block>
+                                       <th:block th:if="${item.stockQuantity > 0}">
+                                           <input type="checkbox" class="shopping__checkbox">
+                                       </th:block>
                                    </td>
                                    <td class="item__info__img__wrap">
                                        <a th:href="@{/search/detail/{itemId}(itemId=${item.itemId})}">
@@ -57,8 +62,11 @@
                                        <span th:text="${item.salePrice}">5500</span>원
                                        <input type="hidden" name="salePrice" id="salePrice" th:value="${item.salePrice}">
                                    <td class="">
-                                       <span th:text="${item.selectedQuantity}">1</span> 개
-                                       <input type="hidden" name="selectedQuantity" id="selectedQuantity" th:value="${item.selectedQuantity}">
+                                        <th:block th:if="${item.stockQuantity > 0}">
+                                            <span th:text="${item.selectedQuantity}">1</span> 개 <br/>
+                                            <input type="hidden" name="selectedQuantity" id="selectedQuantity" th:value="${item.selectedQuantity}">
+                                        </th:block>
+                                   <span style="font-size: 12px;" class="text-danger" th:if="${item.stockQuantity eq 0}">일시 품절된 상품입니다.</span>
                                    </td>
                                    </td>
                                    <td class="">
@@ -81,22 +89,23 @@
 
                                                    const encodedMap = btoa(JSON.stringify(map));
                                                    document.cookie = "wishlist="+encodedMap+"; path=/";
+                                               } else{
+                                                   $.ajax({
+                                                       url: "http://localhost:9090/green2209s_08/wishlist/"+itemId,
+                                                       method:"delete",
+                                                       data:{
+                                                           itemId : itemId
+                                                       },
+                                                       success : function (result){
+                                                           console.log(result);
+                                                           location.reload();
+                                                       },
+                                                       error: function (result){
+                                                           console.log(result);
+                                                       }
+                                                   })
                                                }
 
-                                               $.ajax({
-                                                   url: "http://localhost:9090/green2209s_08/wishlist/"+itemId,
-                                                   method:"delete",
-                                                   data:{
-                                                       itemId : itemId
-                                                   },
-                                                   success : function (result){
-                                                       console.log(result);
-                                                       location.reload();
-                                                   },
-                                                   error: function (result){
-                                                       console.log(result);
-                                                   }
-                                               })
                                                $('#shoping-cart').load(location.href+' #shoping-cart');
                                            }
                                        </script>

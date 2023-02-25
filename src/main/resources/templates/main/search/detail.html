@@ -107,7 +107,7 @@
         </table>
 
         <div class="detail__selling__list">
-          <div class="product__details__quantity">
+          <div class="product__details__quantity" th:if="${item.stockQuantity ne 0}">
             <div class="quantity">
               <div class="pro-qty">
                 <input type="text" id="quantity" name="quantity" value="1">
@@ -124,7 +124,7 @@
                   return false;
                 }
                 if(value>quantity){
-                  alert('주문 가능한 수량을 초과했습니다. 정수가 아닌 실수를 적으신 경우 자동으로 점(.)이 제거됩니다.');
+                  alert('주문 가능한 수량을 초과했습니다.');
                   $('#quantity').val(quantity);
                   return false;
                 }
@@ -147,7 +147,7 @@
                 }
 
                 if(newVal>quantity){
-                  alert('주문 가능한 수량을 초과했습니다. 정수가 아닌 실수를 적으신 경우 자동으로 점(.)이 제거됩니다.');
+                  alert('주문 가능한 수량을 초과했습니다.');
                   newVal = quantity;
                 }
 
@@ -156,13 +156,67 @@
 
             </script>
           </div>
+          <div class="product__details__quantity" th:if="${item.stockQuantity eq 0}">
+            <div class="quantity">
+              <span class="text-danger">일시품절</span>
+            </div>
+            <script>
+              $('#quantity').on("change", function (){
+                const quantity = [[${item.stockQuantity}]];
+                const value = $('#quantity').val().replace(/[^0-9]/g, '');
+                $('#quantity').val(value);
+
+                if(value<0){
+                  $('#quantity').val(1);
+                  return false;
+                }
+                if(value>quantity){
+                  alert('주문 가능한 수량을 초과했습니다.');
+                  $('#quantity').val(quantity);
+                  return false;
+                }
+              })
+              const proQty = $('.pro-qty');
+              proQty.prepend('<span class="dec qtybtn">-</span>');
+              proQty.append('<span class="inc qtybtn">+</span>');
+
+              proQty.on('click', '.qtybtn', function () {
+                const $button = $(this);
+                const quantity = [[${item.stockQuantity}]];
+                const oldValue = parseFloat($('#quantity').val());
+
+                let newVal;
+
+                if ($button.hasClass('inc')) {
+                  newVal = oldValue + 1;
+                } else {
+                  newVal = oldValue > 1 ? oldValue - 1 : 1;
+                }
+
+                if(newVal>quantity){
+                  alert('주문 가능한 수량을 초과했습니다.');
+                  newVal = quantity;
+                }
+
+                $('#quantity').val(newVal);
+              });
+
+            </script>
+          </div>
+
+
           <button class="detail__btn" id="btn__wishlist" onclick="addWishlist()">장바구니</button>
           <button class="detail__btn" id="btn__selling" onclick="order()">바로구매</button>
           <script>
             function addWishlist(){
               const itemId = $('#itemId').val();
               const quantity = $('#quantity').val();
-              $.ajax({
+
+              if (quantity === undefined) {
+                alert('일시 품절된 상품입니다.');
+                return false;
+              }
+                $.ajax({
                 url:"http://localhost:9090/green2209s_08/wishlist/add",
                 method:"post",
                 data: {
@@ -171,7 +225,7 @@
                 },
                 success : function (result){
                   console.log(result);
-                  alert('장바구니에 추가되었습니다.');
+                  alert('장바구니에 추가되었습니다. 기존에 장바구니에 담겨있었다면, 수량만 변경됩니다.');
                 },
                 error: function (result){
                   console.log(result);
