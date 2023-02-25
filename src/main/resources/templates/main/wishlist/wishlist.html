@@ -110,10 +110,12 @@
                                            }
                                        </script>
                                    </td>
-                                   <td class="">
+                                   <td>
+                                       <strong th:text="${item.storeName}"></strong> <br/>
                                        배송비<br/>
                                        <span th:text="${item.deliveryPrice}">5500</span>원
                                        <input type="hidden" name="deliveryPrice" id="deliveryPrice" th:value="${item.deliveryPrice}">
+                                       <input type="hidden" name="licenseId" id="licenseId" th:value="${item.vendorLicenseId}">
                                    </td>
                                </tr>
 
@@ -143,7 +145,6 @@
                                         $('.total__amount').html(0);
 
                                         const isAllChecked = $shoppingCheckbox.length === $shoppingCheckbox.filter(":checked").length;
-                                        console.log("isAllChecked?",isAllChecked);
                                         $allCheckbox.prop("checked", isAllChecked);
                                         calculateTotal();
                                     });
@@ -155,17 +156,32 @@
                                     let salePrice = 0;
                                     let selectedQuantity = 0;
                                     let deliveryPrice = 0;
+                                    let deliveryCheckMap= {};
+                                    let isFirst = true;
 
                                     $(".shopping__checkbox:checked").each(function() {
 
                                         const tr = $(this).closest("tr");
+                                        const licenceId = tr.find("input[name='licenceId']").val();
                                         salePrice = parseFloat(tr.find("input[name='salePrice']").val());
                                         selectedQuantity = parseFloat(tr.find("input[name='selectedQuantity']").val());
                                         deliveryPrice = parseFloat(tr.find("input[name='deliveryPrice']").val());
 
-                                        totalPrice += (salePrice * selectedQuantity) + deliveryPrice
-                                        salePrice += salePrice;
-                                        deliveryPrice += deliveryPrice;
+
+                                        totalPrice += salePrice * selectedQuantity;
+
+                                        if(isFirst){
+                                            salePrice = salePrice;
+                                            isFirst = false;
+                                        }else{
+                                            salePrice += salePrice;
+                                        }
+
+                                        if(!deliveryCheckMap[licenceId]){
+                                            totalPrice += deliveryPrice;
+                                            deliveryPrice += deliveryPrice;
+                                            deliveryCheckMap[licenceId] = true;
+                                        }
 
                                         $('.totalPrice').html(salePrice);
                                         $('.totalDeliveryPrice').html(deliveryPrice);
@@ -182,6 +198,9 @@
             <div class="row" th:if="${items.size() ne 0}">
                 <div class="col-lg-12">
                     <div class="shoping__checkout">
+                        <div class="text-center font-weight-bold">
+                            동일한 매장인 경우 배송비는 한 번 계산됩니다.
+                        </div>
                         <div class="emphasis__amount">
                             <span>총 상품가격 </span>
                             <em class="totalPrice">0</em>원
@@ -195,7 +214,12 @@
                     </div>
                     <div class="shopping__btn__wrap">
                         <a class="shopping__btn" id="home" th:href="@{/}">홈화면</a>
-                        <button class="shopping__btn" id="order">주문하기</button>
+                        <button class="shopping__btn" id="order" onclick="order()">주문하기</button>
+                        <script>
+                            function order(){
+
+                            }
+                        </script>
                     </div>
                 </div>
             </div>
