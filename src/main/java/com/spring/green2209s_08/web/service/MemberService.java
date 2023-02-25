@@ -50,7 +50,7 @@ public class MemberService {
     }
 
     @Transactional
-    public void register(MemberRegisterRequest request, String ipAddress) {
+    public Member register(MemberRegisterRequest request, String ipAddress) {
         Member member = Member.builder()
                 .name(request.getName())
                 .password(request.getPassword())
@@ -65,7 +65,7 @@ public class MemberService {
                 .accountLock(false)
                 .leavedTime(null)
                 .build();
-        memberRepository.save(member);
+        return memberRepository.save(member);
     }
 
     public Long login(String email, String password) {

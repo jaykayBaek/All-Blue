@@ -1,7 +1,6 @@
 package com.spring.green2209s_08.web.controller.wishlist;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.spring.green2209s_08.web.constants.SessionConst;
 import com.spring.green2209s_08.web.controller.StatusResponse;
 import com.spring.green2209s_08.web.exception.ItemException;
@@ -18,10 +17,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.nio.charset.StandardCharsets;
-import java.util.Base64;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Optional;
 
 @Slf4j
@@ -40,10 +35,10 @@ public class WishlistApiController {
         Optional<Long> optMemberId = Optional.ofNullable(memberId);
 
         if(isNotLoginMember(optMemberId)){
-            Cookie cookie = wishlistService.addWishlist(itemId, quantity, request);
+            Cookie cookie = wishlistService.addItemToWishlist(itemId, quantity, request);
             response.addCookie(cookie);
         } else{
-            wishlistService.addWishlist(itemId, quantity, memberId);
+            wishlistService.addItemToWishlist(itemId, quantity, memberId);
         }
 
         StatusResponse statusResponse = new StatusResponse(

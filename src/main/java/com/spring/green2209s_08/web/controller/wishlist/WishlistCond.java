@@ -12,4 +12,9 @@ import java.util.List;
 public class WishlistCond {
     private Long memberId;
     private List<Long> itemIdList;
+    private List<Integer> quantityList;
+
+    public WishlistCond(Long memberId, List<Long> itemIdList) {
+        this(memberId, itemIdList, null);
+    }
 }

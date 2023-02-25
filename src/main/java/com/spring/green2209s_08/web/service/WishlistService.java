@@ -36,7 +36,7 @@ public class WishlistService {
     private final MemberRepository memberRepository;
     private final ItemRepository itemRepository;
 
-    public Cookie addWishlist(Long itemId, Integer quantity, HttpServletRequest request) throws JsonProcessingException {
+    public Cookie addItemToWishlist(Long itemId, Integer quantity, HttpServletRequest request) throws JsonProcessingException {
         Map<Long, Integer> newWishlist = new HashMap<>();
         newWishlist.put(itemId, quantity);
 
@@ -86,7 +86,7 @@ public class WishlistService {
     }
 
     @Transactional
-    public void addWishlist(Long itemId, Integer quantity, Long memberId) {
+    public void addItemToWishlist(Long itemId, Integer quantity, Long memberId) {
         Item findItem = itemRepository.findById(itemId).get();
         Member findMember = memberRepository.findById(memberId).get();
         Wishlist wishlist = Wishlist.builder()
@@ -100,8 +100,6 @@ public class WishlistService {
     @Transactional
     public void removeItemInWishlist(Long itemId, Long memberId) {
         Optional<Item> findItem = itemRepository.findById(itemId);
-        log.info("remove={}", findItem.isEmpty());
-        log.info("remove={}", findItem.get().getId());
 
         Optional<Member> findMember = memberRepository.findById(memberId);
 
@@ -119,5 +117,29 @@ public class WishlistService {
 
     public Long countWishlist(Long memberId) {
         return wishlistRepository.countWishlist(memberId);
+    }
+
+    @Transactional
+    public void saveCookieWishlistToDatabase(Map<Long, Integer> cookieWishlist, Long memberId) {
+        List<Long> itemIdList = new ArrayList<>(cookieWishlist.keySet());
+        List<Integer> quantityList = new ArrayList<>(cookieWishlist.values());
+
+        List<Wishlist> wishlists = new ArrayList<>();
+
+        Member findMember = memberRepository.findById(memberId)
+                .orElseThrow(() -> new MemberException(MemberErrorResult.MEMBER_NOT_FOUND));
+
+        for(int i=0; i<itemIdList.size(); i++){
+            Item item = itemRepository.findById(itemIdList.get(i))
+                    .orElseThrow(() -> new ItemException(ItemErrorResult.ITEM_NOT_FOUND));
+
+            Wishlist wishlist = Wishlist.builder()
+                    .member(findMember)
+                    .item(item)
+                    .selectedQuantity(quantityList.get(i))
+                    .build();
+            wishlists.add(wishlist);
+        }
+        wishlistRepository.saveAll(wishlists);
     }
 }

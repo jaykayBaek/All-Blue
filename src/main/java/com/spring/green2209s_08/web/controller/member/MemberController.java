@@ -1,10 +1,15 @@
 package com.spring.green2209s_08.web.controller.member;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.spring.green2209s_08.web.constants.SessionConst;
+import com.spring.green2209s_08.web.controller.wishlist.WishlistCond;
 import com.spring.green2209s_08.web.domain.Member;
 import com.spring.green2209s_08.web.exception.RedisDataNotFoundException;
 import com.spring.green2209s_08.web.repository.MemberRepository;
 import com.spring.green2209s_08.web.service.MemberService;
+import com.spring.green2209s_08.web.service.WishlistService;
 import com.spring.green2209s_08.web.service.register.RegisterService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -12,8 +17,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.Base64;
+import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequiredArgsConstructor
@@ -24,6 +35,7 @@ public class MemberController {
     private final MemberService memberService;
     private final RegisterService registerService;
     private final MemberRepository memberRepository;
+    private final WishlistService wishlistService;
 
     @GetMapping("/signup")
     public String signup(){
@@ -32,12 +44,19 @@ public class MemberController {
 
     @GetMapping("/email/verify")
     public String emailCommit(
-            @RequestParam String token, HttpServletRequest request){
+            @RequestParam String token, HttpServletRequest request,
+            @CookieValue(name= SessionConst.WISHLIST) Cookie cookie) throws JsonProcessingException {
 
         MemberRegisterRequest memberRegisterRequest = registerService.validateToken(token);
         String ipAddress = request.getRemoteAddr();
-        memberService.register(memberRegisterRequest, ipAddress);
+        Member member = memberService.register(memberRegisterRequest, ipAddress);
         registerService.removeData(token);
+
+        if(cookie != null){
+            Map<Long, Integer> cookieWishlist = getCookieWishlist(cookie);
+            wishlistService.saveCookieWishlistToDatabase(cookieWishlist, member.getId());
+            cookie.setMaxAge(0);
+        }
 
         return "main/member/emailVerify";
     }
@@ -71,6 +90,29 @@ public class MemberController {
         model.addAttribute("email", email);
         return "main/member/editMemberInfo";
     }
+
+
+
+    private static Map<Long, Integer> getCookieWishlist(Cookie cookie) throws JsonProcessingException {
+        String decodedJsonCookie = getDecodedJsonCookie(cookie);
+        Map<Long, Integer> cookieWishlist = new ObjectMapper().readValue(decodedJsonCookie, new TypeReference<Map<Long, Integer>>() {});
+        return cookieWishlist;
+    }
+
+    private static String getDecodedJsonCookie(Cookie cookie) {
+        String encodedJsonCookie = cookie.getValue();
+        String decodedJsonCookie = new String(Base64.getDecoder().decode(encodedJsonCookie), StandardCharsets.UTF_8);
+        return decodedJsonCookie;
+    }
+
+    private static void addItemIdToList(Cookie cookie, List<Long> itemIdList) throws JsonProcessingException {
+        Map<Long, Integer> cookieWishlist = getCookieWishlist(cookie);
+
+        for (Long itemId : cookieWishlist.keySet()) {
+            itemIdList.add(itemId);
+        }
+    }
+
 
 
 }

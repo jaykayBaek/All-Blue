@@ -39,6 +39,7 @@ public class WishlistController {
         boolean isLogin = false;
 
         List<Long> itemIdList = new ArrayList<>();
+
         if(isHadItemCookieInWishlist(cookie)){
             addItemIdToList(cookie, itemIdList);
         }
@@ -53,7 +54,6 @@ public class WishlistController {
                 items = itemService.findWishlist(condition, cookieWishlist);
             }
         } else{
-            log.info("condition?={}, {}", condition.getItemIdList(), condition.getMemberId());
             items = wishlistService.findWishlist(condition);
 
             isLogin = true;

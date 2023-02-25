@@ -59,6 +59,7 @@ public class ComplexWishlistRepositoryImpl implements ComplexWishlistRepository{
                 .fetch();
     }
 
+
     private BooleanExpression isHadItemIdCookie(List<Long> itemIdList) {
         return isEmpty(itemIdList) ? null : wishlist.item.id.in(itemIdList);
     }
