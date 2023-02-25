@@ -157,25 +157,14 @@
                                     let selectedQuantity = 0;
                                     let deliveryPrice = 0;
                                     let deliveryCheckMap= {};
-                                    let isFirst = true;
 
                                     $(".shopping__checkbox:checked").each(function() {
 
                                         const tr = $(this).closest("tr");
                                         const licenceId = tr.find("input[name='licenceId']").val();
-                                        salePrice = parseFloat(tr.find("input[name='salePrice']").val());
+                                        const getSalePrice = parseFloat(tr.find("input[name='salePrice']").val());
                                         selectedQuantity = parseFloat(tr.find("input[name='selectedQuantity']").val());
                                         deliveryPrice = parseFloat(tr.find("input[name='deliveryPrice']").val());
-
-
-                                        totalPrice += salePrice * selectedQuantity;
-
-                                        if(isFirst){
-                                            salePrice = salePrice;
-                                            isFirst = false;
-                                        }else{
-                                            salePrice += salePrice;
-                                        }
 
                                         if(!deliveryCheckMap[licenceId]){
                                             totalPrice += deliveryPrice;
@@ -183,10 +172,18 @@
                                             deliveryCheckMap[licenceId] = true;
                                         }
 
-                                        $('.totalPrice').html(salePrice);
-                                        $('.totalDeliveryPrice').html(deliveryPrice);
-                                        $('.total__amount').html(totalPrice);
+                                        totalPrice += salePrice * selectedQuantity;
+                                        if(salePrice == 0){
+                                            salePrice = getSalePrice;
+                                        }
+                                        else{
+                                            salePrice += getSalePrice;
+                                        }
                                     });
+
+                                    $('.totalPrice').text(salePrice);
+                                    $('.totalDeliveryPrice').text(deliveryPrice);
+                                    $('.total__amount').text(totalPrice);
                                 }
                             </script>
 

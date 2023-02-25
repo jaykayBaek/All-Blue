@@ -23,9 +23,9 @@ public class CheckoutController {
     private final WishlistService wishlistService;
 
     @GetMapping
-    public String checkoutForm(@RequestParam List<Long> itemIdList,
-                               @SessionAttribute(name = SessionConst.MEMBER_ID) Long memberId){
-
+    public String checkoutForm(@RequestParam(required = false) List<Long> itemIdList,
+                               @SessionAttribute(name = SessionConst.MEMBER_ID, required = false) Long memberId){
+        log.info("memberId={}", memberId);
         CheckoutMemberDto checkoutMemberDto = new CheckoutMemberDto();
         CheckoutItemDto checkoutItemDto;
         CheckoutTotalPriceDto checkoutTotalPriceDto;
