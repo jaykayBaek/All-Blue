@@ -9,10 +9,7 @@ import com.spring.green2209s_08.web.controller.item.api.EditNumberRequest;
 import com.spring.green2209s_08.web.controller.item.api.EditProductRequest;
 import com.spring.green2209s_08.web.controller.wishlist.WishlistCond;
 import com.spring.green2209s_08.web.controller.wishlist.WishlistViewDto;
-import com.spring.green2209s_08.web.domain.Fish;
-import com.spring.green2209s_08.web.domain.Item;
-import com.spring.green2209s_08.web.domain.ItemImage;
-import com.spring.green2209s_08.web.domain.Product;
+import com.spring.green2209s_08.web.domain.*;
 import com.spring.green2209s_08.web.domain.enums.ItemStatus;
 import com.spring.green2209s_08.web.exception.ItemException;
 import com.spring.green2209s_08.web.exception.PageNotFoundException;
@@ -147,5 +144,18 @@ public class ItemService {
             dto.assignCount(quantity);
         }
         return wishlist;
+    }
+
+    public List<Item> findByIds(List<Long> itemIdList) {
+        return itemRepository.findAllById(itemIdList);
+    }
+
+//    public void findCheckoutItemAmount(List<Long> itemIdList) {
+////        itemRepository.findCheckoutItemAmount(itemIdList);
+//    }
+
+    public void findCheckoutItemAmount(List<Long> wishlistIds) {
+        itemRepository.findCheckoutItemAmount(wishlistIds);
+
     }
 }

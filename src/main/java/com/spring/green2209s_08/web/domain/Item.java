@@ -67,12 +67,13 @@ public abstract class Item {
     protected void saveImage(List<ItemImage> itemImages) {
         this.itemImages = itemImages;
     }
-    protected void createItem(String itemName, int price, int deliveryPrice, int stockQuantity, String content, LocalDate uploadDate) {
+    protected void createItem(String itemName, int price, int deliveryPrice, int salePrice,  int stockQuantity, String content, LocalDate uploadDate) {
         this.itemName = itemName;
         this.price = price;
         this.deliveryPrice = deliveryPrice;
         this.stockQuantity = stockQuantity;
         this.content = content;
+        this.salePrice = salePrice;
         this.uploadDate = uploadDate;
     }
 

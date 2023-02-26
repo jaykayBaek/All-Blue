@@ -1,12 +1,16 @@
 package com.spring.green2209s_08.web.repository;
 
+import com.spring.green2209s_08.web.controller.checkout.CheckoutTotalPriceDto;
 import com.spring.green2209s_08.web.controller.item.ItemConfirmListDto;
 import com.spring.green2209s_08.web.controller.item.ItemListStatusCountResponse;
 import com.spring.green2209s_08.web.controller.item.UploadItemCond;
 import com.spring.green2209s_08.web.controller.item.VendorUploadItemResponse;
+import com.spring.green2209s_08.web.domain.Wishlist;
 import com.spring.green2209s_08.web.service.dto.VendorHomeItemCountResponse;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+
+import java.util.List;
 
 public interface ItemViewRepository {
     VendorHomeItemCountResponse findUploadItemsCount(Long vendorId);
@@ -17,4 +21,7 @@ public interface ItemViewRepository {
 
     Page<ItemConfirmListDto> findItemConfirmList(Pageable pageable, UploadItemCond condition);
 
+//    CheckoutTotalPriceDto findCheckoutItemAmount(List<Long> itemIdList);
+
+    CheckoutTotalPriceDto findCheckoutItemAmount(List<Long> wishlistIds);
 }

@@ -148,4 +148,9 @@ public class MemberService {
         Member findMember = memberRepository.findById(memberId).get();
         findMember.changePhoneNo(phoneNo);
     }
+
+    public Member findById(Long memberId) {
+        return memberRepository.findById(memberId)
+                .orElseThrow(() -> new MemberException(MemberErrorResult.MEMBER_NOT_FOUND));
+    }
 }

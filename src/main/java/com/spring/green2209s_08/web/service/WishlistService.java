@@ -165,4 +165,8 @@ public class WishlistService {
 
         wishlist.updateQuantity(quantity);
     }
+
+//    public List<Wishlist> findByItemIdsAndMemberId(Long memberId, List<Long> itemIdList) {
+//        return wishlistRepository.findAllByItemIdAndMemberId(itemIdList, memberId);
+//    }
 }

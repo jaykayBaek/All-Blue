@@ -36,6 +36,7 @@ public class VendorService {
         }
     }
 
+    @Transactional
     public void register(Vendor vendor) {
         vendorRepository.save(vendor);
     }
@@ -91,6 +92,7 @@ public class VendorService {
         vendor.changePassword(passwordEncoder.encode(passwordRequest.getRepeatNewPassword()));
     }
 
+    @Transactional
     public Long addLicense(Long vendorId, LicenseRequest request) {
         Vendor vendor = vendorRepository.findById(vendorId).get();
 

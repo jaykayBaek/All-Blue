@@ -12,5 +12,5 @@ import lombok.NoArgsConstructor;
 public class CheckoutTotalPriceDto {
     private int totalSalePrice;
     private int totalDeliveryPrice;
-
+    private int totalPrice;
 }

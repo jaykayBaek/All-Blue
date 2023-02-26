@@ -15,8 +15,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 @RestController
-@RequestMapping("member")
 @RequiredArgsConstructor
+@RequestMapping("/member")
 @Slf4j
 public class MemberApiController {
 
@@ -25,7 +25,9 @@ public class MemberApiController {
 
     @PostMapping("/verify/email")
     public ResponseEntity<StatusResponse> verifyEmail(String email){
+
         memberService.validateEmail(email);
+
         StatusResponse statusResponse = new StatusResponse(
                 HttpStatus.OK.toString(), "이메일 검증 완료", "TRUE"
         );

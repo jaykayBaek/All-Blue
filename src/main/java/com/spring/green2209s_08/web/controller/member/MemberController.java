@@ -21,10 +21,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.Base64;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Controller
 @RequiredArgsConstructor
@@ -45,14 +42,17 @@ public class MemberController {
     @GetMapping("/email/verify")
     public String emailCommit(
             @RequestParam String token, HttpServletRequest request,
-            @CookieValue(name= SessionConst.WISHLIST) Cookie cookie) throws JsonProcessingException {
+            @CookieValue(name= SessionConst.WISHLIST, required = false) Cookie cookie) throws JsonProcessingException {
 
         MemberRegisterRequest memberRegisterRequest = registerService.validateToken(token);
         String ipAddress = request.getRemoteAddr();
         Member member = memberService.register(memberRegisterRequest, ipAddress);
         registerService.removeData(token);
 
-        if(cookie != null){
+
+        Optional<String> optionalCookie = Optional.ofNullable(cookie)
+                .map(Cookie::getValue);
+        if(optionalCookie.isPresent()){
             Map<Long, Integer> cookieWishlist = getCookieWishlist(cookie);
             wishlistService.saveCookieWishlistToDatabase(cookieWishlist, member.getId());
             cookie.setMaxAge(0);

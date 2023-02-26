@@ -70,7 +70,7 @@ public class ItemController {
             Fish fish = Fish.getFish(
                     inventoryRequest.getBreederName(), inventoryRequest.getFishSex(),
                     inventoryRequest.getSize(), inventoryRequest.getItemName(),
-                    inventoryRequest.getPrice(), inventoryRequest.getDeliveryPrice(),
+                    inventoryRequest.getPrice(), inventoryRequest.getDeliveryPrice(), inventoryRequest.getSalePrice(),
                     inventoryRequest.getStockQuantity(), changedContent, LocalDate.now()
             );
             fish.updateItemStatus(ItemStatus.DECISION_IN_PROCESS);
@@ -82,7 +82,7 @@ public class ItemController {
         else if(parentCategory.equals("02")){
             Product product = Product.getProduct(
                     inventoryRequest.getBrandName(), inventoryRequest.getItemName(),
-                    inventoryRequest.getPrice(), inventoryRequest.getDeliveryPrice(),
+                    inventoryRequest.getPrice(), inventoryRequest.getDeliveryPrice(), inventoryRequest.getSalePrice(),
                     inventoryRequest.getStockQuantity(), changedContent, LocalDate.now()
             );
             product.updateItemStatus(ItemStatus.DECISION_IN_PROCESS);

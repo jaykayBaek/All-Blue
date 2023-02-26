@@ -24,16 +24,16 @@ public class Fish extends Item {
 
     private String size;
 
-    private void createFish(String itemName, int price, int deliveryPrice, int stockQuantity, String breederName, FishSex sex, String size, String content, LocalDate uploadDate) {
-        super.createItem(itemName, price, deliveryPrice, stockQuantity, content, uploadDate);
+    private void createFish(String itemName, int price, int deliveryPrice, int salePrice, int stockQuantity, String breederName, FishSex sex, String size, String content, LocalDate uploadDate) {
+        super.createItem(itemName, price, deliveryPrice, salePrice, stockQuantity, content, uploadDate);
         this.breederName = breederName;
         this.sex = sex;
         this.size = size;
     }
 
-    public static Fish getFish(String breederName, FishSex sex, String size, String itemName, int price, int deliveryPrice, int stockQuantity, String content, LocalDate uploadDate){
+    public static Fish getFish(String breederName, FishSex sex, String size, String itemName, int price, int deliveryPrice, int salePrice, int stockQuantity, String content, LocalDate uploadDate){
         Fish fish = new Fish();
-        fish.createFish(itemName, price, deliveryPrice, stockQuantity, breederName, sex, size, content, uploadDate);
+        fish.createFish(itemName, price, deliveryPrice, salePrice, stockQuantity, breederName, sex, size, content, uploadDate);
         return fish;
     }
 

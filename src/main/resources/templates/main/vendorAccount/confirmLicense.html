@@ -75,7 +75,7 @@
                         <div class="col-12 mb-4">
                             <div class="card shadow h-100 py-2">
                                 <div class="card-body">
-                                    <div class="form-group">
+                                    <div class="form-group" th:if="${vendorLicenseDto eq null}">
                                         <div class="alert alert-danger" role="alert">
                                             한번 등록된 상세정보는 <strong>수정할 수 없습니다</strong>. (추후 수정 기능 추가 예정)
                                         </div>
@@ -154,16 +154,58 @@
                                                         detail : detail
                                                     },
                                                     success: function (result){
-                                                        alert('상세정보 ')
+                                                        alert('상세정보가 입력되었습니다.');
+                                                        location.reload();
                                                     },
                                                     error: function (result){
-                                                        console.log(result);
+                                                        console.log(result.responseJSON);
                                                     }
                                                 })
 
                                             }
                                         </script>
                                     </div>
+                                    <div class="form-group" th:if="${vendorLicenseDto ne null}">
+                                        <div class="alert alert-danger" role="alert">
+                                            한번 등록된 상세정보는 <strong>수정할 수 없습니다</strong>. (추후 수정 기능 추가 예정)
+                                        </div>
+                                        <form id="licenseForm">
+                                            <div class="mb-3 font-weight-lighter text-gray-800">
+                                                <span class="font-weight-bold h5">
+                                                    스토어 이름
+                                                </span>
+                                            </div>
+                                            <div class="mb-3 font-weight-lighter text-gray-800">
+                                                <span th:text="${vendorLicenseDto.getStoreName()}"></span>
+                                            </div>
+
+                                            <div class="mb-3 font-weight-lighter text-gray-800">
+                                                <span class="font-weight-bold h5">
+                                                    사업자 등록 번호
+                                                </span>
+                                            </div>
+                                            <div class="mb-3 font-weight-lighter text-gray-800">
+                                                <span th:text="${vendorLicenseDto.getLicenseNo()}"></span>
+                                            </div>
+                                            <div class="mb-3 font-weight-lighter text-gray-800">
+                                                <span class="font-weight-bold h5">
+                                                    사업장 주소
+                                                </span>
+                                            </div>
+                                            <div class="address__input__wrap">
+                                                [<span th:text="${vendorLicenseDto.getZipcode()}"></span>]
+                                                <span th:text="${vendorLicenseDto.getAddress()}"></span>
+                                                <span th:text="${vendorLicenseDto.getDetail()}"></span>
+                                            </div>
+                                            <div class="button__wrap mt-3">
+                                                <button type="button" class="btn btn-primary" id="confirm__license" disabled>
+                                                    상세정보 수정하기
+                                                </button>
+                                            </div>
+                                        </form>
+                                    </div>
+
+
                                 </div>
                             </div>
 

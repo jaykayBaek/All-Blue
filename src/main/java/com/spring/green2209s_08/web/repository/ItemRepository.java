@@ -11,7 +11,7 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.List;
 import java.util.Optional;
 
-public interface ItemRepository extends JpaRepository<Item, Long>, ItemDetailPageRepository, ItemViewRepository, CookieWishlistRepository{
+public interface ItemRepository extends JpaRepository<Item, Long>, ItemViewRepository, CookieWishlistRepository{
 
     @Query("select i from Item i where i.id = :itemId")
     Optional<Item> findItem(Long itemId);

@@ -143,7 +143,10 @@
                                                             <input type="number" id="stockQuantity" name="stockQuantity">
                                                         </td>
                                                         <td>
-                                                            <input type="number" id="deliveryPrice" name="deliveryPrice">
+                                                            <select name="deliveryPrice" id="deliveryPrice" class="form-control">
+                                                                <option value="5000">5,000원</option>
+                                                            </select>
+<!--                                                            <input type="number" id="deliveryPrice" name="deliveryPrice">-->
                                                         </td>
                                                     </tr>
                                                 </tbody>
@@ -169,12 +172,10 @@
                                             <table class="table text-center table-bordered vendor__table">
                                                 <thead class="thead-light">
                                                     <tr class="detail__input__title">
-
                                                     </tr>
                                                 </thead>
                                                 <tbody class="vendor__table__input">
                                                     <tr class="detail__input__content">
-
                                                     </tr>
                                                 </tbody>
                                             </table>
@@ -202,6 +203,7 @@
                                             <table class="table text-center table-bordered vendor__table">
                                                 <thead class="thead-light">
                                                     <tr>
+                                                        <th>대표이미지</th>
                                                         <th>대표이미지</th>
                                                         <th>추가이미지(최대 7장)</th>
                                                     </tr>

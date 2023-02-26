@@ -12,5 +12,5 @@ import lombok.NoArgsConstructor;
 public class CheckoutItemDto {
     private Long itemId;
     private String itemName;
-    private String itemSelectedQuantity;
+    private int itemSelectedQuantity;
 }

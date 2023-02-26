@@ -30,7 +30,7 @@ public class WishlistController {
     private final ItemService itemService;
 
     @GetMapping
-    public String wishList(@CookieValue(name = SessionConst.WISHLIST) Cookie cookie,
+    public String wishList(@CookieValue(name = SessionConst.WISHLIST, required = false) Cookie cookie,
                            @SessionAttribute(name = SessionConst.MEMBER_ID, required = false) Long memberId,
                            Model model, HttpServletRequest request) throws JsonProcessingException {
 
@@ -49,8 +49,10 @@ public class WishlistController {
         List<WishlistViewDto> items = new ArrayList<>();
 
         if(isNotLoginMember(optMemberId)){
-            Map<Long, Integer> cookieWishlist = getCookieWishlist(cookie);
-            if(cookieWishlist.size() != 0){
+            Optional<String> optionalCookie = Optional.ofNullable(cookie)
+                    .map(Cookie::getValue);
+            if(optionalCookie.isPresent()){
+                Map<Long, Integer> cookieWishlist = getCookieWishlist(cookie);
                 items = itemService.findWishlist(condition, cookieWishlist);
             }
         } else{

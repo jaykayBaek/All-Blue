@@ -4,7 +4,9 @@ import com.spring.green2209s_08.web.constants.SessionConst;
 import com.spring.green2209s_08.web.controller.vendor.dto.VendorHomeResponse;
 import com.spring.green2209s_08.web.controller.vendor.dto.VendorInfoChangeRequest;
 import com.spring.green2209s_08.web.domain.Vendor;
+import com.spring.green2209s_08.web.domain.VendorLicense;
 import com.spring.green2209s_08.web.service.ItemService;
+import com.spring.green2209s_08.web.service.VendorLicenseService;
 import com.spring.green2209s_08.web.service.VendorService;
 import com.spring.green2209s_08.web.service.dto.VendorHomeItemCountResponse;
 import lombok.RequiredArgsConstructor;
@@ -25,6 +27,7 @@ public class VendorController {
 
     private final VendorService vendorService;
     private final ItemService itemService;
+    private final VendorLicenseService vendorLicenseService;
 
     @GetMapping("/join")
     public String vendorRegister(){
@@ -104,6 +107,17 @@ public class VendorController {
     @GetMapping("/account/confirm/license")
     public String confirmLicenseForm(Model model, HttpServletRequest request){
         VendorHomeResponse response = getVendorHomeResponse(request);
+
+        Long vendorId = response.getVendorId();
+        Optional<VendorLicense> findLicense = vendorLicenseService.findByVendorId(vendorId);
+        if(findLicense.isPresent()){
+            VendorLicenseDto vendorLicenseDto = findLicense
+                    .map(l -> new VendorLicenseDto(l.getId(), l.getLicenseNo(),
+                            l.getStoreAddress().getAddress(), l.getStoreAddress().getZipcode(), l.getStoreAddress().getDetail(),
+                            l.getStoreName())).get();
+            model.addAttribute("vendorLicenseDto", vendorLicenseDto);
+        }
+
         model.addAttribute("vendor", response);
         return "main/vendorAccount/confirmLicense";
     }

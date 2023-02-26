@@ -15,14 +15,14 @@ import java.util.List;
 public class Product extends Item{
     private String brandName;
 
-    private void createProduct(String brandName, String itemName, int price, int deliveryPrice, int stockQuantity, String content, LocalDate uploadDate) {
-        super.createItem(itemName, price, deliveryPrice, stockQuantity, content, uploadDate);
+    private void createProduct(String brandName, String itemName, int price, int deliveryPrice, int salePrice, int stockQuantity, String content, LocalDate uploadDate) {
+        super.createItem(itemName, price, deliveryPrice, salePrice, stockQuantity, content, uploadDate);
         this.brandName = brandName;
 
     }
-    public static Product getProduct(String brandName, String itemName, int price, int deliveryPrice, int stockQuantity, String content, LocalDate uploadDate){
+    public static Product getProduct(String brandName, String itemName, int price, int deliveryPrice, int salePrice, int stockQuantity, String content, LocalDate uploadDate){
         Product product = new Product();
-        product.createProduct(brandName, itemName, price, deliveryPrice, stockQuantity, content, uploadDate);
+        product.createProduct(brandName, itemName, price, deliveryPrice, salePrice, stockQuantity, content, uploadDate);
         return product;
     }
 

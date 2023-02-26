@@ -163,7 +163,7 @@
 
                                     const tr = $(this).closest("tr");
                                     const licenceId = tr.find("input[name='licenceId']").val();
-                                    const getSalePrice = parseFloat(tr.find("input[name='salePrice']").val());
+                                    salePrice = parseFloat(tr.find("input[name='salePrice']").val());
                                     selectedQuantity = parseFloat(tr.find("input[name='selectedQuantity']").val());
                                     deliveryPrice = parseFloat(tr.find("input[name='deliveryPrice']").val());
 
@@ -174,16 +174,8 @@
                                         deliveryCheckMap[licenceId] = true;
                                     }
 
-                                    if(salePrice == 0){
-                                        salePrice = getSalePrice * selectedQuantity;
-                                    } else{
-                                        salePrice += getSalePrice * selectedQuantity;
-                                    }
+                                    totalPrice += salePrice * selectedQuantity;
 
-                                    totalPrice = salePrice;
-
-                                    $('.totalPrice').html(salePrice);
-                                    $('.totalDeliveryPrice').html(deliveryPrice);
                                     $('.total__amount').html(totalPrice);
                                 });
 
@@ -202,12 +194,6 @@
                         동일한 매장인 경우 배송비는 한 번 계산됩니다.
                     </div>
                     <div class="emphasis__amount">
-                        <span>총 상품가격 </span>
-                        <em class="totalPrice">0</em>원
-                        <i class="fa-solid fa-circle-plus"></i>
-                        <span>총 배송비 </span>
-                        <em class="totalDeliveryPrice">0</em>원
-                        <i class="fa-solid fa-equals"></i>
                         <span>총 주문금액 </span>
                         <em class="total__amount">0</em>원
                     </div>
@@ -230,6 +216,7 @@
 
                             const form = document.createElement("form");
                             form.setAttribute("method", "get");
+                            form.setAttribute("name", "checkoutItemList");
                             form.setAttribute("action", "http://localhost:9090/green2209s_08/checkout");
 
                             $('.shopping__checkbox:checked').each(function() {

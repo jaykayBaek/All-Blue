@@ -22,6 +22,8 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.time.LocalDateTime;
+import java.util.Map;
+import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
@@ -70,7 +72,7 @@ public class MemberRestController {
 
     @PostMapping("/login")
     public ResponseEntity<StatusResponse> login(
-            @CookieValue(name = SessionConst.WISHLIST) Cookie cookie,
+            @CookieValue(name = SessionConst.WISHLIST, required = false) Cookie cookie,
             @Validated MemberLoginRequest loginRequest, BindingResult bindingResult, HttpServletRequest request){
         Long memberId = memberService.login(loginRequest.getEmail(), loginRequest.getPassword());
 
@@ -79,8 +81,12 @@ public class MemberRestController {
 
         memberService.updateVisitTimeAndIpAddress(memberId, LocalDateTime.now(), request.getRemoteAddr());
 
-        // 로그인 시 로그인전 장바구니에 담았던 모든 쿠키를 제거한다.
-        cookie.setMaxAge(0);
+        Optional<String> optionalCookie = Optional.ofNullable(cookie)
+                .map(Cookie::getValue);
+        if(optionalCookie.isPresent()){
+            // 로그인 시 로그인전 장바구니에 담았던 모든 쿠키를 제거한다.
+            cookie.setMaxAge(0);
+        }
 
         StatusResponse statusResponse = new StatusResponse(
                 HttpStatus.OK.toString(), "로그인 완료", "TRUE"

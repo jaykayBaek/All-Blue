@@ -5,12 +5,13 @@ import com.querydsl.core.types.Projections;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.JPAExpressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
+import com.spring.green2209s_08.web.controller.checkout.CheckoutTotalPriceDto;
 import com.spring.green2209s_08.web.controller.item.ItemConfirmListDto;
 import com.spring.green2209s_08.web.controller.item.ItemListStatusCountResponse;
 import com.spring.green2209s_08.web.controller.item.UploadItemCond;
 import com.spring.green2209s_08.web.controller.item.VendorUploadItemResponse;
-import com.spring.green2209s_08.web.domain.QVendor;
-import com.spring.green2209s_08.web.domain.QVendorLicense;
+import com.spring.green2209s_08.web.domain.QWishlist;
+import com.spring.green2209s_08.web.domain.Wishlist;
 import com.spring.green2209s_08.web.domain.enums.ItemStatus;
 import com.spring.green2209s_08.web.service.dto.VendorHomeItemCountResponse;
 import org.springframework.data.domain.Page;
@@ -25,6 +26,7 @@ import static com.querydsl.jpa.JPAExpressions.*;
 import static com.spring.green2209s_08.web.domain.QItem.*;
 import static com.spring.green2209s_08.web.domain.QVendor.*;
 import static com.spring.green2209s_08.web.domain.QVendorLicense.*;
+import static com.spring.green2209s_08.web.domain.QWishlist.*;
 import static org.hibernate.internal.util.StringHelper.isEmpty;
 
 public class ItemViewRepositoryImpl implements ItemViewRepository{
@@ -153,6 +155,37 @@ public class ItemViewRepositoryImpl implements ItemViewRepository{
                 .from(item)
                 .fetchOne();
         return new PageImpl<ItemConfirmListDto>(content, pageable, total);
+    }
+
+//    @Override
+//    public CheckoutTotalPriceDto findCheckoutItemAmount(List<Long> itemIdList) {
+//        return null;
+//    }
+
+    @Override
+    public CheckoutTotalPriceDto findCheckoutItemAmount(List<Long> wishlistIds) {
+
+//        //vendor가 올린 item의 배송비를 구하시오. a, a, a, b,b 나오면 a끼리 b끼리 그룹시켜 배송비 토탈구하자.
+//        queryFactory
+//                .select(
+//                        Projections.fields(CheckoutTotalPriceDto.class,
+//                            wishlist.item.salePrice.sum().as("totalSalePrice"),
+//                            wishlist.item.deliveryPrice.sum().as("totalDeliveryPrice"),
+//                                select()
+//                                        .from(wishlist)
+//                                        .where(
+//                                                wishlist.id.in(wishlistIds)
+//                                                .and()
+//                                        )
+//
+//                        )
+//                )
+//                .from(wishlist)
+//                .join(wishlist.item, item).on(item.id.eq(wishlist.item.id))
+//                .where(
+//                        wishlist.id.in(wishlistIds)
+//                )
+        return null;
     }
 
     private BooleanExpression queryEq(String query) {
