@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CheckoutItemDto {
-    private Long itemId;
+    private Long wishlistId;
     private String itemName;
     private int itemSelectedQuantity;
 }

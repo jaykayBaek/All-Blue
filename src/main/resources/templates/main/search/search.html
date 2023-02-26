@@ -51,7 +51,7 @@
                           제목
                         </div>
                         <div class="item__result__amount">
-                          <span th:text="${item.salePrice}">
+                          <span th:text="${#numbers.formatDecimal(item.salePrice, 0, 'COMMA', 0, 'POINT')}">
                             22,000
                           </span>
                           <span>

@@ -166,7 +166,16 @@ public class WishlistService {
         wishlist.updateQuantity(quantity);
     }
 
-//    public List<Wishlist> findByItemIdsAndMemberId(Long memberId, List<Long> itemIdList) {
-//        return wishlistRepository.findAllByItemIdAndMemberId(itemIdList, memberId);
-//    }
+    public List<Wishlist> findByItemIdListAndMemberId(List<Long> itemIdList, Long memberId) {
+        return wishlistRepository.findAllByItemIdAndMemberId(itemIdList, memberId);
+    }
+
+    public Integer findTotalSalePriceForCheckout(List<Long> itemIdList, Long memberId) {
+        return wishlistRepository.findTotalSalePrice(itemIdList, memberId);
+    }
+
+    public Integer findTotalDeliveryPriceForCheckout(List<Long> itemIdList, Long memberId) {
+        return wishlistRepository.findTotalDeliveryPriceForCheckout(itemIdList, memberId);
+
+    }
 }

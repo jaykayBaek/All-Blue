@@ -14,10 +14,10 @@ import java.util.List;
 @Getter
 public class FishRequestDto extends ItemRequestDto {
     private String breederName;
-    private FishSex fishSex;
+    private String fishSex;
     private String size;
 
-    public FishRequestDto(Long id, String itemName, Category category, int price, int salePrice, int stockQuantity, int deliveryPrice, String content, List<ItemImage> itemImages, Vendor vendor, LocalDate uploadDate, List<Review> reviews, String breederName, FishSex fishSex, String size) {
+    public FishRequestDto(Long id, String itemName, Category category, int price, int salePrice, int stockQuantity, int deliveryPrice, String content, List<ItemImage> itemImages, Vendor vendor, LocalDate uploadDate, List<Review> reviews, String breederName, String fishSex, String size) {
         super(id, itemName, category, price, salePrice, stockQuantity, deliveryPrice, content, itemImages, vendor, uploadDate, reviews);
         this.breederName = breederName;
         this.fishSex = fishSex;

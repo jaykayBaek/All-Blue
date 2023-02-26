@@ -157,37 +157,6 @@ public class ItemViewRepositoryImpl implements ItemViewRepository{
         return new PageImpl<ItemConfirmListDto>(content, pageable, total);
     }
 
-//    @Override
-//    public CheckoutTotalPriceDto findCheckoutItemAmount(List<Long> itemIdList) {
-//        return null;
-//    }
-
-    @Override
-    public CheckoutTotalPriceDto findCheckoutItemAmount(List<Long> wishlistIds) {
-
-//        //vendor가 올린 item의 배송비를 구하시오. a, a, a, b,b 나오면 a끼리 b끼리 그룹시켜 배송비 토탈구하자.
-//        queryFactory
-//                .select(
-//                        Projections.fields(CheckoutTotalPriceDto.class,
-//                            wishlist.item.salePrice.sum().as("totalSalePrice"),
-//                            wishlist.item.deliveryPrice.sum().as("totalDeliveryPrice"),
-//                                select()
-//                                        .from(wishlist)
-//                                        .where(
-//                                                wishlist.id.in(wishlistIds)
-//                                                .and()
-//                                        )
-//
-//                        )
-//                )
-//                .from(wishlist)
-//                .join(wishlist.item, item).on(item.id.eq(wishlist.item.id))
-//                .where(
-//                        wishlist.id.in(wishlistIds)
-//                )
-        return null;
-    }
-
     private BooleanExpression queryEq(String query) {
         return isEmpty(query) ? null : item.itemName.contains(query);
     }

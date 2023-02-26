@@ -1,5 +1,6 @@
 package com.spring.green2209s_08.web.service;
 
+import com.spring.green2209s_08.web.controller.vendor.VendorLicenseDto;
 import com.spring.green2209s_08.web.domain.VendorLicense;
 import com.spring.green2209s_08.web.repository.VendorLicenseRepository;
 import lombok.RequiredArgsConstructor;
@@ -19,5 +20,14 @@ public class VendorLicenseService {
 
     public Optional<VendorLicense> findByVendorId(Long vendorId) {
         return vendorLicenseRepository.findByVendorId(vendorId);
+    }
+
+    public VendorLicenseDto findByItemId(Long itemId) {
+        VendorLicense findLicense = vendorLicenseRepository.findByItemId(itemId);
+        return new VendorLicenseDto(
+                findLicense.getId(), findLicense.getLicenseNo(),
+                findLicense.getStoreAddress().getAddress(), findLicense.getStoreAddress().getDetail(),
+                findLicense.getStoreAddress().getZipcode(), findLicense.getStoreName()
+        );
     }
 }

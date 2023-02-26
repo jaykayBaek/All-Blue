@@ -150,12 +150,4 @@ public class ItemService {
         return itemRepository.findAllById(itemIdList);
     }
 
-//    public void findCheckoutItemAmount(List<Long> itemIdList) {
-////        itemRepository.findCheckoutItemAmount(itemIdList);
-//    }
-
-    public void findCheckoutItemAmount(List<Long> wishlistIds) {
-        itemRepository.findCheckoutItemAmount(wishlistIds);
-
-    }
 }

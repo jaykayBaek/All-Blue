@@ -6,6 +6,8 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>올! 블루</title>
     <th:block th:replace="~{main/common/common-css :: common_css}"></th:block>
+
+    <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
 </head>
 <body>
     <header th:replace="main/common/header :: header"></header>
@@ -40,24 +42,25 @@
                             <tbody>
                                 <tr>
                                     <th>이름</th>
-                                    <td>홍길동</td>
+                                    <td th:text="${member.memberName}">홍길동</td>
                                 </tr>
                                 <tr>
                                     <th>이메일</th>
-                                    <td>홍길동</td>
+                                    <td th:text="${member.memberEmail}">홍길동</td>
                                 </tr>
                                 <tr>
                                     <th>휴대폰 번호</th>
-                                    <td>홍길동</td>
+                                    <td th:text="${member.memberPhoneNo}">홍길동</td>
                                 </tr>
+                                <input type="hidden" id="memberId" name="memberId" th:value="${member.memberId}">
                             </tbody>
                         </table>
 
                         <div class="mt-4">
                             <h5 class="info__h5 d-inline">수령인 정보</h5>
-                            <button type="button" class="btn btn-primary btn-sm addressModal"
+                            <button th:if="${address ne null}" type="button" class="btn btn-primary btn-sm addressModal"
                                     data-toggle="modal" data-target="#addressSelect">
-                                배송지선택
+                                배송지 변경
                             </button>
                         </div>
 
@@ -66,87 +69,120 @@
                                 <div class="modal-content">
                                     <div class="modal-body">
                                         <p>주소지를 선택해주세요</p>
+                                        <table class="table" th:each="addr : ${addressList}">
+                                            <tr>
+                                                <td>
+                                                    수취인
+                                                </td>
+                                                <td>
+                                                    <strong>
+                                                    <input type="radio" name="checkAddress" class="checkAddress"
+                                                    th:data-address="${addr.id}">
+                                                        <span th:text="${addr.recipient}"></span>
+                                                    </strong>
+                                                    <input type="hidden" class="recipient" th:value="${addr.recipient}">
+                                                    <input type="hidden" class="zipcode" th:value="${addr.zipcode}">
+                                                    <input type="hidden" class="address" th:value="${addr.address}">
+                                                    <input type="hidden" class="detail" th:value="${addr.detail}">
+                                                    <input type="hidden" class="phoneNo" th:value="${addr.phoneNo}">
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    주소
+                                                </td>
+                                                <td>
+                                                    <strong>
+                                                        [<span th:text="${addr.zipcode}"></span>]
+                                                    </strong>
+                                                    <span th:text="${addr.address}"></span> <br/>
+                                                    <span th:text="${addr.detail}"></span>
+
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>핸드폰번호</td>
+                                                <td th:text="${addr.phoneNo}"></td>
+                                            </tr>
+
+                                        </table>
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">나가기</button>
-                                        <button type="button" class="btn btn-primary">선택하기</button>
+                                        <button type="button" class="btn btn-primary" onclick="changeAddress()">선택하기</button>
+                                        <script>
+                                            function changeAddress(){
+                                                const selectedRadio = $('input[name="checkAddress"]:checked');
+                                                if(selectedRadio.length > 0){
+                                                    const addressId = selectedRadio.data("address");
+
+                                                    const tr = selectedRadio.closest("tr");
+                                                    const recipient = tr.find(".recipient").val();
+                                                    const zipcode = tr.find(".zipcode").val();
+                                                    const address = tr.find(".address").val();
+                                                    const detail = tr.find(".detail").val();
+                                                    const phoneNo = tr.find(".phoneNo").val();
+
+                                                    $('.recipientTable').text(recipient);
+                                                    $('.addressTable').html(
+                                                        '[<strong>'+zipcode+'</strong>] ' +
+                                                        address +' <br/>' +
+                                                        detail);
+                                                    $('.phoneNoTable').html(phoneNo);
+                                                    $('.addressId').val(addressId);
+                                                }
+                                            }
+                                        </script>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
-                        <table class="buyer__info__table">
+                        <table class="buyer__info__table" th:if="${address ne null}">
                             <tbody>
                             <tr>
+                                <input type="hidden" name="addressId" id="addressId" th:value="${address.id}"/>
                                 <th>이름</th>
-                                <td>홍길동</td>
+                                <td class="recipientTable" th:text="${address.recipient}">홍길동</td>
                             </tr>
                             <tr>
                                 <th>주소</th>
-                                <td>충청북도 청주시 봉명동 봉명아파트</td>
+                                <td class="addressTable">
+                                    <strong>
+                                        [<span th:text="${address.zipcode}"></span>]
+                                    </strong>
+                                    <span th:text="${address.address}"></span> <br/>
+                                    <span th:text="${address.detail}"></span>
+                                </td>
                             </tr>
                             <tr>
                                 <th>휴대폰 번호</th>
-                                <td>홍길동</td>
+                                <td class="phoneNoTable" th:text="${address.phoneNo}">홍길동</td>
                             </tr>
                             </tbody>
                         </table>
+                        <div class="alert alert-primary mt-2" th:if="${address eq null}">
+                            <span class="mt-2 mb-1">
+                                <strong>주소지를 입력하시지 않았습니다!</strong> 주소지를 선택해주세요.
+                            </span>
+                            <button class="btn btn-outline-primary d-block mt-2 mb-2"
+                                    onclick="addressInput()">주소지 입력하러 가기
+                            </button>
+                            <script>
+                                function addressInput(){
+                                    location.replace("http://localhost:9090/green2209s_08/home/my-address/list");
+                                }
+                            </script>
+                        </div>
                         <table class="order__info__table">
                             <thead>
                                 <tr>
                                     <td colspan="2">주문/결제서</td>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody th:each="item:${wishlist}">
                                 <tr>
-                                    <td>리팩터링:코드 구조를 체계적으로 개선하여 효율적인 리팩터링 구현하기, 한빛미디어</td>
-                                    <td>수량 1개</td>
-                                </tr>
-                                <tr>
-                                    <td>리팩터링:코드 구조를 체계적으로 개선하여 효율적인 리팩터링 구현하기, 한빛미디어</td>
-                                    <td>수량 1개</td>
-                                </tr>
-                                <tr>
-                                    <td>리팩터링:코드 구조를 체계적으로 개선하여 효율적인 리팩터링 구현하기, 한빛미디어</td>
-                                    <td>수량 1개</td>
-                                </tr>
-                                <tr>
-                                    <td>리팩터링:코드 구조를 체계적으로 개선하여 효율적인 리팩터링 구현하기, 한빛미디어</td>
-                                    <td>수량 1개</td>
-                                </tr>
-                                <tr>
-                                    <td>리팩터링:코드 구조를 체계적으로 개선하여 효율적인 리팩터링 구현하기, 한빛미디어</td>
-                                    <td>수량 1개</td>
-                                </tr>
-                                <tr>
-                                    <td>리팩터링:코드 구조를 체계적으로 개선하여 효율적인 리팩터링 구현하기, 한빛미디어</td>
-                                    <td>수량 1개</td>
-                                </tr>
-                                <tr>
-                                    <td>리팩터링:코드 구조를 체계적으로 개선하여 효율적인 리팩터링 구현하기, 한빛미디어</td>
-                                    <td>수량 1개</td>
-                                </tr>
-                                <tr>
-                                    <td>리팩터링:코드 구조를 체계적으로 개선하여 효율적인 리팩터링 구현하기, 한빛미디어</td>
-                                    <td>수량 1개</td>
-                                </tr>
-                                <tr>
-                                    <td>리팩터링:코드 구조를 체계적으로 개선하여 효율적인 리팩터링 구현하기, 한빛미디어</td>
-                                    <td>수량 1개</td>
-                                </tr>
-                                <tr>
-                                    <td>리팩터링:코드 구조를 체계적으로 개선하여 효율적인 리팩터링 구현하기, 한빛미디어</td>
-                                    <td>수량 1개</td>
-                                </tr>
-                                <tr>
-                                    <td>리팩터링:코드 구조를 체계적으로 개선하여 효율적인 리팩터링 구현하기, 한빛미디어</td>
-                                    <td>수량 1개</td>
-                                </tr>
-                                <tr>
-                                    <td>리팩터링:코드 구조를 체계적으로 개선하여 효율적인 리팩터링 구현하기, 한빛미디어</td>
-                                    <td>수량 1개</td>
-                                </tr>
-                                <tr>
-                                    <td>리팩터링:코드 구조를 체계적으로 개선하여 효율적인 리팩터링 구현하기, 한빛미디어</td>
-                                    <td>수량 1개</td>
+                                    <td th:text="${item.itemName}">리팩터링:코드 구조를 체계적으로 개선하여 효율적인 리팩터링 구현하기, 한빛미디어</td>
+                                    <td>수량 <span th:text="${item.itemSelectedQuantity}"></span>개</td>
+                                    <input type="hidden" class="wishlistId" name="wishlistId" th:value="${item.wishlistId}">
                                 </tr>
                             </tbody>
                         </table>
@@ -154,10 +190,24 @@
                     <div class="col-lg-4 col-md-6">
                         <div class="checkout__order sticky-top">
                             <h4>당신의 주문</h4>
-                            <div class="checkout__order__total">총 상품가격 <span>$750.99</span></div>
-                            <div class="checkout__order__total">총 배송비 <span>$750.99</span></div>
-                            <div class="checkout__order__total">총 주문금액 <span>$750.99</span></div>
-                            <button type="submit" class="site-btn">주문하기</button>
+                            <div class="checkout__order__total">총 상품가격
+                                <span th:text="${#numbers.formatDecimal(billing.totalSalePrice, 0, 'COMMA', 0, 'POINT')}"></span>
+                            </div>
+                            <div class="checkout__order__total">
+                                총 배송비
+                                <span th:text="${#numbers.formatDecimal(billing.totalDeliveryPrice, 0, 'COMMA', 0, 'POINT')}"></span>
+                            </div>
+                            <div class="checkout__order__total">
+                                총 주문금액
+                                <span th:text="${#numbers.formatDecimal(billing.totalPrice, 0, 'COMMA', 0, 'POINT')}"></span>
+                            </div>
+                            <div class="alert alert-warning">
+                                모든 결제는 10원 고정입니다.
+                            </div>
+                            <button type="button" class="site-btn" onclick="order()">주문하기</button>
+
+                            <script th:src="@{/js/order.js}"></script>
+
                         </div>
                     </div>
                 </div>

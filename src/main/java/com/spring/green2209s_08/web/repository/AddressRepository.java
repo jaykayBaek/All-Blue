@@ -10,7 +10,7 @@ import java.util.Optional;
 
 public interface AddressRepository extends JpaRepository<Address, Long> {
 
-    @Query("select a from Address a where a.member.id = :memberId")
+    @Query("select a from Address a where a.member.id = :memberId order by a.id desc")
     List<Address> findAllByMemberId(@Param("memberId") Long memberId);
 
     Optional<Address> findByMemberIdAndId(Long memberId, Long addressId);

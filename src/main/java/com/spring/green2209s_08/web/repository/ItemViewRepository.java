@@ -21,7 +21,4 @@ public interface ItemViewRepository {
 
     Page<ItemConfirmListDto> findItemConfirmList(Pageable pageable, UploadItemCond condition);
 
-//    CheckoutTotalPriceDto findCheckoutItemAmount(List<Long> itemIdList);
-
-    CheckoutTotalPriceDto findCheckoutItemAmount(List<Long> wishlistIds);
 }

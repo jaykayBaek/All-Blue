@@ -58,6 +58,7 @@
                                 <td class="item__info__content">
                                     <h5 th:text="${item.itemName}">Vegetable’s Package</h5>
                                     <input type="hidden" name="itemId" id="itemId" th:value="${item.itemId}"/>
+                                    <input type="hidden" name="licenceId" id="licenceId" th:value="${item.vendorLicenseId}"/>
                                 </td>
                                 <td class="">
                                     <span th:text="${item.salePrice}">5500</span>원
