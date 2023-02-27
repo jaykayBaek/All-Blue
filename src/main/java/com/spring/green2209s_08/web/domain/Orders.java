@@ -29,6 +29,7 @@ public class Orders extends CommonEntity {
     private String recipient;
     private String zipcode;
     private String address;
+    private String phoneNo;
     private String currency;
 
     private int totalPrice;
@@ -39,6 +40,9 @@ public class Orders extends CommonEntity {
 
     @Enumerated(EnumType.STRING)
     private DeliveryStatus deliveryStatus;
+
+    @Enumerated(EnumType.STRING)
+    private OrderStatus orderStatus;
 
     public void assignOrderItems(List<OrderItem> orderItems){
         this.orderItems = orderItems;

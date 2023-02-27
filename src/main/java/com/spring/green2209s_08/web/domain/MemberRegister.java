@@ -1,9 +1,9 @@
 package com.spring.green2209s_08.web.domain;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
 import org.springframework.data.redis.core.RedisHash;
-
-import javax.persistence.Id;
 
 @Getter
 @RedisHash("MemberRegister")

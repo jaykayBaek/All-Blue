@@ -1,9 +1,12 @@
 package com.spring.green2209s_08.web.domain;
 
 import com.spring.green2209s_08.web.domain.enums.ItemStatus;
-import com.spring.green2209s_08.web.exception.errorResult.VendorErrorResult;
 import com.spring.green2209s_08.web.exception.VendorException;
-import lombok.*;
+import com.spring.green2209s_08.web.exception.errorResult.VendorErrorResult;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.BatchSize;
 
 import javax.persistence.*;

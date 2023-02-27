@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>올! 블루</title>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <th:block th:replace="main/common/common-css :: common_css"></th:block>
+
+    <link rel="stylesheet" th:href="@{/css/home/home.css}" href="/css/home/home.css" type="text/css">
+
+</head>
+<body>
+<header th:replace="main/common/header :: header"></header>
+
+<div class="container-fluid">
+    <div class="row home__nav">
+        <div class="col-xl-2 col-2" style="padding-right: 0px">
+            <div class="title__box">MY 블루</div>
+            <th:block th:replace="main/common/myhome-nav :: myhomeNav"></th:block>
+        </div>
+        <div class="col-xl-9 col-10">
+            <div class="table__wrap">
+                <nav class="order__list">
+                    <h2>주문목록</h2>
+                </nav>
+                <table class="table table-bordered mt-3">
+                    <tr>
+                        <th>주문 번호	</th>
+                        <td th:text="${order.impUid}"></td>
+                    </tr>
+                    <tr>
+                        <th>구분</th>
+                        <td>
+                            <table class="table">
+                                <tr>
+                                    <th>배송상태</th>
+                                    <th>주문내용</th>
+                                    <th>가격</th>
+                                </tr>
+                                <tr th:each="orderItem:${order.orderItems}" >
+                                    <td>
+                                        <span class="badge badge-primary" th:text="${order.deliveryStatus.getDescription()}"></span>
+                                    </td>
+                                    <td>
+                                        <a th:href="@{/search/detail/{itemId}(itemId=${orderItem.id})}">
+                                            <b th:text="${orderItem.item.itemName}"></b>
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <span th:text="${#numbers.formatDecimal(orderItem.salePrice, 0, 'COMMA', 0, 'POINT')}"></span>원
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>주문 총액</th>
+                        <td th:text="${order.totalPrice}"></td>
+                    </tr>
+                    <tr>
+                        <th>배달비 총액</th>
+                        <td th:text="${order.totalDeliveryPrice}"></td>
+                    </tr>
+                    <tr>
+                        <th>구매 총액</th>
+                        <td th:text="${order.totalPrice + order.totalDeliveryPrice}"></td>
+                    </tr>
+                    <tr>
+                        <th>수취인</th>
+                        <td th:text="${order.recipient}"></td>
+                    </tr>
+                    <tr>
+                        <th>수취인 휴대폰번호</th>
+                        <td th:text="${order.phoneNo}"></td>
+                    </tr>
+                    <tr>
+                        <th>주소</th>
+                        <td>
+                            [<span th:text="${order.zipcode}"></span>]
+                            <span th:text="${order.address}"></span>
+                        </td>
+                    </tr>
+
+                </table>
+            </div>
+        </div>
+        <div class="spad"></div>
+
+        <div class="col-xl-1">
+            <th:block th:replace="main/common/wishlist :: wishlist"></th:block>
+        </div>
+    </div>
+</div>
+
+
+<footer th:replace="main/common/footer :: footer"></footer>
+<th:block th:replace="main/common/common-js :: common_js"></th:block>
+</body>
+</html>

@@ -14,10 +14,13 @@ public class OrderRequest {
     private String orderUid;
     private String paymentMethod;
     private String orderItemName;
+
     private String email;
     private String recipient;
+    private String phoneNo;
     private String zipcode;
     private String address;
+
     private String currency;
 
     private int totalPrice;

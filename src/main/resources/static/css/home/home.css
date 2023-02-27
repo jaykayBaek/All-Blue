@@ -10,6 +10,23 @@
     height: 120px;
 }
 
+.table__wrap{
+    width: 100%;
+}
+
+.table__wrap .table tr th{
+    background-color: var(--backgroundgrey);
+    color: var(--grey);
+}
+
+.table__wrap .table tr td a{
+    color: #000;
+}
+
+.table__wrap .table tr td a:hover{
+    color: #000;
+}
+
 .home__nav .list__box{
     background-color: var(--subcolor);
     color: var(--content);

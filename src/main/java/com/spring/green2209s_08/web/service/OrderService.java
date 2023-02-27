@@ -1,15 +1,26 @@
 package com.spring.green2209s_08.web.service;
 
+import com.spring.green2209s_08.web.controller.order.OrderDateEnum;
+import com.spring.green2209s_08.web.controller.order.OrderListResponse;
 import com.spring.green2209s_08.web.controller.order.OrderRequest;
+import com.spring.green2209s_08.web.controller.order.OrderSearchCond;
 import com.spring.green2209s_08.web.domain.*;
 import com.spring.green2209s_08.web.exception.MemberException;
+import com.spring.green2209s_08.web.exception.OrderException;
 import com.spring.green2209s_08.web.exception.errorResult.MemberErrorResult;
-import com.spring.green2209s_08.web.repository.*;
+import com.spring.green2209s_08.web.exception.errorResult.OrderErrorResult;
+import com.spring.green2209s_08.web.repository.MemberRepository;
+import com.spring.green2209s_08.web.repository.OrderItemRepository;
+import com.spring.green2209s_08.web.repository.OrderRepository;
+import com.spring.green2209s_08.web.repository.WishlistRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -65,10 +76,43 @@ public class OrderService {
                 .recipient(orderRequest.getRecipient())
                 .zipcode(orderRequest.getZipcode())
                 .address(orderRequest.getAddress())
+                .phoneNo(orderRequest.getPhoneNo())
                 .currency(orderRequest.getCurrency())
                 .totalPrice(orderRequest.getTotalPrice())
                 .totalDeliveryPrice(orderRequest.getTotalDeliveryPrice())
-                .deliveryStatus(DeliveryStatus.PAYMENT_OK)
+                .deliveryStatus(DeliveryStatus.READY)
+                .orderStatus(OrderStatus.PAYMENT_OK)
                 .build();
+    }
+
+    public Page<OrderListResponse> findAllByMemberId(Long memberId, OrderSearchCond orderSearchCond, Pageable pageable) {
+        OrderDateEnum orderDate = orderSearchCond.getOrderDate() ;
+        LocalDateTime now = LocalDateTime.now();
+        if(orderDate == null){
+            orderSearchCond.createItemCond(null, null);
+        } else if(orderDate.equals(OrderDateEnum.WHILE_SIX_MONTH)){
+            orderSearchCond.createItemCond(now, now.minusMonths(6));
+            orderSearchCond.createItemCond(now, now.minusMonths(6));
+        }else if(orderDate.equals(OrderDateEnum.WHILE_YEAR)){
+            orderSearchCond.createItemCond(now, now.minusMonths(12));
+        }else{
+            orderSearchCond.createItemCond(null, null);
+        }
+
+        return orderRepository.findAllByMemberId(memberId, orderSearchCond, pageable);
+    }
+
+    public Orders findById(Long orderId, Long memberId) {
+        Member findMember = memberRepository.findById(memberId).orElseThrow(() ->
+                new MemberException(MemberErrorResult.MEMBER_NOT_FOUND));
+
+        Orders findOrder = orderRepository.findById(orderId).orElseThrow(() ->
+                new OrderException(OrderErrorResult.ORDER_NOT_FOUND));
+
+        if(!findMember.getId().equals(findOrder.getMember().getId())){
+            throw new OrderException(OrderErrorResult.UNAUTHORIZED);
+        }
+        return findOrder;
+
     }
 }

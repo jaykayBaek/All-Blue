@@ -1,6 +1,5 @@
 package com.spring.green2209s_08.web.domain;
 
-import com.spring.green2209s_08.web.domain.enums.FishSex;
 import lombok.*;
 
 import javax.persistence.Entity;

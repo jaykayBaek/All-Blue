@@ -3,7 +3,6 @@ package com.spring.green2209s_08.web.domain;
 import com.spring.green2209s_08.web.domain.enums.AccountType;
 import com.spring.green2209s_08.web.domain.enums.MemberGrade;
 import lombok.*;
-import org.springframework.data.util.Lazy;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;

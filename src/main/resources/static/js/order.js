@@ -95,6 +95,7 @@ function requestPay(address, item, member, totalPrice, orderUid) {
                     recipient : rsp.buyer_name,
                     zipcode : rsp.buyer_postcode,
                     address : rsp.buyer_addr,
+                    phoneNo : rsp.buyer_tel,
                     currency : rsp.currency,
                     totalPrice : totalPrice.totalPrice,
                     totalDeliveryPrice : totalPrice.totalDeliveryPrice,
@@ -102,6 +103,8 @@ function requestPay(address, item, member, totalPrice, orderUid) {
                 },
                 success: function (result){
                     console.log(result);
+                    alert('결제가 완료되었습니다.')
+                    location.replace("http://localhost:9090/green2209s_08/order/list");
                 },
                 error: function (result){
                     console.log(result);

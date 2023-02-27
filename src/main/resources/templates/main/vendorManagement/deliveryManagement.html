@@ -45,10 +45,6 @@
                                             <span class="item__status__font">0</span>건
                                         </div>
                                         <div class="col">
-                                            <span>배송지시</span><br>
-                                            <span class="item__status__font">0</span>건
-                                        </div>
-                                        <div class="col">
                                             <span>배송중</span><br>
                                             <span class="item__status__font">0</span>건
                                         </div>
@@ -69,9 +65,11 @@
                                         <tr>
                                             <th>기간조회</th>
                                             <td>
-                                                <input class="form-control" type="date" name="" placeholder="노출상품명"/>
-                                                <input class="form-control" type="date" name="" placeholder="노출상품명"/>
+                                                <input class="form-control mb-2" type="date" name=""/>
+                                                <input class="form-control" type="date" name=""/>
                                             </td>
+                                        </tr>
+                                        <tr>
                                             <th>상세조건</th>
                                             <td>
                                                 <select name="" id="">
@@ -82,7 +80,7 @@
                                         </tr>
                                         <tr>
                                             <th>진행상태</th>
-                                            <td colspan="2">
+                                            <td>
                                                 <select name="" id="">
                                                     <option value="">결제완료</option>
                                                     <option value="">상품 준비중</option>
@@ -90,6 +88,14 @@
                                                     <option value="">배송중</option>
                                                     <option value="">배송완료</option>
                                                 </select>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2">
+                                                <form>
+                                                    <input type="text" class="form-control" name="query"/>
+                                                    <button class="btn btn-primary btn-sm">검색하기</button>
+                                                </form>
                                             </td>
                                         </tr>
                                         <tr>
@@ -111,7 +117,6 @@
                                         <thead>
                                         <tr>
                                             <th>주문번호</th>
-                                            <th>운송장번호</th>
                                             <th>상품명</th>
                                             <th>구매 수량</th>
                                             <th>수취인</th>
@@ -126,23 +131,7 @@
                                         </tbody>
                                     </table>
                                 </div>
-                                <nav aria-label="Page navigation" class="m-auto">
-                                    <ul class="pagination">
-                                        <li class="page-item">
-                                            <a class="page-link" href="#" aria-label="Previous">
-                                                <span aria-hidden="true">&laquo;</span>
-                                            </a>
-                                        </li>
-                                        <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                        <li class="page-item">
-                                            <a class="page-link" href="#" aria-label="Next">
-                                                <span aria-hidden="true">&raquo;</span>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </nav>
+
                             </div>
                         </div>
                     </div>
