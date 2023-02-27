@@ -11,8 +11,10 @@ import com.spring.green2209s_08.web.domain.Member;
 import com.spring.green2209s_08.web.domain.Wishlist;
 import com.spring.green2209s_08.web.exception.ItemException;
 import com.spring.green2209s_08.web.exception.MemberException;
+import com.spring.green2209s_08.web.exception.WishlistException;
 import com.spring.green2209s_08.web.exception.errorResult.ItemErrorResult;
 import com.spring.green2209s_08.web.exception.errorResult.MemberErrorResult;
+import com.spring.green2209s_08.web.exception.errorResult.WishlistErrorResult;
 import com.spring.green2209s_08.web.repository.ItemRepository;
 import com.spring.green2209s_08.web.repository.MemberRepository;
 import com.spring.green2209s_08.web.repository.WishlistRepository;
@@ -25,6 +27,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -35,6 +38,7 @@ public class WishlistService {
     private final WishlistRepository wishlistRepository;
     private final MemberRepository memberRepository;
     private final ItemRepository itemRepository;
+
 
     public Cookie addItemToWishlist(Long itemId, Integer quantity, HttpServletRequest request) throws JsonProcessingException {
         Map<Long, Integer> newWishlist = new HashMap<>();
@@ -112,7 +116,7 @@ public class WishlistService {
     }
 
     @Transactional
-    public void removeItemInWishlist(Long itemId, Long memberId) {
+    public void deleteItemInWishlist(Long itemId, Long memberId) {
         Optional<Item> findItem = itemRepository.findById(itemId);
 
         Optional<Member> findMember = memberRepository.findById(memberId);
@@ -177,5 +181,22 @@ public class WishlistService {
     public Integer findTotalDeliveryPriceForCheckout(List<Long> itemIdList, Long memberId) {
         return wishlistRepository.findTotalDeliveryPriceForCheckout(itemIdList, memberId);
 
+    }
+
+    public Wishlist findById(Long wishlistId) {
+        return wishlistRepository.findById(wishlistId)
+                .orElseThrow(()-> new WishlistException(WishlistErrorResult.WISHLIST_NOT_FOUND));
+    }
+
+    public List<Wishlist> findAll(List<Long> wishlistId) {
+        List<Wishlist> findWishlist = wishlistRepository.findAllById(wishlistId);
+        return findWishlist;
+    }
+
+    public void deleteWishlists(List<Wishlist> findWishlists) {
+        List<Long> wishlistIds = findWishlists.stream()
+                .map(w -> w.getId()).collect(Collectors.toList());
+
+        wishlistRepository.deleteAllById(wishlistIds);
     }
 }

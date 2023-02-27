@@ -27,7 +27,6 @@ public class ItemApiController {
     @PatchMapping("/name")
     public ResponseEntity<StatusResponse> changeItemName(@RequestParam Long itemId, @RequestParam String itemName,
                                                          @SessionAttribute(name = SessionConst.VENDOR_ID, required = false) Long vendorId){
-
         /* --- 수정하고자 하는 상품에 대한 유효성 검사(본인이 게재한 상품이 맞는지, 존재하는 상품인지) --- */
         itemService.validateVendorIdToItem(vendorId, itemId);
 
@@ -77,6 +76,7 @@ public class ItemApiController {
     @PatchMapping("/product")
     public ResponseEntity<StatusResponse> changeProduct(@ModelAttribute EditProductRequest editProductRequest,
                                                         @SessionAttribute(name = SessionConst.VENDOR_ID, required = false) Long vendorId){
+
         /* --- 수정하고자 하는 상품에 대한 유효성 검사(본인이 게재한 상품이 맞는지, 존재하는 상품인지) --- */
         itemService.validateVendorIdToItem(vendorId, editProductRequest.getItemId());
 
@@ -115,9 +115,10 @@ public class ItemApiController {
     @PatchMapping("/status")
     public ResponseEntity<StatusResponse> changeStatus(@RequestParam Long itemId, @RequestParam String itemStatus,
                                                        @SessionAttribute(name = SessionConst.VENDOR_ID, required = false) Long vendorId) {
+        log.info("vendor={}, {}, {}", vendorId, itemId, itemStatus);
 
         ItemStatus status = Enum.valueOf(ItemStatus.class, itemStatus);
-        itemService.validateVendorIdToItem(itemId, vendorId);
+        itemService.validateVendorIdToItem(vendorId, itemId);
         itemService.changeStatus(itemId, status);
 
         StatusResponse statusResponse = new StatusResponse(

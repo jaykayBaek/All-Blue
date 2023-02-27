@@ -63,4 +63,9 @@ public class AddressService {
         Address address = findAddress.get();
         address.changeAddress(addressRequest.getRecipient(), addressRequest.getPhoneNo(), addressRequest.getZipcode(), addressRequest.getAddress(), addressRequest.getDetail());
     }
+
+    public Address findById(Long addressId) {
+        return addressRepository.findById(addressId)
+                .orElseThrow(() -> new MemberAddressException(AddressErrorResult.ADDRESS_NOT_FOUND));
+    }
 }

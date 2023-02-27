@@ -62,6 +62,17 @@ public class ControllerAdvisor {
         return ResponseEntity.status(e.getErrorResult().getStatus())
                 .body(statusResponse);
     }
+    @ExceptionHandler(OrderException.class)
+    public ResponseEntity<StatusResponse> handleOrderException(OrderException e){
+        log.warn("OrderException occur", e);
+
+        StatusResponse statusResponse = new StatusResponse(
+                e.getErrorResult().getStatus().toString(), e.getErrorResult().getMessage(), "FALSE"
+        );
+
+        return ResponseEntity.status(e.getErrorResult().getStatus())
+                .body(statusResponse);
+    }
 
 
 }

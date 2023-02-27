@@ -150,4 +150,7 @@ public class ItemService {
         return itemRepository.findAllById(itemIdList);
     }
 
+    public List<Item> findAll(List<Long> itemIdList) {
+        return itemRepository.findAllById(itemIdList);
+    }
 }

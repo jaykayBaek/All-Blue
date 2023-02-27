@@ -10,4 +10,5 @@ public final class SessionConst {
     public static final String WISHLIST = "wishlist";
     public static final String COOKIE_DOMAIN = "localhost";
     public static final String COOKIE_PATH = "/";
+    public static final String ORDERUID = "orderUid";
 }

@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class CheckoutItemDto {
     private Long wishlistId;
+    private Long itemId;
     private String itemName;
     private int itemSelectedQuantity;
 }

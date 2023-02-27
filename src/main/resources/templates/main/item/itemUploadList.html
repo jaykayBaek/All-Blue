@@ -227,6 +227,35 @@
                                                             }
                                                         </script>
                                                     </th:block>
+                                                    <th:block th:if="${item.itemStatus.getDescription() eq '승인반려'}">
+                                                        <button type="button" th:onclick="|statusDecision('${item.id}')|" class="btn btn-primary">재판매 요청</button>
+                                                        <script>
+                                                            function statusDecision(itemId){
+                                                                const ans = confirm('재판매 요청하시겠습니까? 재판매 요청 시 상품상태가 심사중으로 변경됩니다.');
+
+                                                                if(!ans){
+                                                                    return false;
+                                                                }
+                                                                $.ajax({
+                                                                    url:"http://localhost:9090/green2209s_08/item/status",
+                                                                    method: "patch",
+                                                                    data : {
+                                                                        itemId: itemId,
+                                                                        itemStatus : "DECISION_IN_PROCESS"
+                                                                    },
+                                                                    success: function (result){
+                                                                        console.log(result);
+                                                                        alert('재판매 요청되었습니다. 관리자의 승인 이후 상품이 노출됩니다.');
+                                                                        location.reload();
+                                                                    },
+                                                                    error: function (result){
+                                                                        console.log(result);
+                                                                        alert(result.getMessage());
+                                                                    }
+                                                                })
+                                                            }
+                                                        </script>
+                                                    </th:block>
                                                 </td>
                                             </tr>
                                         </tr>

@@ -61,7 +61,7 @@ public class WishlistApiController {
             throw new ItemException(ItemErrorResult.ITEM_NOT_FOUND);
         }
 
-        wishlistService.removeItemInWishlist(itemId, memberId);
+        wishlistService.deleteItemInWishlist(itemId, memberId);
 
         StatusResponse statusResponse = new StatusResponse(
                 HttpStatus.OK.toString(), "장바구니 상품 제거 완료", "TRUE"

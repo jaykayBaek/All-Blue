@@ -178,11 +178,12 @@
                                     <td colspan="2">주문/결제서</td>
                                 </tr>
                             </thead>
-                            <tbody th:each="item:${wishlist}">
+                            <tbody th:each="wish : ${wishlist}">
                                 <tr>
-                                    <td th:text="${item.itemName}">리팩터링:코드 구조를 체계적으로 개선하여 효율적인 리팩터링 구현하기, 한빛미디어</td>
-                                    <td>수량 <span th:text="${item.itemSelectedQuantity}"></span>개</td>
-                                    <input type="hidden" class="wishlistId" name="wishlistId" th:value="${item.wishlistId}">
+                                    <td th:text="${wish.itemName}">리팩터링:코드 구조를 체계적으로 개선하여 효율적인 리팩터링 구현하기, 한빛미디어</td>
+                                    <td>수량 <span th:text="${wish.itemSelectedQuantity}"></span>개</td>
+                                    <input type="hidden" class="wishlistId" name="wishlistId" th:value="${wish.wishlistId}">
+                                    <input type="hidden" class="itemId" name="itemId" th:value="${wish.itemId}">
                                 </tr>
                             </tbody>
                         </table>
@@ -202,7 +203,7 @@
                                 <span th:text="${#numbers.formatDecimal(billing.totalPrice, 0, 'COMMA', 0, 'POINT')}"></span>
                             </div>
                             <div class="alert alert-warning">
-                                모든 결제는 10원 고정입니다.
+                                모든 결제는 100원 고정입니다.
                             </div>
                             <button type="button" class="site-btn" onclick="order()">주문하기</button>
 

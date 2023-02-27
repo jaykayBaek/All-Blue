@@ -15,4 +15,5 @@ public interface ItemRepository extends JpaRepository<Item, Long>, ItemViewRepos
 
     @Query("select i from Item i where i.id = :itemId")
     Optional<Item> findItem(Long itemId);
+
 }

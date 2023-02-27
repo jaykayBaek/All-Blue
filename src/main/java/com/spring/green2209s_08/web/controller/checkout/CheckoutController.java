@@ -69,7 +69,8 @@ public class CheckoutController {
     private static List<CheckoutItemDto> getWishlistDto(List<Wishlist> findWishlist) {
         return findWishlist.stream()
                 .map(w -> CheckoutItemDto.builder()
-                        .wishlistId(w.getItem().getId())
+                        .wishlistId(w.getId())
+                        .itemId(w.getItem().getId())
                         .itemName(w.getItem().getItemName())
                         .itemSelectedQuantity(w.getSelectedQuantity())
                         .build()

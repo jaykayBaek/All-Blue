@@ -5,7 +5,6 @@ import com.spring.green2209s_08.web.exception.errorResult.VendorErrorResult;
 import com.spring.green2209s_08.web.exception.VendorException;
 import lombok.*;
 import org.hibernate.annotations.BatchSize;
-import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -61,6 +60,9 @@ public abstract class Item {
     @OneToMany(fetch = FetchType.LAZY)
     private List<Wishlist> wishlists = new ArrayList<>();
 
+    @OneToMany(fetch = FetchType.LAZY)
+    private List<OrderItem> orderItems = new ArrayList<>();
+
     /**
      * 생성
      */
@@ -104,7 +106,7 @@ public abstract class Item {
     }
 
     /* --- 재고 감소 --- */
-    public void subtractStock(int quantity){
+    public void removeStock(int quantity){
         if(this.stockQuantity - quantity < 0){
             throw new VendorException(VendorErrorResult.NOT_ENOUGH_STOCK);
         }

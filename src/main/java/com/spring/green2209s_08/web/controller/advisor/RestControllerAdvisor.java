@@ -1,10 +1,7 @@
 package com.spring.green2209s_08.web.controller.advisor;
 
 import com.spring.green2209s_08.web.controller.StatusResponse;
-import com.spring.green2209s_08.web.exception.EmailSendException;
-import com.spring.green2209s_08.web.exception.MemberAddressException;
-import com.spring.green2209s_08.web.exception.MemberException;
-import com.spring.green2209s_08.web.exception.VendorException;
+import com.spring.green2209s_08.web.exception.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -51,6 +48,28 @@ public class RestControllerAdvisor {
         StatusResponse statusResponse = new StatusResponse(
                 e.getErrorResult().getStatus().toString(), e.getErrorResult().getMessage(), "FALSE"
         );
+        return ResponseEntity.status(e.getErrorResult().getStatus())
+                .body(statusResponse);
+    }
+
+    @ExceptionHandler(WishlistException.class)
+    public ResponseEntity<StatusResponse> handleWishlistException(WishlistException e){
+        log.warn("WishlistException occur", e);
+        StatusResponse statusResponse = new StatusResponse(
+                e.getErrorResult().getStatus().toString(), e.getErrorResult().getMessage(), "FALSE"
+        );
+        return ResponseEntity.status(e.getErrorResult().getStatus())
+                .body(statusResponse);
+    }
+
+    @ExceptionHandler(OrderException.class)
+    public ResponseEntity<StatusResponse> handleOrderException(OrderException e){
+        log.warn("OrderException occur", e);
+
+        StatusResponse statusResponse = new StatusResponse(
+                e.getErrorResult().getStatus().toString(), e.getErrorResult().getMessage(), "FALSE"
+        );
+
         return ResponseEntity.status(e.getErrorResult().getStatus())
                 .body(statusResponse);
     }
