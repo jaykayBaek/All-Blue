@@ -10,7 +10,7 @@ import javax.persistence.*;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
-public class ItemImage {
+public class ItemImage extends CommonEntity{
     @Id @GeneratedValue
     @Column(name = "item_image_id")
     private Long id;

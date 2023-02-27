@@ -22,7 +22,6 @@ public class OrderService {
     private final MemberRepository memberRepository;
     private final WishlistService wishlistService;
     private final WishlistRepository wishlistRepository;
-    private final ItemRepository itemRepository;
     private final OrderItemRepository orderItemRepository;
 
     @Transactional

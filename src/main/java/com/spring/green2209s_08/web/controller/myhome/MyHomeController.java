@@ -23,11 +23,6 @@ public class MyHomeController {
 
     private final AddressService addressService;
 
-    @GetMapping("/order/list")
-    public String orderList(){
-        return "main/myhome/orderlist";
-    }
-
     @GetMapping("/cancel-return-exchange/list")
     public String cancelReturnExchangeList(){
         return "main/myhome/cancelReturnExchangeList";
