@@ -1,9 +1,9 @@
 package com.spring.green2209s_08.web.service;
-
-import com.spring.green2209s_08.web.controller.order.OrderDateEnum;
 import com.spring.green2209s_08.web.controller.order.OrderListResponse;
 import com.spring.green2209s_08.web.controller.order.OrderRequest;
 import com.spring.green2209s_08.web.controller.order.OrderSearchCond;
+import com.spring.green2209s_08.web.controller.vandorManagement.ManageDeliveryCond;
+import com.spring.green2209s_08.web.controller.vandorManagement.ManageDeliveryDto;
 import com.spring.green2209s_08.web.domain.*;
 import com.spring.green2209s_08.web.exception.MemberException;
 import com.spring.green2209s_08.web.exception.OrderException;
@@ -20,7 +20,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -86,18 +85,6 @@ public class OrderService {
     }
 
     public Page<OrderListResponse> findAllByMemberId(Long memberId, OrderSearchCond orderSearchCond, Pageable pageable) {
-        OrderDateEnum orderDate = orderSearchCond.getOrderDate() ;
-        LocalDateTime now = LocalDateTime.now();
-        if(orderDate == null){
-            orderSearchCond.createItemCond(null, null);
-        } else if(orderDate.equals(OrderDateEnum.WHILE_SIX_MONTH)){
-            orderSearchCond.createItemCond(now, now.minusMonths(6));
-            orderSearchCond.createItemCond(now, now.minusMonths(6));
-        }else if(orderDate.equals(OrderDateEnum.WHILE_YEAR)){
-            orderSearchCond.createItemCond(now, now.minusMonths(12));
-        }else{
-            orderSearchCond.createItemCond(null, null);
-        }
 
         return orderRepository.findAllByMemberId(memberId, orderSearchCond, pageable);
     }
@@ -114,5 +101,18 @@ public class OrderService {
         }
         return findOrder;
 
+    }
+
+    public List<ManageDeliveryDto> manageDeliveryList(Long vendorId, Pageable pageable, ManageDeliveryCond condition) {
+
+        return orderRepository.manageDeliveryList(vendorId, pageable, condition);
+    }
+
+    @Transactional
+    public void setDeliveryStatusOnDelivery(String impUid, Long vendorId) {
+        Orders findOrder = orderRepository.findByImpUidAndVendorId(impUid, vendorId)
+                .orElseThrow(()->new OrderException(OrderErrorResult.ORDER_NOT_FOUND));
+
+        findOrder.setDeliveryStatusOnDelivery();
     }
 }

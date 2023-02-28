@@ -42,8 +42,7 @@ public class VendorService {
     }
 
     public Optional<Vendor> findById(Long id) {
-        Optional<Vendor> vendor = vendorRepository.findById(id);
-        return vendor;
+        return vendorRepository.findById(id);
     }
 
     public Long login(String vendorLoginId, String vendorPassword) {

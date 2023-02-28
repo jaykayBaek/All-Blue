@@ -54,4 +54,8 @@ public class Orders extends CommonEntity {
             throw new OrderException(OrderErrorResult.TRY_CANCEL_ORDER_IN_ILLEGALSTATE);
         }
     }
+
+    public void setDeliveryStatusOnDelivery() {
+        this.deliveryStatus = DeliveryStatus.ON_DELIVERY;
+    }
 }

@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 @RequiredArgsConstructor
 public enum VendorErrorResult {
     DUPLICATE_OR_LEAVED_LOGIN_ID(HttpStatus.BAD_REQUEST, "이미 사용 중이거나 회원 탈퇴된 파트너 아이디입니다."),
+    VENDOR_NOT_FOUND(HttpStatus.NOT_FOUND, "찾을 수 없는 파트너 아이디입니다.."),
     ADD_NEGATIVE_STOCK_QUANTITY(HttpStatus.BAD_REQUEST, "재고를 음수로 추가할 수 없습니다."),
     NOT_ENOUGH_STOCK(HttpStatus.BAD_REQUEST, "재고가 충분하지 않습니다."),
     OVER_UPLOAD_IMAGE(HttpStatus.BAD_REQUEST, "업로드할 수 있는 이미지를 초과했습니다."),

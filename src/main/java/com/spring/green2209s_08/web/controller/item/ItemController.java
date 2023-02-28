@@ -101,10 +101,13 @@ public class ItemController {
         VendorHomeResponse response = getVendorHomeResponse(request);
         Long vendorId = response.getVendorId();
 
-        log.info("condition={}", condition);
+        log.info("vendorId={}", vendorId);
 
         Page<VendorUploadItemResponse> items = itemService.findUploadItemList(vendorId, pageable, condition);
         ItemListStatusCountResponse statusCount = itemService.findUploadItemStatusCount(vendorId);
+
+        log.info("statusCnt={}", statusCount);
+
 
         model.addAttribute("vendor", response);
         model.addAttribute("statusCount", statusCount);

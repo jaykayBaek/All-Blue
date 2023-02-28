@@ -62,48 +62,66 @@
                             <div class="card shadow h-100 py-2">
                                 <div class="card-body">
                                     <table class="table w-100">
-                                        <tr>
-                                            <th>기간조회</th>
-                                            <td>
-                                                <input class="form-control mb-2" type="date" name=""/>
-                                                <input class="form-control" type="date" name=""/>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <th>상세조건</th>
-                                            <td>
-                                                <select name="" id="">
-                                                    <option value="">주문번호</option>
-                                                    <option value="">고객이름</option>
-                                                </select>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <th>진행상태</th>
-                                            <td>
-                                                <select name="" id="">
-                                                    <option value="">결제완료</option>
-                                                    <option value="">상품 준비중</option>
-                                                    <option value="">배송지시</option>
-                                                    <option value="">배송중</option>
-                                                    <option value="">배송완료</option>
-                                                </select>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td colspan="2">
-                                                <form>
-                                                    <input type="text" class="form-control" name="query"/>
+                                        <form>
+                                            <tr>
+                                                <th>진행상태</th>
+                                                <td>
+                                                    <select name="deliveryStatus" id="deliveryStatus">
+                                                        <option value="READY">상품 준비중</option>
+                                                        <option value="ON_DELIVERY">배송중</option>
+                                                        <option value="COMPLETE">배송완료</option>
+                                                    </select>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th>진행검색</th>
+                                                <td>
+                                                    <input type="text" name="query"/>
                                                     <button class="btn btn-primary btn-sm">검색하기</button>
-                                                </form>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td colspan="2">
-                                                <button class="btn btn-light">초기화</button>
-                                                <button class="btn btn-primary">검색</button>
-                                            </td>
-                                        </tr>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th>배송처리</th>
+                                                <td>
+                                                    <div>
+                                                        <input type="text" name="impUid" id="impUid" placeholder="주문번호(ImpUID)를 입력하세요"/>
+                                                        <button class="btn btn-primary" onclick="deliveryStatusChange()">배송중 상태변경</button>
+                                                        <script>
+                                                            function deliveryStatusChange(){
+                                                                const ans = confirm('입력하신 impUid를 배송처리 하시겠습니까? 배송처리 이후 변경이 불가능합니다.');
+                                                                const impUid = $('#impUid').val();
+                                                                if(!ans){
+                                                                    return false;
+                                                                }
+
+                                                                if(impUid.trim() == ''){
+                                                                    alert('검색어를 입력해주세요.');
+                                                                }
+
+                                                                $.ajax({
+                                                                    url:"http://localhost:9090/green2209s_08/management/delivery",
+                                                                    method:"patch",
+                                                                    data: {
+                                                                        impUid : impUid
+                                                                    },
+                                                                    statusCode: {
+                                                                        404 : function (result){
+                                                                            console.log(result);
+                                                                            alert('주문번호를 찾을 수 없습니다. 오탈자이거나 비정상적인 접근입니다.');
+                                                                        },
+                                                                        200 : function (result){
+                                                                            console.log(result);
+                                                                            alert('배송처리되었습니다.');
+                                                                        }
+                                                                    }
+                                                                })
+
+                                                            }
+                                                        </script>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </form>
                                     </table>
                                 </div>
                             </div>
@@ -112,25 +130,58 @@
                     <div class="row">
                         <div class="col-12 mb-4">
                             <div class="card shadow h-100 py-2">
-                                <div class="card-body data_list_wrap">
+                                <div class="card-body data_list_wrap" >
                                     <table class="table" id="data_list">
                                         <thead>
-                                        <tr>
-                                            <th>주문번호</th>
-                                            <th>상품명</th>
-                                            <th>구매 수량</th>
-                                            <th>수취인</th>
-                                            <th>배송지</th>
-                                            <th>수취인 연락처</th>
-                                            <th>결제일</th>
-                                            <th>진행상태</th>
-                                            <th>주문취소/반품</th>
-                                        </tr>
+                                            <tr>
+                                                <th>주문번호</th>
+                                                <th>상품명</th>
+                                                <th>구매 수량</th>
+                                                <th>수취인</th>
+                                                <th>배송지</th>
+                                                <th>수취인 연락처</th>
+                                                <th>결제일</th>
+                                                <th>진행상태</th>
+                                                <th>주문취소/반품</th>
+                                                <th>비고</th>
+                                            </tr>
                                         </thead>
                                         <tbody>
+                                            <tr th:each="order:${orderDeliveryList}">
+                                                <td th:text="${order.impUid}"></td>
+                                                <td th:text="${order.itemName}"></td>
+                                                <td th:text="${order.getSelectedQuantity}"></td>
+                                                <td th:text="${order.recipient}"></td>
+                                                <td>
+                                                    <span th:text="${order.zipcode}"></span>
+                                                    <span th:text="${order.address}"></span>
+                                                </td>
+                                                <td th:text="${order.phoneNo}"></td>
+                                                <td th:text="${#strings.substring(order.createdDate, 0, 10)}">
+                                                <td th:text="${order.deliveryStatus.getDescription()}"></td>
+                                                <td>
+                                                    <th:block th:if="${order.deliveryStatus eq 'READY'}">
+                                                        <select name="delivery" class="delivery">
+                                                            <option value="">상품 준비중</option>
+                                                            <option value="ON_DELIVERY">배송중(배송보냈을때)</option>
+                                                        </select>
+                                                        <button class="btn btn-sm btn-primary" onclick="statusChange()">상태변경</button>
+                                                    </th:block>
+                                                </td>
+                                                <td>
+
+                                                </td>
+                                            </tr>
                                         </tbody>
                                     </table>
                                 </div>
+                                <script>
+                                    function statusChange(button){
+                                        const tr = $(button).closest("tr");
+                                        const deliveryStatus = parseFloat(tr.find("input[delivery='itemId']").val());
+                                        console.log("deliveryStatus = {}", deliveryStatus);
+                                    }
+                                </script>
 
                             </div>
                         </div>

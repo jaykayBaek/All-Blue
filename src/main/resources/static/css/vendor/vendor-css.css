@@ -49,8 +49,17 @@ input[type=number] {
 }
 
 .data_list_wrap{
-    height: 70vh;
     overflow-y: auto;
+    width: 1080px;
+    overflow-x: auto;
+    white-space: nowrap;
+    margin: 0 auto;
+    white-space: nowrap;
+}
+
+.card-body .deliveryManager{
+    width: 1080px;
+    overflow: auto;
 }
 
 #data_list tbody tr:hover{
