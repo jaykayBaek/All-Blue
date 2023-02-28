@@ -4,6 +4,7 @@ import com.spring.green2209s_08.web.constants.SessionConst;
 import com.spring.green2209s_08.web.controller.StatusResponse;
 import com.spring.green2209s_08.web.service.AddressService;
 import com.spring.green2209s_08.web.service.MemberService;
+import com.spring.green2209s_08.web.service.ReviewService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpEntity;
@@ -20,8 +21,8 @@ import javax.servlet.http.HttpSession;
 @Slf4j
 public class MyHomeRestController {
 
-    private final MemberService memberService;
     private final AddressService addressService;
+    private final ReviewService reviewService;
 
     @PostMapping("/address")
     public ResponseEntity<StatusResponse> addressAdd(@ModelAttribute AddressRequest addressRequest,
@@ -43,6 +44,20 @@ public class MyHomeRestController {
         StatusResponse response = new StatusResponse(
                 HttpStatus.OK.toString(), "주소 수정 완료", "TRUE"
         );
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(response);
+    }
+
+    @PostMapping("/review/write")
+    public ResponseEntity<StatusResponse> reviewWrite(@SessionAttribute(name = SessionConst.MEMBER_ID, required = false) Long memberId,
+                                                      @ModelAttribute ReviewRequest request){
+
+        reviewService.writeReview(memberId, request);
+
+        StatusResponse response = new StatusResponse(
+                HttpStatus.CREATED.toString(), "리뷰 작성 완료", "TRUE"
+        );
+
         return ResponseEntity.status(HttpStatus.OK)
                 .body(response);
     }

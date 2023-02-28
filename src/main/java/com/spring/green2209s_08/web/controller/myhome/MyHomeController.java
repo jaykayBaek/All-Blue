@@ -2,9 +2,10 @@ package com.spring.green2209s_08.web.controller.myhome;
 
 import com.spring.green2209s_08.web.constants.SessionConst;
 import com.spring.green2209s_08.web.domain.Member;
-import com.spring.green2209s_08.web.domain.Orders;
+import com.spring.green2209s_08.web.repository.OrderItemRepository;
 import com.spring.green2209s_08.web.service.AddressService;
 import com.spring.green2209s_08.web.service.MemberService;
+import com.spring.green2209s_08.web.service.OrderItemService;
 import com.spring.green2209s_08.web.service.OrderService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -15,8 +16,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttribute;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
@@ -24,10 +23,12 @@ import java.util.List;
 @RequiredArgsConstructor
 @RequestMapping("/home")
 public class MyHomeController {
+    private final OrderItemRepository orderItemRepository;
 
     private final AddressService addressService;
     private final MemberService memberService;
     private final OrderService orderService;
+    private final OrderItemService orderItemService;
 
     @GetMapping("/cancel-return-exchange/list")
     public String cancelReturnExchangeList(){
@@ -59,7 +60,8 @@ public class MyHomeController {
     @GetMapping("/review/list")
     public String reviewListHome(@SessionAttribute(name = SessionConst.MEMBER_ID, required = false) Long memberId, Model model){
         Member findMember = memberService.findById(memberId);
-        List<ReviewItemDto> reviewItems = orderService.reviewPage(memberId);
+        List<ReviewItemDto> reviewItems = orderItemService.reviewPage(memberId);
+
         MemberDto memberDto = new MemberDto(
                 findMember.getId(), findMember.getName()
         );
@@ -67,6 +69,22 @@ public class MyHomeController {
         model.addAttribute("member", memberDto);
         model.addAttribute("reviewItems", reviewItems);
         return "main/myhome/reviewHome";
+    }
+
+    @GetMapping("/manage/review")
+    public String manageReview(@SessionAttribute(name = SessionConst.MEMBER_ID, required = false) Long memberId,
+                               Model model){
+        Member findMember = memberService.findById(memberId);
+        List<ReviewItemDto> wroteReviewItems = orderItemService.reviewPageWrote(memberId);
+        Long itemId = wroteReviewItems.get(0).getItemId();
+        log.info("itemId={}", itemId);
+        MemberDto memberDto = new MemberDto(
+                findMember.getId(), findMember.getName()
+        );
+
+        model.addAttribute("member", memberDto);
+        model.addAttribute("wroteReviewItems", wroteReviewItems);
+        return "main/myhome/wroteReview";
     }
 
     @GetMapping("/review/write/{itemId}")

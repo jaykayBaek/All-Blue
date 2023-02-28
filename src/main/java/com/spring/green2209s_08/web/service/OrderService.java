@@ -87,7 +87,7 @@ public class OrderService {
 
     public Page<OrderListResponse> findAllByMemberId(Long memberId, OrderSearchCond orderSearchCond, Pageable pageable) {
 
-        return orderRepository.findAllByMemberId(memberId, orderSearchCond, pageable);
+        return orderRepository.findAllByMemberIdForView(memberId, orderSearchCond, pageable);
     }
 
     public Orders findById(Long orderId, Long memberId) {
@@ -121,10 +121,6 @@ public class OrderService {
     public void setDeliveryStatusComplete(Long ordersId, Long memberId) {
         Orders findOrder = findById(ordersId, memberId);
         findOrder.changeDeliveryStatus(DeliveryStatus.COMPLETE);
-    }
-
-    public List<ReviewItemDto> reviewPage(Long memberId) {
-        return orderRepository.reviewPage(memberId);
     }
 
     public Orders findOrderForReview(Long memberId, Long itemId) {

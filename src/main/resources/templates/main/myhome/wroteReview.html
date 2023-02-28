@@ -47,19 +47,19 @@
                     </div>
                 </article>
                 <ul class="d-flex review__check__wrap">
+                    <li>
+                        <a class="text-dark" th:href="@{/home/review/list}">
+                            리뷰 작성하기
+                        </a>
+                    </li>
                     <li style="background-color: #adb5bd">
                         <b>
-                            리뷰 작성하기
-                        </b>
-                    </li>
-                    <li>
-                        <a class="text-dark" th:href="@{/home/manage/review}">
                             작성한 리뷰보기
-                        </a>
+                        </b>
                     </li>
                 </ul>
                 <table class="table review__table mt-4">
-                    <tr th:each="item:${reviewItems}">
+                    <tr th:each="item:${wroteReviewItems}">
                         <td>
                             <div class="img__wrap">
                                 <img th:src="@{/images/thumbnail/{savedName}(savedName=${item.savedImageName})}" alt="" />
@@ -69,14 +69,46 @@
                             <a class="text-dark" th:href="@{/search/detail/{itemId}(itemId=${item.itemId})}">
                                 <span th:text="${item.itemName}"></span>
                             </a>
+                            <hr/>
+                            평점 <span th:text="${item.reviewRating}"></span>점
                         </td>
                         <td>
-                            <a class="btn btn-outline-primary btn-sm" th:href="@{/home/review/write/{itemId}(itemId=${item.itemId})}">
-                                리뷰 작성
-                            </a>
+                            <input type="hidden" name="itemId" th:value="${item.itemId}">
+                            <button class="btn btn-sm btn-primary">수정</button>
+                            <button class="btn btn-sm btn-warning" onclick="deleteReview(this)">삭제</button>
                         </td>
                     </tr>
                 </table>
+                <script>
+                    function deleteReview(button){
+                        const ans = confirm("삭제 시 복구나 재등록이 불가능합니다.\n" +
+                            "정말 삭제하시겠습니까?");
+
+                        const tr = $(button).closest("tr");
+                        const itemId = parseFloat(tr.find("input[name='itemId']").val());
+                        console.log("itemId = " + itemId);
+
+                        if(!ans) {
+                            return false;
+                        }else{
+                            return false;
+                        }
+
+                        $.ajax({
+                            method:"delete",
+                            url:"http://localhost:9090/green2209s_08/home//review",
+                            data:{
+                                itemId:itemId
+                            },
+                            success: function (result){
+                                console.log(result);
+                            },
+                            error: function (result){
+                                console.log(result);
+                            }
+                        })
+                    }
+                </script>
             </div>
         </div>
 

@@ -44,7 +44,7 @@ class ItemServiceTest {
             images.add(file);
         }
         Fish fish = Fish.getFish("hello", FishSex.MALE, "미디움", "금붕어",
-                10000, 2999, 30, "hello", LocalDate.now());
+                10000, 2999, 30, 5,"hello", LocalDate.now());
         //when
 //        VendorException e = assertThrows(VendorException.class, () ->
 //                itemService.addFish(fish, images)
@@ -59,7 +59,7 @@ class ItemServiceTest {
         //given
         Vendor vendor = Vendor.builder().id(1L).build();
         Fish fish = Fish.getFish("1", FishSex.MALE, "m", "1",
-                5, 5, 5, "1", LocalDate.now());
+                5, 5, 5, 5,"1", LocalDate.now());
         fish.assignVendor(vendor);
         itemService.addItem(fish);
 
@@ -80,7 +80,7 @@ class ItemServiceTest {
         //given
         Vendor vendor = Vendor.builder().id(1L).build();
         Fish fish = Fish.getFish("1", FishSex.MALE, "m", "1",
-                5, 5, 5, "1", LocalDate.now());
+                5, 5, 5, 5,"1", LocalDate.now());
         fish.assignVendor(vendor);
         itemService.addItem(fish);
 
@@ -101,7 +101,7 @@ class ItemServiceTest {
         //given
         Vendor vendor = Vendor.builder().id(1L).build();
         Fish fish = Fish.getFish("1", FishSex.MALE, "m", "1",
-                5, 5, 5, "1", LocalDate.now());
+                5, 5, 5, 5,"1", LocalDate.now());
         fish.assignVendor(vendor);
         itemService.addItem(fish);
 
@@ -120,7 +120,7 @@ class ItemServiceTest {
     @Test
     void 상품수정_노출상품명() {
         //given
-        Fish fish = Fish.getFish("1", FishSex.MALE, "1", "name", 1, 1, 1, "1", LocalDate.now());
+        Fish fish = Fish.getFish("1", FishSex.MALE, "1", "name", 1, 1, 1, 5,"1", LocalDate.now());
         itemService.addItem(fish);
         //when
         itemService.changeItemName(fish.getId(), "test");
@@ -133,7 +133,7 @@ class ItemServiceTest {
     @Test
     void 상품수정_금액및수량() {
         //given
-        Fish fish = Fish.getFish("1", FishSex.MALE, "1", "name", 1, 1, 1, "1", LocalDate.now());
+        Fish fish = Fish.getFish("1", FishSex.MALE, "1", "name", 1, 1, 1, 5,"1", LocalDate.now());
         itemService.addItem(fish);
 
         EditNumberRequest request = EditNumberRequest.builder()
@@ -155,7 +155,7 @@ class ItemServiceTest {
     @Test
     void 상품수정_세부정보변경() {
         //given
-        Fish fish = Fish.getFish("1", FishSex.MALE, "1", "name", 1, 1, 1, "1", LocalDate.now());
+        Fish fish = Fish.getFish("1", FishSex.MALE, "1", "name", 1, 1, 1, 5,"1", LocalDate.now());
         itemService.addItem(fish);
 
         EditFishRequest request = new EditFishRequest(fish.getId(), "MALE", "tester", "XL");
@@ -176,7 +176,7 @@ class ItemServiceTest {
                 .build();
         em.persist(vendor);
 
-        Fish fish = Fish.getFish("1", FishSex.MALE, "1", "name", 1, 1, 1, "1", LocalDate.now());
+        Fish fish = Fish.getFish("1", FishSex.MALE, "1", "name", 1, 1, 1, 5,"1", LocalDate.now());
         fish.changeStatus(ItemStatus.APPROVAL);
         fish.assignVendor(vendor);
 
@@ -197,7 +197,7 @@ class ItemServiceTest {
                 .build();
         em.persist(vendor);
 
-        Fish fish = Fish.getFish("1", FishSex.MALE, "1", "name", 1, 1, 1, "1", LocalDate.now());
+        Fish fish = Fish.getFish("1", FishSex.MALE, "1", "name", 1, 1, 1, 5,"1", LocalDate.now());
         fish.changeStatus(ItemStatus.APPROVAL);
         fish.assignVendor(vendor);
         em.persist(fish);

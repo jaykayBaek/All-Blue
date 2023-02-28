@@ -30,18 +30,18 @@ class ComplexItemSearchRepositoryImplTest {
     void searchItems() {
         //given
         Fish fish1 = Fish.getFish("1", FishSex.MALE, "m", "test",
-                5000, 1000, 1000, "test", LocalDate.now()
+                5000, 1000, 1000, 5, "test", LocalDate.now()
         );
 
         Fish fish2 = Fish.getFish("1", FishSex.MALE, "m", "test",
-                5000, 1000, 1000, "test", LocalDate.now()
+                5000, 1000, 1000, 5, "test", LocalDate.now()
         );
 
         Product product1 = Product.getProduct("1", "test",
-                5000, 1000, 1000, "test", LocalDate.now());
+                5000, 1000, 1000, 5, "test", LocalDate.now());
 
         Product product2 = Product.getProduct("1", "test",
-                5000, 1000, 1000, "test", LocalDate.now());
+                5000, 1000, 1000, 5, "test", LocalDate.now());
 
         fish1.updateItemStatus(ItemStatus.APPROVAL);
         fish2.updateItemStatus(ItemStatus.APPROVAL);

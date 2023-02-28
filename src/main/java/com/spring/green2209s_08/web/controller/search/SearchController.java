@@ -59,6 +59,8 @@ public class SearchController {
             model.addAttribute("item", request);
         }
 
+
+
         model.addAttribute("itemId", itemId);
         model.addAttribute("vendorLicense", findVendorLicenseDto);
         return "main/search/detail";

@@ -95,6 +95,7 @@
                         </tr>
                     </tbody>
                 </table>
+                <input type="hidden" name="itemId" id="itemId" th:value="${itemId}" />
 
                 <script>
                     function review(){
@@ -106,11 +107,25 @@
                         const reviewRating = $('input[name=rating]').val();
                         const content = $("#content").val();
                         const title = $("#title").val();
+                        const itemId = $("#itemId").val();
 
                         $.ajax({
-                            url: "",
+                            url: "http://localhost:9090/green2209s_08/home/review/write",
                             method: "post",
-
+                            data: {
+                                itemId: itemId,
+                                headLine: title,
+                                content: content,
+                                reviewRating: reviewRating
+                            },
+                            success: function (result){
+                                console.log(result);
+                                alert('리뷰를 성공적으로 작성했습니다');
+                                location.replace("http://localhost:9090/green2209s_08/home/review/list");
+                            },
+                            error: function (result){
+                                console.log(result);
+                            }
                         })
                     }
                 </script>

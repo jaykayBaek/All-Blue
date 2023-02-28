@@ -5,6 +5,7 @@ import org.hibernate.annotations.BatchSize;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface OrderRepository extends JpaRepository<Orders, Long>, ComplexOrderRepository {
@@ -22,4 +23,6 @@ public interface OrderRepository extends JpaRepository<Orders, Long>, ComplexOrd
             "where o.member.id = :memberId and i.id = :itemId " +
             "group by i.id")
     Optional<Orders> findOrderForReview(Long memberId, Long itemId);
+
+    List<Orders> findAllByMemberId(Long memberId);
 }

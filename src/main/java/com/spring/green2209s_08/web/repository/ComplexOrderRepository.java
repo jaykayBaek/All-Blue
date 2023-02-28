@@ -11,9 +11,8 @@ import org.springframework.data.domain.Pageable;
 import java.util.List;
 
 public interface ComplexOrderRepository {
-    Page<OrderListResponse> findAllByMemberId(Long memberId, OrderSearchCond condition, Pageable pageable);
+    Page<OrderListResponse> findAllByMemberIdForView(Long memberId, OrderSearchCond condition, Pageable pageable);
 
     List<ManageDeliveryDto> manageDeliveryList(Long vendorId, Pageable pageable, ManageDeliveryCond condition);
 
-    List<ReviewItemDto> reviewPage(Long memberId);
 }

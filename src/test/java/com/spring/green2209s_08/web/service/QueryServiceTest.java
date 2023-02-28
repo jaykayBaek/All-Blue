@@ -56,7 +56,7 @@ class QueryServiceTest {
                 .name("홍길동")
                 .build();
         Fish fish = Fish.getFish("hello", FishSex.MALE, "미디움", "금붕어",
-                10000, 2999, 30, "hello", LocalDate.now());
+                10000, 2999, 30, 5,"hello", LocalDate.now());
 
         em.persist(member);
         em.persist(fish);
@@ -81,7 +81,7 @@ class QueryServiceTest {
                 .name("홍길동")
                 .build();
         Fish fish = Fish.getFish("hello", FishSex.MALE, "미디움", "금붕어",
-                10000, 2999, 30, "hello", LocalDate.now());
+                10000, 2999, 30, 5,"hello", LocalDate.now());
 
         em.persist(member);
         em.persist(fish);

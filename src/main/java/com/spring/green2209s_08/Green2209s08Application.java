@@ -6,11 +6,7 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 
 @SpringBootApplication
-public class Green2209s08Application extends SpringBootServletInitializer {
-	@Override
-	protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
-		return super.configure(application);
-	}
+public class Green2209s08Application {
 
 	public static void main(String[] args) {
 		SpringApplication.run(Green2209s08Application.class, args);
