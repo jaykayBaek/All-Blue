@@ -1,4 +1,5 @@
 package com.spring.green2209s_08.web.service;
+import com.spring.green2209s_08.web.controller.myhome.ReviewItemDto;
 import com.spring.green2209s_08.web.controller.order.OrderListResponse;
 import com.spring.green2209s_08.web.controller.order.OrderRequest;
 import com.spring.green2209s_08.web.controller.order.OrderSearchCond;
@@ -113,6 +114,21 @@ public class OrderService {
         Orders findOrder = orderRepository.findByImpUidAndVendorId(impUid, vendorId)
                 .orElseThrow(()->new OrderException(OrderErrorResult.ORDER_NOT_FOUND));
 
-        findOrder.setDeliveryStatusOnDelivery();
+        findOrder.changeDeliveryStatus(DeliveryStatus.ON_DELIVERY);
+    }
+
+    @Transactional
+    public void setDeliveryStatusComplete(Long ordersId, Long memberId) {
+        Orders findOrder = findById(ordersId, memberId);
+        findOrder.changeDeliveryStatus(DeliveryStatus.COMPLETE);
+    }
+
+    public List<ReviewItemDto> reviewPage(Long memberId) {
+        return orderRepository.reviewPage(memberId);
+    }
+
+    public Orders findOrderForReview(Long memberId, Long itemId) {
+        return orderRepository.findOrderForReview(memberId, itemId)
+                .orElseThrow(() -> new OrderException(OrderErrorResult.ORDER_NOT_FOUND));
     }
 }

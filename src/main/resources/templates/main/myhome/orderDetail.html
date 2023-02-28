@@ -30,7 +30,38 @@
                 <table class="table table-bordered mt-3">
                     <tr>
                         <th>주문 번호	</th>
-                        <td th:text="${order.impUid}"></td>
+                        <td>
+                            <span th:text="${order.impUid}"></span>
+                            <input type="hidden" id="ordersId" th:value="${order.id}">
+                            <th:block th:if="${order.deliveryStatus.getDescription() ne '배송 완료'}"                                                                         >
+                                <button class="btn btn-warning" onclick="complete()">수령완료</button>
+                            </th:block>
+                            <script>
+                                function complete(){
+                                    const ordersId = $('#ordersId').val();
+                                    const ans = confirm("배송 완료 처리 하시겠습니까?");
+
+                                    if(!ans){
+                                        return false;
+                                    }
+
+                                    $.ajax({
+                                        url : "http://localhost:9090/green2209s_08/order/detail",
+                                        method:"patch",
+                                        data : {
+                                            ordersId : ordersId
+                                        },
+                                        success: function (result){
+                                            console.log(result);
+                                            location.reload();
+                                        },
+                                        error: function (result){
+                                            console.log(result);
+                                        }
+                                    })
+                                }
+                            </script>
+                        </td>
                     </tr>
                     <tr>
                         <th>구분</th>

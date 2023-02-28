@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>올! 블루</title>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <th:block th:replace="main/common/common-css :: common_css"></th:block>
+    <link rel="stylesheet" th:href="@{/css/home/home.css}" href="/css/home/home.css" type="text/css">
+</head>
+<body>
+<header th:replace="main/common/header :: header"></header>
+
+<div class="container-fluid">
+    <div class="row home__nav">
+        <div class="col-xl-2 col-2" style="padding-right: 0px">
+            <div class="title__box">MY 블루</div>
+            <th:block th:replace="main/common/myhome-nav :: myhomeNav"></th:block>
+        </div>
+        <div class="col-xl-9 col-10">
+            <div class="review__list__wrap container mt-4 pl-5 pr-5">
+                <nav class="review__list mb-2">
+                    <h2>리뷰관리</h2>
+                </nav>
+                <table class="table mt-5">
+                    <tbody>
+                        <tr>
+                            <th>별점</th>
+                            <td>
+                                <div class="col">
+                                    <div class="book-info">
+                                        <div class="rating-res h4 text-center">
+                                            <span class="badge badge-warning star-comment">리뷰 평점을 남겨주세요!</span>
+                                        </div>
+                                        <div class="star-rating">
+                                            <input type="radio" id="5-stars" name="rating" value="5" />
+                                            <label for="5-stars" class="star">&#9733;</label>
+                                            <input type="radio" id="4-stars" name="rating" value="4" />
+                                            <label for="4-stars" class="star">&#9733;</label>
+                                            <input type="radio" id="3-stars" name="rating" value="3" />
+                                            <label for="3-stars" class="star">&#9733;</label>
+                                            <input type="radio" id="2-stars" name="rating" value="2" />
+                                            <label for="2-stars" class="star">&#9733;</label>
+                                            <input type="radio" id="1-star" name="rating" value="1" />
+                                            <label for="1-star" class="star">&#9733;</label>
+                                        </div>
+                                        <div class="demo-hidden"></div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+
+                        <script>
+
+                            $('input[name=rating]').on("change", function () {
+                                let rating = $('input[name=rating]:checked').val();
+                                if (rating == 1) {
+                                    $(".star-comment").html("별로예요");
+                                }
+                                else if (rating == 2) {
+                                    $(".star-comment").html("그저 그래요");
+                                }
+                                else if (rating == 3) {
+                                    $(".star-comment").html("보통이에요");
+                                }
+                                else if (rating == 4) {
+                                    $(".star-comment").html("좋아요");
+                                }
+                                else if (rating == 5) {
+                                    $(".star-comment").html("최고예요!");
+                                }
+                            });
+
+                        </script>
+
+
+                        <tr>
+                            <th>상세리뷰</th>
+                            <td>
+                                <textarea class="form-control" id="content" placeholder="다른 고객님에게 도움이 되도록 상품에 대해 솔직한 후기를 남겨주세요."></textarea>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>한줄요약</th>
+                            <td><input type="text" class="form-control" id="title" placeholder="한 줄 요약을 입력해주세요."/></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" class="text-center">
+                                <button class="btn btn-outline-dark">취소하기</button>
+                                <button class="btn btn-primary" onclick="review()">등록하기</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <script>
+                    function review(){
+                        const rating = $('input[name=rating]:checked').val();
+                        if (typeof rating == "undefined") {
+                            alert('평점을 남겨주세요.');
+                            return false;
+                        }
+                        const reviewRating = $('input[name=rating]').val();
+                        const content = $("#content").val();
+                        const title = $("#title").val();
+
+                        $.ajax({
+                            url: "",
+                            method: "post",
+
+                        })
+                    }
+                </script>
+            </div>
+        </div>
+
+        <div class="col-xl-1">
+            <th:block th:replace="main/common/wishlist :: wishlist"></th:block>
+        </div>
+    </div>
+</div>
+
+
+<footer th:replace="main/common/footer :: footer"></footer>
+<th:block th:replace="main/common/common-js :: common_js"></th:block>
+</body>
+</html>

@@ -3,6 +3,7 @@ package com.spring.green2209s_08.web.controller.order;
 import com.spring.green2209s_08.web.constants.SessionConst;
 import com.spring.green2209s_08.web.controller.StatusResponse;
 import com.spring.green2209s_08.web.controller.checkout.ItemOrderResponse;
+import com.spring.green2209s_08.web.domain.Orders;
 import com.spring.green2209s_08.web.service.OrderService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -30,6 +31,19 @@ public class OrderApiController {
         //삭제와(wishlist장바구니) 생성(주문내역Orders)이 동시에 일어나서 Http 상태코드 200번을 내림
         StatusResponse statusResponse = new StatusResponse(
                 HttpStatus.OK.toString(), "주문 성공", "TRUE"
+        );
+
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(statusResponse);
+    }
+
+    @PatchMapping("/detail")
+    public ResponseEntity<StatusResponse> orderDeliveryChange(@SessionAttribute(name= SessionConst.MEMBER_ID) Long memberId,
+                                                              @RequestParam Long ordersId) {
+        orderService.setDeliveryStatusComplete(ordersId, memberId);
+        //삭제와(wishlist장바구니) 생성(주문내역Orders)이 동시에 일어나서 Http 상태코드 200번을 내림
+        StatusResponse statusResponse = new StatusResponse(
+                HttpStatus.OK.toString(), "주문 상태 변경 완료", "TRUE"
         );
 
         return ResponseEntity.status(HttpStatus.OK)

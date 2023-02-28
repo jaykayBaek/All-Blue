@@ -15,4 +15,11 @@ public interface OrderRepository extends JpaRepository<Orders, Long>, ComplexOrd
             "join Vendor v on v.id = i.vendor.id " +
             "where o.impUid = :impUid and v.id = :vendorId")
     Optional<Orders> findByImpUidAndVendorId(String impUid, Long vendorId);
+
+    @Query("select o from Orders o " +
+            "join OrderItem oi on oi.orders.id = o.id " +
+            "join Item i on oi.item.id = i.id " +
+            "where o.member.id = :memberId and i.id = :itemId " +
+            "group by i.id")
+    Optional<Orders> findOrderForReview(Long memberId, Long itemId);
 }

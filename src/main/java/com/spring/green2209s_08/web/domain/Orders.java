@@ -55,7 +55,7 @@ public class Orders extends CommonEntity {
         }
     }
 
-    public void setDeliveryStatusOnDelivery() {
-        this.deliveryStatus = DeliveryStatus.ON_DELIVERY;
+    public void changeDeliveryStatus(DeliveryStatus deliveryStatus) {
+        this.deliveryStatus = deliveryStatus;
     }
 }

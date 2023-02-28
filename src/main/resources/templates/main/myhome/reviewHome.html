@@ -1,13 +1,4 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-
-</body>
-</html><!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
@@ -30,15 +21,13 @@
             <th:block th:replace="main/common/myhome-nav :: myhomeNav"></th:block>
         </div>
         <div class="col-xl-9 col-10">
-<!--            <th:block th:replace="main/common/myhome-listbox :: listbox"></th:block>-->
-
             <div class="review__list__wrap container mt-4 pl-5 pr-5">
                 <nav class="review__list mb-2">
                     <h2>리뷰관리</h2>
                 </nav>
                 <article class="review__top">
                     <div class="review__top__left">
-                        <span>
+                        <span th:text="${member.memberName}">
                             홍길동
                         </span>
                     </div>
@@ -58,17 +47,38 @@
                     </div>
                 </article>
                 <ul class="d-flex review__check__wrap">
-                    <li>리뷰 작성하기</li>
-                    <li>작성한 리뷰보기</li>
-                </ul>
-                <ul>
                     <li>
-                        1
+                        <a class="text-dark" href="">
+                            리뷰 작성하기
+                        </a>
+                    </li>
+                    <li>
+                        <a class="text-dark" href="">
+                            작성한 리뷰보기
+                        </a>
                     </li>
                 </ul>
+                <table class="table review__table mt-4">
+                    <tr th:each="item:${reviewItems}">
+                        <td>
+                            <div class="img__wrap">
+                                <img th:src="@{/images/thumbnail/{savedName}(savedName=${item.savedImageName})}" alt="" />
+                            </div>
+                        </td>
+                        <td>
+                            <a class="text-dark" th:href="@{/search/detail/{itemId}(itemId=${item.itemId})}">
+                                <span th:text="${item.itemName}"></span>
+                            </a>
+                        </td>
+                        <td>
+                            <a class="btn btn-outline-primary btn-sm" th:href="@{/home/review/write/{itemId}(itemId=${item.itemId})}">
+                                리뷰 작성
+                            </a>
+                        </td>
+                    </tr>
+                </table>
             </div>
         </div>
-
 
         <div class="col-xl-1">
             <th:block th:replace="main/common/wishlist :: wishlist"></th:block>

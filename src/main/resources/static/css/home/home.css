@@ -391,3 +391,44 @@
 .review__check__wrap li:nth-child(1){
     border-right: 1px solid var(--grey);
 }
+
+.review__table tr td .img__wrap{
+    width: 80px;
+    height: 80px;
+}
+
+.review__table tr td .img__wrap img{
+    display:block;
+    width:100%;
+    height:100%
+}
+
+
+
+.star-rating {
+    display:flex;
+    flex-direction: row-reverse;
+    font-size:1.5em;
+    justify-content:center;
+    padding:0 .2em;
+    text-align:center;
+}
+
+.star-rating input {
+    display:none;
+}
+
+.star-rating label {
+    color:#ccc;
+    cursor:pointer;
+    font-size: 5rem;
+}
+
+.star-rating :checked ~ label {
+    color:#f90;
+}
+
+.star-rating label:hover,
+.star-rating label:hover ~ label {
+    color:#fc0;
+}

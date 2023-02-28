@@ -14,7 +14,7 @@ import java.util.List;
 public class Review extends CommonEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "vendor_id")
+    @Column(name = "review_id")
     private Long id;
     private String headLine;
     private String content;

@@ -3,12 +3,14 @@ package com.spring.green2209s_08.web.repository;
 import com.querydsl.core.types.Predicate;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
+import com.spring.green2209s_08.web.controller.myhome.ReviewItemDto;
 import com.spring.green2209s_08.web.controller.order.OrderListResponse;
 import com.spring.green2209s_08.web.controller.order.OrderSearchCond;
 import com.spring.green2209s_08.web.controller.vandorManagement.ManageDeliveryCond;
 import com.spring.green2209s_08.web.controller.vandorManagement.ManageDeliveryDto;
 import com.spring.green2209s_08.web.domain.DeliveryStatus;
 import com.spring.green2209s_08.web.domain.OrderStatus;
+import com.spring.green2209s_08.web.domain.QItemImage;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -20,6 +22,7 @@ import java.util.List;
 
 import static com.querydsl.core.types.Projections.fields;
 import static com.spring.green2209s_08.web.domain.QItem.*;
+import static com.spring.green2209s_08.web.domain.QItemImage.*;
 import static com.spring.green2209s_08.web.domain.QMember.*;
 import static com.spring.green2209s_08.web.domain.QOrderItem.*;
 import static com.spring.green2209s_08.web.domain.QOrders.orders;
@@ -95,6 +98,29 @@ public class ComplexOrderRepositoryImpl implements ComplexOrderRepository{
                 .groupBy(item.id)
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
+                .fetch();
+    }
+
+    @Override
+    public List<ReviewItemDto> reviewPage(Long memberId) {
+        return queryFactory
+                .select(
+                        fields(ReviewItemDto.class,
+                                orders.id.as("ordersId"), item.id.as("itemId"),
+                                itemImage.savedImageName, item.itemName
+                ))
+                .from(orders)
+                    .join(orderItem).on(orders.id.eq(orderItem.orders.id))
+                    .join(item).on(item.id.eq(orderItem.item.id))
+                    .join(itemImage).on(
+                        itemImage.item.id.eq(item.id),
+                        itemImage.thumbnailImage.isTrue()
+                    )
+                .where(
+                        orders.member.id.eq(memberId),
+                        orders.deliveryStatus.eq(DeliveryStatus.COMPLETE)
+                        )
+                .groupBy(item.id)
                 .fetch();
     }
 
